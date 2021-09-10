@@ -1,0 +1,315 @@
+import { IconName, Icon, Collapse } from "@blueprintjs/core";
+import styled from "@emotion/styled";
+import Link from "next/link";
+import React from "react";
+import { useAuth } from "../firebase/firebaseAuth";
+import { useRouter } from "next/dist/client/router";
+import { collection, getDocs, query, getDoc, where } from "@firebase/firestore";
+import { db } from "../firebase/firebase";
+
+export const Nav = () => {
+  const { currentUser, signOut } = useAuth();
+  const [active, setActive] = React.useState(-1);
+  const router = useRouter();
+
+  return (
+    <>
+      <LinkNavButton
+        title="Nasz blog"
+        iconLeft="book"
+        iconRight="link"
+        href="/blog"
+      />
+      {!currentUser ? (
+        <LinkNavButton
+          title="Zaloguj się"
+          iconLeft="log-in"
+          iconRight="key"
+          href="/logowanie"
+        />
+      ) : (
+        <LinkNavButton
+          title="Wyloguj się"
+          iconLeft="log-out"
+          iconRight="key"
+          onClick={() => signOut()}
+          href=""
+        />
+      )}
+
+      <div
+        className="flex w-full flex-col items-stretch"
+        style={{ marginLeft: 15 }}
+      >
+        <NavSegment
+          onClick={() => setActive(active !== 0 ? 0 : -1)}
+          activeNav={active}
+          index={0}
+          icon="edit"
+          activeColor="255,127,80"
+          label="PISMA"
+          Contents={PismaNavList}
+        />
+        <NavSegment
+          onClick={() => setActive(active !== 1 ? 1 : -1)}
+          icon="new-link"
+          activeNav={active}
+          index={1}
+          activeColor="106,90,205"
+          label="KALKULATORY"
+          Contents={CalculatorsNavList}
+        />
+        <NavSegment
+          onClick={() => setActive(active !== 2 ? 2 : -1)}
+          activeNav={active}
+          index={2}
+          activeColor="60,179,113"
+          label="BLOG"
+          icon="bookmark"
+          Contents={BlogNavList}
+        />
+      </div>
+    </>
+  );
+};
+
+/**
+
+ * @param activeColor
+ * set of rgb values separated by commas, e.g. "255,255,255"
+ **/
+const NavSegment = ({
+  activeNav,
+  index,
+  label,
+  onClick,
+  icon,
+  activeColor,
+  Contents,
+}: {
+  Contents?: (...any: any) => JSX.Element;
+  activeNav: number;
+  onClick: () => any;
+  index: number;
+  label: string;
+  icon: IconName;
+  activeColor: string;
+}) => {
+  const [hovered, setHovered] = React.useState(false);
+
+  return (
+    <>
+      <span
+        className="flex w-full items-center"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        style={{ paddingTop: 10, cursor: "pointer" }}
+        onClick={onClick}
+      >
+        <Icon
+          icon={icon}
+          style={{
+            background:
+              activeNav === index || hovered
+                ? `rgb(${activeColor})`
+                : `rgba(${activeColor}, 0.2)`,
+            borderRadius: 10,
+            marginLeft: 8,
+            padding: 5,
+          }}
+          color={
+            activeNav === index || hovered ? "white" : `rgb(${activeColor})`
+          }
+          size={17}
+        />
+        <h3
+          className="font-semibold text-sm m-2"
+          style={{
+            color:
+              activeNav === index || hovered ? `rgb(${activeColor})` : "black",
+          }}
+        >
+          {label}
+        </h3>
+      </span>
+      <span style={{ marginLeft: 42 }}>
+        {Contents ? (
+          <Collapse keepChildrenMounted isOpen={activeNav === index}>
+            {<Contents color={activeColor} />}
+          </Collapse>
+        ) : null}
+      </span>
+    </>
+  );
+};
+export const LinkNavButton = ({
+  iconLeft,
+  title,
+  iconRight,
+  href,
+  onClick,
+}: {
+  iconLeft: IconName;
+  title: string;
+  iconRight: IconName;
+  href: string;
+  onClick?: any;
+}) => (
+  <Link href={href}>
+    <LinkButton
+      onClick={onClick ? onClick : () => {}}
+      className="w-full h-12 flex"
+      style={{
+        alignItems: "center",
+        paddingLeft: 10,
+        borderBottom: "1px solid var(--border-color)",
+      }}
+    >
+      <Icon icon={iconLeft} size={16} className="m-3 p-2" color="grey" />
+      <p className="text-sm text-gray-500 m-0">{title}</p>
+      <div className="flex-grow" />
+      <Icon
+        icon={iconRight}
+        size={14}
+        style={{ marginRight: 20 }}
+        color="grey"
+      />
+    </LinkButton>
+  </Link>
+);
+
+const LinkButton = styled.span`
+  &:hover {
+    background: linear-gradient(
+      90deg,
+      transparent 15%,
+      var(--border-color) 100%
+    );
+    cursor: pointer;
+  }
+`;
+
+const PismaNavList = ({ active, color }) => {
+  return (
+    <>
+      <ul
+        style={{
+          listStyleType: "square",
+          marginTop: 10,
+          maxWidth: 150,
+        }}
+      >
+        <ListItem>
+          <Label color={color}>Oświadczenie odrzucenia spadku</Label>
+        </ListItem>
+        <ListItem>
+          <Label color={color}>Oświadczenie przyjęcia spadku</Label>
+        </ListItem>
+        <ListItem>
+          <Label color={color}>Pozew o zachowek</Label>
+        </ListItem>
+
+        <ListItem>
+          <Label color={color}>
+            Wniosek o stwierdzenie nabycia praw do spadku
+          </Label>
+          <SubLabel className=" text-gray-400">
+            wg. dziedziczenia ustawowego
+          </SubLabel>
+        </ListItem>
+        <ListItem>
+          <Label color={color}>
+            Wniosek o stwierdzenie nabycia praw do spadku
+          </Label>
+          <SubLabel className=" text-gray-400">
+            wg. dziedziczenia testamentowego
+          </SubLabel>
+        </ListItem>
+      </ul>
+    </>
+  );
+};
+
+const BlogNavList = ({ active, color }) => {
+  const [blogArticles, setBlogArticles] = React.useState([]);
+
+  const fetchBlogArticles = async () => {
+    const collectionRef = collection(db, "/blog/");
+    const q = query(collectionRef /*, where("visible", "==", true)*/);
+
+    const docsData = [];
+    const docs = await getDocs(q);
+
+    docs.forEach((doc) => docsData.push(doc.data()));
+    setBlogArticles(docsData);
+  };
+
+  React.useEffect(() => {
+    fetchBlogArticles();
+  }, []);
+  return (
+    <ul
+      style={{
+        listStyleType: "square",
+        marginTop: 10,
+        maxWidth: 150,
+      }}
+    >
+      {blogArticles.map((article) => {
+        return (
+          <ListItem>
+            <Label color={color}>{article.title}</Label>
+            <SubLabel className=" text-gray-400">{article.author}</SubLabel>
+          </ListItem>
+        );
+      })}
+    </ul>
+  );
+};
+
+const CalculatorsNavList = ({ active, color }) => {
+  return (
+    <>
+      <ul
+        style={{
+          listStyleType: "square",
+          marginTop: 10,
+          maxWidth: 150,
+        }}
+      >
+        <ListItem>
+          <Label color={color}>Kalkulator udziału w spadku</Label>
+        </ListItem>
+        <ListItem>
+          <Label color={color}>Kalkulator zachowku</Label>
+        </ListItem>
+      </ul>
+    </>
+  );
+};
+
+const ListItem = styled.li`
+  white-space: nowrap;
+  margin-bottom: 15px;
+`;
+const Label = styled.p`
+  font-size: 13px;
+  &:hover {
+    font-weight: bold;
+    cursor: pointer;
+
+    color: rgb(${(props) => props.color});
+  }
+  width: 200px !important;
+  max-width: 200px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const SubLabel = styled.p`
+  color: var(grey);
+  line-height: 0.4;
+  font-size: 11px;
+  margin-bottom: 5px;
+`;
