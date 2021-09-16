@@ -1,21 +1,12 @@
-import {
-  Card,
-  Button,
-  Icon,
-  Callout,
-  HTMLSelect,
-  Toaster,
-  Position,
-  Toast,
-} from "@blueprintjs/core";
+import { Button, Card, Position, Toaster } from "@blueprintjs/core";
 import styled from "@emotion/styled";
+import axios from "axios";
+import { useRouter } from "next/dist/client/router";
+import React from "react";
+import Cookie from "universal-cookie";
 import FamilyForm from "../../components/calculator/Family";
 import RelationForm from "../../components/calculator/Relation";
-import Cookie from "universal-cookie";
 import RelativesForm from "../../components/calculator/Relatives";
-import axios from "axios";
-import React from "react";
-import { useRouter } from "next/dist/client/router";
 
 const calculatorContext = React.createContext<any>({});
 const cookies = new Cookie();
@@ -23,17 +14,23 @@ const cookies = new Cookie();
 export default function Kalkulator() {
   const [calculatorState, calculatorDispatch] = React.useReducer(
     reducer,
-    cookies.get("calculatorState") || {}
+    cookies.get("calculatorState") || {
+      relation: null,
+      parents: null,
+      spouse: null,
+      parentAlive: null,
+      children: 0,
+      kin: 0,
+      userKin: 0,
+    }
   );
+
   const [required, setRequired] = React.useState<string[]>([]);
   const [calculated, setCalculated] = React.useState<any>(null);
 
   const checkRequired = () => {
     for (const field of required) {
-      if (
-        calculatorState[field] === null ||
-        calculatorState[field] === undefined
-      ) {
+      if (calculatorState[field] == null) {
         toaster.current.show({
           intent: "danger",
           message: "Wypełnij wszystkie pola.",
@@ -74,10 +71,10 @@ export default function Kalkulator() {
   React.useEffect(() => {
     if (!calculatorState.relation) {
       setRequired(["relation"]);
-    } else if ([1, 2, 3, 4].includes(calculatorState.relation)) {
-      setRequired(["parents", "spouse", "children", "kin"]);
-    } else if ([5, 6].includes(calculatorState.relation)) {
-      setRequired(["parents", "spouse", "children", "kin", "userKin"]);
+    } else if (calculatorState.relation === 1) {
+      setRequired(["parents"]);
+    } else {
+      setRequired(["parents", "spouse"]);
     }
   }, [calculatorState.relation]);
 
@@ -88,9 +85,9 @@ export default function Kalkulator() {
       new Date().getTime() + 60 * 60 * 1000 * 48
     ).toUTCString()};path=/kalkulator`;
 
-    if (calculatorState.relation === 4 && calculatorState.children < 1)
+    if (calculatorState.relation === 4 && !calculatorState.children)
       calculatorDispatch({ type: "setChildren", value: 1 });
-    if (calculatorState.relation === 2 && calculatorState.kin < 1)
+    if (calculatorState.relation === 2 && !calculatorState.kin)
       calculatorDispatch({ type: "setKin", value: 1 });
   }, [calculatorState]);
 
@@ -158,6 +155,10 @@ const reducer = (state: any, action: { type; value }) => {
     case "setUserKin":
       state.userKin = action.value;
       return Object.assign({}, state);
+    case "setParentAlive":
+      state.parentAlive = action.value;
+      return Object.assign({}, state);
+
     default:
       return state;
   }

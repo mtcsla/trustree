@@ -1,9 +1,10 @@
 import { Fraction } from "fractional";
-import { toVulgar } from "vulgar-fractions";
 
 export default (req, res) => {
   try {
     const data = req.body;
+
+    console.log(data);
 
     let result: any[] = [
       data.spouse || data.relation === 1
@@ -36,28 +37,28 @@ export default (req, res) => {
     }
 
     console.log(result);
-    res.status(200).send({ result });
+    res.status(200).send({ result, relation: data.relation });
   } catch (err) {
     res.status(400).send({});
   }
 };
 
-const HereditarySpouse = ({ children, parents, kin, grandParents }) => {
+const HereditarySpouse = ({ children, parents, kin }) => {
   if (children == 0) {
     if (parents == 0) {
-      if (kin == 0 && grandParents == 0) return new Fraction(1, 1);
+      if (kin == 0) return new Fraction(1, 1);
       return new Fraction(1, 2);
     }
-    return new Fraction(1, 2);
+    return new Fraction(1);
   }
   if (children <= 3) return new Fraction(1, 1).divide(children + 1);
-  return 25;
+  return new Fraction(1, 4);
 };
 
 const HereditaryChild = ({ children, spouse }) => {
   if (spouse == 0) return new Fraction(1, 1).divide(children);
   if (children <= 3) return new Fraction(1, 1).divide(children + 1);
-  return 75 / children;
+  return new Fraction(3, 4).divide(children);
 };
 
 const HereditaryKin = ({ kin, parents, children, spouse }) => {

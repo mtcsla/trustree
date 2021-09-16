@@ -1,5 +1,6 @@
 import { Icon } from "@blueprintjs/core";
 import "@blueprintjs/core/lib/css/blueprint.css";
+import "@blueprintjs/table/lib/css/table.css";
 import styled from "@emotion/styled";
 import { useRouter } from "next/dist/client/router";
 import React from "react";

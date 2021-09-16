@@ -1,10 +1,4 @@
-import {
-  Button,
-  ButtonGroup,
-  Divider,
-  Radio,
-  RadioGroup,
-} from "@blueprintjs/core";
+import { Divider, Radio, RadioGroup } from "@blueprintjs/core";
 import React from "react";
 import { useWindowSize } from "../../hooks/windowSize";
 import { useCalculator } from "../../pages/kalkulator/index";
@@ -44,6 +38,28 @@ const FamilyForm = () => {
             onChange={(e) => {
               calculatorDispatch({
                 type: "setSpouse",
+                value: parseInt(e.currentTarget.value),
+              });
+            }}
+          >
+            <Radio value={1}>tak</Radio>
+            <Radio value={0}>nie</Radio>
+          </RadioGroup>
+        </>
+      ) : null}
+      {[5, 6].includes(calculatorState.relation) ? (
+        <>
+          <Divider className="mt-7" style={{ marginLeft: -5 }} />
+          <h4 style={{ marginBottom: 10, marginTop: 20 }}>
+            Czy Twój rodzic, będący dzieckiem zmarłego wciąż żyje?
+          </h4>
+
+          <RadioGroup
+            inline={windowWidth > 800}
+            selectedValue={calculatorState.parentAlive}
+            onChange={(e) => {
+              calculatorDispatch({
+                type: "setParentAlive",
                 value: parseInt(e.currentTarget.value),
               });
             }}

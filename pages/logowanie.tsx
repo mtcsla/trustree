@@ -1,16 +1,15 @@
 import {
   Button,
   Callout,
+  Card,
   FormGroup,
   InputGroup,
-  Card,
 } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import { useRouter } from "next/dist/client/router";
 import React from "react";
 import * as yup from "yup";
 import { useAuth } from "../components/firebase/firebaseAuth";
-import useEffect from "react";
 
 const schema = yup.object().shape({
   email: yup
@@ -30,9 +29,9 @@ const reducer = (state, action) => {
       return Object.assign({}, state);
     case "setPassword":
       state.password = action.value;
-      return Object.assign({}, state); // huj
+      return Object.assign({}, state);
     default:
-      return state; // sex
+      return state;
   }
 };
 
@@ -91,7 +90,6 @@ export default function LoginPage() {
               <FormGroup label="adres e-mail" labelFor="email">
                 <InputGroup
                   id="email"
-                  intent="primary"
                   leftIcon="envelope"
                   placeholder="np. jkowalski@mail.pl"
                   onChange={(e) =>
@@ -101,7 +99,6 @@ export default function LoginPage() {
               </FormGroup>
               <FormGroup label="hasło" labelFor="password">
                 <InputGroup
-                  intent="primary"
                   id="password"
                   leftIcon="key"
                   type="password"
