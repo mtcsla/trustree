@@ -1,4 +1,10 @@
-import { Button, Callout, FormGroup, InputGroup } from "@blueprintjs/core";
+import {
+  Button,
+  Callout,
+  FormGroup,
+  InputGroup,
+  Card,
+} from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import { useRouter } from "next/dist/client/router";
 import React from "react";
@@ -24,9 +30,9 @@ const reducer = (state, action) => {
       return Object.assign({}, state);
     case "setPassword":
       state.password = action.value;
-      return Object.assign({}, state);
+      return Object.assign({}, state); // huj
     default:
-      return state;
+      return state; // sex
   }
 };
 
@@ -77,7 +83,7 @@ export default function LoginPage() {
             wymagać logowania.
           </Callout>
 
-          <div className="flex bg-white p-5" style={{ marginTop: 30 }}>
+          <Card className="flex bg-white p-5" style={{ marginTop: 30 }}>
             <LoginForm className="flex flex-col p-4" style={{ minWidth: 250 }}>
               <h2 className="text-3xl font-bold" style={{ marginBottom: 10 }}>
                 Twoje dane
@@ -85,6 +91,7 @@ export default function LoginPage() {
               <FormGroup label="adres e-mail" labelFor="email">
                 <InputGroup
                   id="email"
+                  intent="primary"
                   leftIcon="envelope"
                   placeholder="np. jkowalski@mail.pl"
                   onChange={(e) =>
@@ -94,6 +101,7 @@ export default function LoginPage() {
               </FormGroup>
               <FormGroup label="hasło" labelFor="password">
                 <InputGroup
+                  intent="primary"
                   id="password"
                   leftIcon="key"
                   type="password"
@@ -107,6 +115,7 @@ export default function LoginPage() {
                 className="w-full"
                 style={{ marginTop: 10 }}
                 type="submit"
+                intent="success"
                 onClick={(e) => {
                   e.preventDefault();
                   onSubmit();
@@ -140,7 +149,7 @@ export default function LoginPage() {
                 </a>
               </div>
             </Picture>
-          </div>
+          </Card>
         </div>
       </div>
     </>

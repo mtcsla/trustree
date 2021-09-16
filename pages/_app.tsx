@@ -1,13 +1,14 @@
+import { Icon } from "@blueprintjs/core";
 import "@blueprintjs/core/lib/css/blueprint.css";
+import styled from "@emotion/styled";
+import { useRouter } from "next/dist/client/router";
 import React from "react";
+import { SocialIcon } from "react-social-icons";
 import "tailwindcss/tailwind.css";
+import { AuthProvider } from "../components/firebase/firebaseAuth";
 import Header from "../components/layout/Header";
 import { Nav } from "../components/layout/Nav";
 import "../globals.css";
-import { AuthProvider } from "../components/firebase/firebaseAuth";
-import styled from "@emotion/styled";
-import { Icon } from "@blueprintjs/core";
-import { SocialIcon } from "react-social-icons";
 import { useOnClickOutside } from "../hooks/onClickOutside";
 import { useWindowSize } from "../hooks/windowSize";
 
@@ -20,8 +21,12 @@ export default function App({ Component, pageProps }) {
   const navRef = React.useRef<HTMLDivElement>(null);
   const windowWidth = useWindowSize().width;
 
+  const router = useRouter();
+
   useOnClickOutside(navRef, () => setNavExtended(false));
+
   React.useEffect(() => setNavExtended(false), [windowWidth]);
+  React.useEffect(() => setNavExtended(false), [router.pathname]);
 
   return (
     <navContext.Provider value={navContextValue}>
@@ -45,7 +50,7 @@ export default function App({ Component, pageProps }) {
           <Icon icon="menu" size={30} onClick={() => setNavExtended(true)} />
           <div className="flex items-center ">
             <img
-              src="logo-light.svg"
+              src="/logo-light.svg"
               style={{
                 height: 60,
                 paddingRight: 5,
@@ -140,7 +145,7 @@ const Navigation = styled.div<Shown>`
   overflow-x: hidden;
 
   box-sizing: content-box;
-  z-index: 2000;
+  z-index: 10;
 
   @media (max-width: 800px) {
     transition: width 500ms ease-in-out, padding-left 500ms ease-in-out;
@@ -163,8 +168,9 @@ const NavigationBar = styled.div`
   @media (min-width: 800px) {
     display: none;
   }
+  border-bottom: 1px solid var(--border-color);
   background: white;
-  z-index: 20;
+  z-index: 5;
   padding: 10px;
   padding-left: 30px;
   padding-right: 30px;
@@ -180,14 +186,13 @@ const NavigationBar = styled.div`
 const Body = styled.div`
   margin-left: calc(300px + 5%);
   @media (max-width: 800px) {
-    padding-top: 30px;
     margin: 0;
-    padding: 2%;
+    padding: 30px;
   }
 `;
 
 const Wrapper = styled.div`
-  margin-top: 44px;
+  margin-top: 40px;
   @media (max-width: 800px) {
     margin-top: 115px;
   }

@@ -20,7 +20,7 @@ const Header = () => {
         </Button>
       ) : null}
       <img
-        src="logo-light.svg"
+        src="/logo-light.svg"
         style={{
           width: 100,
           minWidth: 100,

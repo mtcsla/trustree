@@ -1,16 +1,15 @@
-import { IconName, Icon, Collapse } from "@blueprintjs/core";
+import { Button, Collapse, Icon, IconName } from "@blueprintjs/core";
+import { Classes, Popover2 } from "@blueprintjs/popover2";
 import styled from "@emotion/styled";
+import { collection, getDocs, query } from "@firebase/firestore";
 import Link from "next/link";
 import React from "react";
-import { useAuth } from "../firebase/firebaseAuth";
-import { useRouter } from "next/dist/client/router";
-import { collection, getDocs, query, getDoc, where } from "@firebase/firestore";
 import { db } from "../firebase/firebase";
+import { useAuth } from "../firebase/firebaseAuth";
 
 export const Nav = () => {
   const { currentUser, signOut } = useAuth();
   const [active, setActive] = React.useState(-1);
-  const router = useRouter();
 
   return (
     <>
@@ -28,13 +27,39 @@ export const Nav = () => {
           href="/logowanie"
         />
       ) : (
-        <LinkNavButton
-          title="Wyloguj się"
-          iconLeft="log-out"
-          iconRight="key"
-          onClick={() => signOut()}
-          href=""
-        />
+        <Popover2
+          captureDismiss
+          placement="bottom"
+          popoverClassName="fixed z-50"
+          content={
+            <div className="flex-col flex p-2">
+              <p className="m-1 text-center">Na pewno chcesz się wylogować?</p>
+              <div className="flex justify-around w-full">
+                <Button
+                  intent="success"
+                  style={{ width: "45%" }}
+                  onClick={() => signOut()}
+                >
+                  TAK
+                </Button>
+                <Button
+                  className={Classes.POPOVER2_DISMISS}
+                  intent="danger"
+                  style={{ width: "45%" }}
+                >
+                  NIE
+                </Button>
+              </div>
+            </div>
+          }
+        >
+          <LinkNavButton
+            title="Wyloguj się"
+            iconLeft="log-out"
+            iconRight="key"
+            href=""
+          />
+        </Popover2>
       )}
 
       <div
@@ -240,7 +265,7 @@ const BlogNavList = ({ active, color }) => {
     const docsData = [];
     const docs = await getDocs(q);
 
-    docs.forEach((doc) => docsData.push(doc.data()));
+    docs.forEach((doc) => docsData.push({ ...doc.data(), id: doc.id }));
     setBlogArticles(docsData);
   };
 
@@ -257,10 +282,12 @@ const BlogNavList = ({ active, color }) => {
     >
       {blogArticles.map((article) => {
         return (
-          <ListItem>
-            <Label color={color}>{article.title}</Label>
-            <SubLabel className=" text-gray-400">{article.author}</SubLabel>
-          </ListItem>
+          <Link href={`/blog/${article.id}`}>
+            <ListItem>
+              <Label color={color}>{article.title}</Label>
+              <SubLabel className=" text-gray-400">{article.author}</SubLabel>
+            </ListItem>
+          </Link>
         );
       })}
     </ul>
@@ -277,9 +304,11 @@ const CalculatorsNavList = ({ active, color }) => {
           maxWidth: 150,
         }}
       >
-        <ListItem>
-          <Label color={color}>Kalkulator udziału w spadku</Label>
-        </ListItem>
+        <Link href="/kalkulator">
+          <ListItem>
+            <Label color={color}>Kalkulator udziału w spadku</Label>
+          </ListItem>
+        </Link>
         <ListItem>
           <Label color={color}>Kalkulator zachowku</Label>
         </ListItem>
