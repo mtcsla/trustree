@@ -36,11 +36,11 @@ export default function KalkulatorZachowku() {
     writeSum: yup
       .number()
       .positive("Liczba musi być dodatnia.")
-      .required("To pole jest wymagane."),
+
     grantsSum: yup
       .number()
       .positive("Liczba musi być dodatnia.")
-      .required("To pole jest wymagane."),
+
   });
 
   return (
