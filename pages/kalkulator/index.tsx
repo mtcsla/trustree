@@ -26,7 +26,6 @@ export default function Kalkulator() {
   );
 
   const [required, setRequired] = React.useState<string[]>([]);
-  const [calculated, setCalculated] = React.useState<any>(null);
 
   const checkRequired = () => {
     for (const field of required) {
@@ -42,31 +41,17 @@ export default function Kalkulator() {
   };
 
   const onSubmit = () => {
-    if (checkRequired())
-      axios
-        .post("/api/calculate-heritage", {
-          ...calculatorState,
-        })
-        .then((res) => {
-          setCalculated(res.data);
-        })
-        .catch(() =>
-          toaster.current.show({ intent: "danger", message: "Wystąpił błąd." })
-        );
-  };
-
-  const router = useRouter();
-
-  React.useEffect(() => {
-    if (calculated) {
-      document.cookie = `calculatorResult=${JSON.stringify(
-        calculated || {}
+    if (checkRequired()) {
+      document.cookie = `calculatorState=${JSON.stringify(
+        calculatorState
       )};expires=${new Date(
         new Date().getTime() + 60 * 60 * 1000 * 48
       ).toUTCString()};path=/kalkulator`;
       router.push("/kalkulator/rezultat");
     }
-  }, [calculated]);
+  };
+
+  const router = useRouter();
 
   React.useEffect(() => {
     if (!calculatorState.relation) {
@@ -79,19 +64,13 @@ export default function Kalkulator() {
   }, [calculatorState.relation]);
 
   React.useEffect(() => {
-    document.cookie = `calculatorState=${JSON.stringify(
-      calculatorState
-    )};expires=${new Date(
-      new Date().getTime() + 60 * 60 * 1000 * 48
-    ).toUTCString()};path=/kalkulator`;
-
     if (calculatorState.relation === 4 && !calculatorState.children)
       calculatorDispatch({ type: "setChildren", value: 1 });
     if (calculatorState.relation === 2 && !calculatorState.kin)
       calculatorDispatch({ type: "setKin", value: 1 });
   }, [calculatorState]);
 
-  const contextValue = { calculatorState, calculatorDispatch, calculated };
+  const contextValue = { calculatorState, calculatorDispatch };
   const toaster = React.useRef<Toaster>();
 
   return (
@@ -118,7 +97,7 @@ export default function Kalkulator() {
           position={Position.TOP_RIGHT}
           ref={toaster}
           className="z-50 mt-10"
-        ></Toaster>
+        />
       </calculatorContext.Provider>
     </>
   );
@@ -128,6 +107,11 @@ export const useCalculator = () => React.useContext(calculatorContext);
 
 export const CardForm = styled(Card)`
   margin-top: 30px;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
   @media (min-width: 800px) {
     min-height: 300px;
   }

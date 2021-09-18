@@ -8,11 +8,11 @@ const RelativesForm = () => {
 
   return (
     <CardForm className="flex flex-col p-6">
-      <h4 className="font-bold text-xl" style={{ marginBottom: 5 }}>
+      <h4 className="font-bold text-xl w-full" style={{ marginBottom: 5 }}>
         Ile wciąż żyjących bądź nieżyjących, lecz z żyjącym potomstwem dzieci
         miał zmarły?
       </h4>
-      <p style={{ marginBottom: 20 }}>
+      <p style={{ marginBottom: 20 }} className="w-full">
         Jeśli dziecko zmarłego nie żyje, lecz pozostawiło swoje potomstwo
         (dzieci, wnuki), które nadal żyje uwzględnij je.
       </p>
@@ -30,11 +30,11 @@ const RelativesForm = () => {
       />
       <Divider style={{ marginTop: 20, marginBottom: 20 }} />
 
-      <h4 className="font-bold text-xl" style={{ marginBottom: 5 }}>
+      <h4 className="font-bold text-xl w-full" style={{ marginBottom: 5 }}>
         Ile wciąż żyjących bądź nieżyjących, lecz z żyjącym potomstwem braci lub
         sióstr miał zmarły?
       </h4>
-      <p style={{ marginBottom: 20 }}>
+      <p style={{ marginBottom: 20 }} className="w-full">
         Jeśli brat lub siostra zmarłego nie żyje, lecz ma swoje potomstwo
         (dzieci, wnuki), które nadal żyje uwzględnij je.
       </p>
@@ -81,8 +81,3 @@ const RelativesForm = () => {
 };
 
 export default RelativesForm;
-const FamilyImage = styled(Callout)`
-  @media (max-width: 800px) {
-    display: none;
-  }
-`;

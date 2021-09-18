@@ -1,6 +1,7 @@
 import moment from "moment";
-import { determineRelation } from "../../../../components/przyjmij-spadek-testament/input-page/OtherHereditaries/other-hereditaries-display";
+
 import { getMonth } from "./functions/polish-months";
+import { determineRelation } from "./hereditaryRightsApplicationTestament_pl";
 function html(strings, ...tags) {
   let str = strings[0];
   for (let i = 0; i < tags.length; i++) {

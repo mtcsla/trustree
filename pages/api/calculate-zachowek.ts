@@ -1,18 +1,26 @@
 export default (req, res) => {
   console.log(req.body);
   try {
-    let { is18, ablebodied, value, givenAwayValue, zapisyValue, udzialy } =
-      req.body;
+    let { is18, workable, value, grantsValue, writeValue, share } = req.body;
 
-    if (!is18 || !ablebodied) {
-      udzialy = (2 * udzialy) / 3;
-    } else udzialy = udzialy / 2;
+    is18 = parseInt(is18);
+    workable = parseInt(workable);
+    value = parseInt(value);
+    grantsValue = parseInt(grantsValue);
+    writeValue = parseInt(writeValue);
 
-    if (givenAwayValue) value = value + givenAwayValue;
-    if (zapisyValue) value = value - zapisyValue;
+    const [numerator, denominator] = share.split("/");
+    share = parseInt(numerator) / parseInt(denominator);
+
+    if (!is18 || !workable) {
+      share = (2 * share) / 3;
+    } else share = share / 2;
+
+    if (grantsValue) value = value + grantsValue;
+    if (writeValue) value = value - writeValue;
 
     res.status(200).send({
-      result: (value * udzialy) / 100,
+      result: (value * share) / 100,
     });
   } catch {
     res.status(400).send({});

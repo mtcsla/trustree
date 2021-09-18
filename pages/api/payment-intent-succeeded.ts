@@ -1,6 +1,6 @@
-import { createDocument } from "@apicomponents/documentReducer";
+import { createDocument } from "./apicomponents/documentReducer";
 import { firestore } from "./lib/firebase-admin";
-import sendEmail from "@apicomponents/functions/sendEmail";
+import sendEmail from "./apicomponents/functions/sendEmail";
 
 import * as md5 from "md5";
 

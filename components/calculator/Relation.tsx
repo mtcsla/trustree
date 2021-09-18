@@ -8,12 +8,9 @@ const RelationForm = () => {
 
   return (
     <CardForm style={{ marginTop: 30 }} className="flex">
-      <span
-        className="flex flex-col justify-evenly"
-        style={{ marginRight: 30 }}
-      >
+      <Span className="flex flex-col justify-center m-3">
         <h3 className="font-bold">Kim był dla Ciebie zmarły?</h3>
-        <p style={{ marginBottom: 10 }}>
+        <p style={{ marginBottom: 10, width: 200 }}>
           Wybierz pokrewieństwo zmarłego wobec Ciebie z listy.
         </p>
         <HTMLSelect
@@ -35,7 +32,7 @@ const RelationForm = () => {
           <option value={5}>dziadkiem/babcią</option>
           <option value={6}>wujkiem/ciotką</option>
         </HTMLSelect>
-      </span>
+      </Span>
       <FamilyImage className="p-3 rounded-b">
         <div
           className="rounded p-3"
@@ -44,7 +41,6 @@ const RelationForm = () => {
             justifyContent: "end",
             alignItems: "end",
             backgroundImage: "url(/family.jpg)",
-            width: "100%",
             height: "100%",
             backgroundSize: "cover",
             backgroundPosition: "50% 30%",
@@ -52,8 +48,8 @@ const RelationForm = () => {
         >
           <a
             className="text-xs text-white"
-            href="https://www.vecteezy.com/free-vector/family"
             style={{ fontSize: 8 }}
+            href="https://www.vecteezy.com/free-vector/family"
           >
             Family Vectors by Vecteezy
           </a>
@@ -64,8 +60,18 @@ const RelationForm = () => {
 };
 
 export default RelationForm;
-const FamilyImage = styled(Callout)`
+
+export const FamilyImage = styled(Callout)`
+  flex: 1;
+  margin: 10px;
+  min-height: 250px;
+
   @media (max-width: 800px) {
-    display: none;
+  }
+`;
+
+const Span = styled.span`
+  @media (max-width: 800px) {
+    width: 100%;
   }
 `;

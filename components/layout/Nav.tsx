@@ -304,14 +304,20 @@ const CalculatorsNavList = ({ active, color }) => {
           maxWidth: 150,
         }}
       >
-        <Link href="/kalkulator">
-          <ListItem>
-            <Label color={color}>Kalkulator udziału w spadku</Label>
-          </ListItem>
+        <Link href="/kalkulator" passHref>
+          <a>
+            <ListItem>
+              <Label color={color}>Kalkulator udziału w spadku</Label>
+            </ListItem>
+          </a>
         </Link>
-        <ListItem>
-          <Label color={color}>Kalkulator zachowku</Label>
-        </ListItem>
+        <Link href="/kalkulator-zachowku" passHref>
+          <a>
+            <ListItem>
+              <Label color={color}>Kalkulator zachowku</Label>
+            </ListItem>
+          </a>
+        </Link>
       </ul>
     </>
   );

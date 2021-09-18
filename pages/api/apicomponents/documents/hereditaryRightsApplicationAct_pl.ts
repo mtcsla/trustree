@@ -1,5 +1,5 @@
 import moment from "moment";
-import { determineRelation } from "../../../../components/przyjmij-spadek-ustawa/input-page/OtherHereditaries/other-hereditaries-display";
+import { determineRelation } from "./hereditaryRightsApplicationTestament_pl";
 import { getMonth } from "./functions/polish-months";
 
 function html(strings, ...tags) {

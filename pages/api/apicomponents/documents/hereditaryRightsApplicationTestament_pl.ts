@@ -1,5 +1,5 @@
 import moment from "moment";
-import { determineRelation } from "../../../../components/przyjmij-spadek-testament/input-page/OtherHereditaries/other-hereditaries-display";
+
 import { getMonth } from "./functions/polish-months";
 function html(strings, ...tags) {
   let str = strings[0];
@@ -8,6 +8,8 @@ function html(strings, ...tags) {
   }
   return str;
 }
+
+export const determineRelation = (a, b) => "xd";
 
 export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
   const date = new Date();

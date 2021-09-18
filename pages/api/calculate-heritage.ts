@@ -4,8 +4,6 @@ export default (req, res) => {
   try {
     const data = req.body;
 
-    console.log(data);
-
     let result: any[] = [
       data.spouse || data.relation === 1
         ? HereditarySpouse(data)
@@ -36,7 +34,6 @@ export default (req, res) => {
       result[item] = result[item].toString();
     }
 
-    console.log(result);
     res.status(200).send({ result, relation: data.relation });
   } catch (err) {
     res.status(400).send({});

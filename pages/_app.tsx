@@ -188,7 +188,7 @@ const Body = styled.div`
   margin-left: calc(300px + 5%);
   @media (max-width: 800px) {
     margin: 0;
-    padding: 30px;
+    padding: 25px;
   }
 `;
 
@@ -201,13 +201,13 @@ const Wrapper = styled.div`
 
 const TopHeader = styled.div`
   height: 40px;
-  background: mediumseagreen;
+  background: var(--medium-sea-green);
   @media (max-width: 800px) {
     height: 35px;
     font-size: 90%;
   }
   &:hover {
-    background: seagreen;
+    background: var(--sea-green);
     cursor: pointer;
   }
 `;
