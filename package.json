@@ -20,6 +20,7 @@
     "firebase": "^9.0.1",
     "formik": "^2.2.9",
     "fractional": "^1.0.0",
+    "mailgun-js": "^0.22.0",
     "mathjs": "^9.4.5",
     "md5": "^2.3.0",
     "moment": "^2.29.1",

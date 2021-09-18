@@ -1,4 +1,4 @@
-import { html } from "@pages/api/payment-intent-succeeded";
+import { html } from "../../payment-intent-succeeded";
 import * as md5 from "md5";
 
 export const getTemplate = (email, id, name, testing?: boolean) => {
