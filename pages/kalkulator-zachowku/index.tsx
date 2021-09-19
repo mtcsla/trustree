@@ -23,7 +23,10 @@ export default function KalkulatorZachowku() {
   const router = useRouter();
 
   const FormSchema = yup.object().shape({
-    value: yup.number().required("To pole jest wymagane."),
+    value: yup
+      .number()
+      .required("To pole jest wymagane.")
+      .positive("Liczba musi być dodatnia."),
     share: yup
       .string()
       .required("To pole jest wymagane.")
@@ -39,14 +42,16 @@ export default function KalkulatorZachowku() {
 
   return (
     <Formik
-      initialValues={{
-        value: "",
-        share: "",
-        is18: null,
-        workable: null,
-        writeSum: "",
-        grantsSum: "",
-      }}
+      initialValues={
+        cookies.get("zachowekState") || {
+          value: "",
+          share: "",
+          is18: null,
+          workable: null,
+          writeSum: "",
+          grantsSum: "",
+        }
+      }
       onSubmit={(values) => {
         document.cookie = `zachowekState=${JSON.stringify(
           values
@@ -156,12 +161,12 @@ export default function KalkulatorZachowku() {
             <option value={1}>tak</option>
             <option value={0}>nie</option>
           </Field>
-          <Divider className="mt-6" />
           <ErrorMessage name="is18">
             {(message) => (
               <p className="text-red-500 text-sm ml-2">{message}</p>
             )}
           </ErrorMessage>
+          <Divider className="mt-6" />
           <div className="flex flex-col" style={{ marginLeft: 10 }}></div>
           <h4 className="mt-3 mb-2" style={{ marginLeft: 10 }}>
             Czy jesteś zdolny/a do pracy?

@@ -89,6 +89,7 @@ export default function Kalkulator() {
           onClick={onSubmit}
           className="mt-10 h-15 font-bold w-full"
           intent="success"
+          rightIcon="caret-right"
         >
           KONTYNUUJ
         </Button>

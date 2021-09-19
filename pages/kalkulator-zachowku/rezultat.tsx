@@ -20,7 +20,7 @@ export default function Rezultat() {
     if (cookieData)
       axios.post("/api/calculate-zachowek", cookieData).then((res) => {
         setResult(res.data.result);
-        document.cookie = "zachowekState=;";
+        document.cookie = "zachowekState=;path=/kalkulator-zachowku";
       });
     else router.push("/kalkulator-zachowku");
   }, []);

@@ -1,7 +1,8 @@
-import { Callout, Card, Spinner } from "@blueprintjs/core";
+import { Button, Callout, Card, Spinner } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
+import Link from "next/link";
 import React from "react";
 import Cookie from "universal-cookie";
 import { CardForm } from ".";
@@ -24,7 +25,7 @@ export default function Rezultat() {
     } else {
       axios.post("/api/calculate-heritage", cookieState).then((res) => {
         setRezultat(res.data.result);
-        document.cookie = "calculatorState=;";
+        document.cookie = "calculatorState=;path=/kalkulator";
       });
     }
   }, []);
@@ -166,7 +167,7 @@ export default function Rezultat() {
                   {!rezultat[3]
                     ? "brak"
                     : rezultat[3] == 1
-                    ? "całość"
+                    ? "całość podzielona na liczbę rodzeństwa"
                     : rezultat[3] + " podzielona na liczbę rodzeństwa"}
                 </td>
               </tr>
@@ -180,7 +181,7 @@ export default function Rezultat() {
                   {!rezultat[1]
                     ? "brak"
                     : rezultat[1] == 1
-                    ? "całość"
+                    ? "całość podzielona na liczbę rodzeństwa"
                     : rezultat[1] + " podzielona na liczbę rodzeństwa"}
                 </td>
               </tr>
@@ -190,6 +191,13 @@ export default function Rezultat() {
           <Spinner className="m-auto" />
         )}
       </OthersTable>
+      <Link href="/kalkulator" passHref>
+        <a>
+          <Button className="w-full mt-10" intent="success" icon="caret-left">
+            WRÓĆ
+          </Button>
+        </a>
+      </Link>
     </>
   );
 }

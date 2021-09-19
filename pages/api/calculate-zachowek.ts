@@ -1,13 +1,13 @@
 export default (req, res) => {
-  console.log(req.body);
   try {
     let { is18, workable, value, grantsValue, writeValue, share } = req.body;
 
     is18 = parseInt(is18);
     workable = parseInt(workable);
     value = parseInt(value);
-    grantsValue = parseInt(grantsValue);
-    writeValue = parseInt(writeValue);
+
+    grantsValue &&= parseInt(grantsValue);
+    writeValue &&= parseInt(writeValue);
 
     const [numerator, denominator] = share.split("/");
     share = parseInt(numerator) / parseInt(denominator);
@@ -20,7 +20,7 @@ export default (req, res) => {
     if (writeValue) value = value - writeValue;
 
     res.status(200).send({
-      result: (value * share) / 100,
+      result: value * share,
     });
   } catch {
     res.status(400).send({});
