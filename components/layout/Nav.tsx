@@ -33,7 +33,9 @@ export const Nav = () => {
           popoverClassName="fixed z-50"
           content={
             <div className="flex-col flex p-2">
-              <p className="m-1 text-center">Na pewno chcesz się wylogować?</p>
+              <p className="m-1 text-center text-sm">
+                Na pewno chcesz się wylogować?
+              </p>
               <div className="flex justify-around w-full">
                 <Button
                   intent="success"
