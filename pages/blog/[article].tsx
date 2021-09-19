@@ -9,11 +9,11 @@ import { useWindowSize } from "../../hooks/windowSize";
 import { BlogList } from "./index";
 
 export const getServerSideProps = async (context) => {
-  const { firestore } = require("firebase-admin");
+  const { firestore } = require("../api/lib/firebase-admin");
 
   const { article } = context.params;
 
-  const doc = await firestore().collection("blog").doc(article).get();
+  const doc = await firestore.collection("blog").doc(article).get();
 
   const blogpost = doc.data();
   blogpost.date = blogpost.date.toDate().toLocaleDateString("en-GB");
