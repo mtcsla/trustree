@@ -91,7 +91,7 @@ export const Nav = () => {
           activeNav={active}
           index={2}
           activeColor="60,179,113"
-          label="BLOG"
+          label="ARTYKUŁY"
           icon="bookmark"
           Contents={BlogNavList}
         />

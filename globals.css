@@ -7,7 +7,7 @@
   background: var(--layout-bg);
 }
 
-#article *:not(img) {
+#article *:not(img, button, text, ) {
   background: var(--layout-bg);
   line-height: normal;
 }
