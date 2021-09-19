@@ -1,6 +1,6 @@
 import { Divider, Icon } from "@blueprintjs/core";
 import styled from "@emotion/styled";
-import { doc, getDoc } from "@firebase/firestore";
+
 import { collection, getDocs, query } from "firebase/firestore";
 import React from "react";
 import RichMarkdownEditor from "rich-markdown-editor";
@@ -9,17 +9,18 @@ import { useWindowSize } from "../../hooks/windowSize";
 import { BlogList } from "./index";
 
 export const getServerSideProps = async (context) => {
+  const { firestore } = require("firebase-admin");
+
   const { article } = context.params;
-  const docArticle = await getDoc(doc(db, `/blog/${article}`));
-  const articleData = {
-    props: { article: docArticle.data() },
+
+  const doc = await firestore().collection("blog").doc(article).get();
+
+  const blogpost = doc.data();
+  blogpost.date = blogpost.date.toDate().toLocaleDateString("en-GB");
+
+  return {
+    props: { article: blogpost },
   };
-
-  articleData.props.article.date = articleData.props.article.date
-    .toDate()
-    .toLocaleDateString("en-GB");
-
-  return articleData;
 };
 
 export const fetchNrandomBlogArticles = async (setState, n, article) => {

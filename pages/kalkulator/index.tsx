@@ -1,6 +1,5 @@
 import { Button, Card, Position, Toaster } from "@blueprintjs/core";
 import styled from "@emotion/styled";
-import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import React from "react";
 import Cookie from "universal-cookie";
