@@ -33,14 +33,8 @@ export default function KalkulatorZachowku() {
       ),
     workable: yup.boolean().required("To pole jest wymagane.").nullable(),
     is18: yup.boolean().required("To pole jest wymagane.").nullable(),
-    writeSum: yup
-      .number()
-      .positive("Liczba musi być dodatnia.")
-
-    grantsSum: yup
-      .number()
-      .positive("Liczba musi być dodatnia.")
-
+    writeSum: yup.number().positive("Liczba musi być dodatnia."),
+    grantsSum: yup.number().positive("Liczba musi być dodatnia."),
   });
 
   return (
