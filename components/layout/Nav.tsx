@@ -284,12 +284,15 @@ const BlogNavList = ({ active, color }) => {
     >
       {blogArticles.map((article) => {
         return (
-          <Link href={`/blog/${article.id}`}>
+          <a
+            style={{ textDecoration: "none", color: "inherit" }}
+            href={`/blog/${article.id}`}
+          >
             <ListItem>
               <Label color={color}>{article.title}</Label>
               <SubLabel className=" text-gray-400">{article.author}</SubLabel>
             </ListItem>
-          </Link>
+          </a>
         );
       })}
     </ul>

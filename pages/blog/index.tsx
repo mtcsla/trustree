@@ -191,9 +191,9 @@ export const BlogList = ({
 }: {
   blogs: any[];
   role?: string;
-  loading: boolean[];
-  loadingDispatch: (action: any) => any;
-  setBlogs: React.Dispatch<any>;
+  loading?: boolean[];
+  loadingDispatch?: (action: any) => any;
+  setBlogs?: React.Dispatch<any>;
 }) => {
   const router = useRouter();
   return (
