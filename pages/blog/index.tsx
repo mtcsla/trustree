@@ -22,12 +22,14 @@ import {
 import { useRouter } from "next/dist/client/router";
 import { useAuth } from "../../components/firebase/firebaseAuth";
 import { Classes, Popover2, Tooltip2 } from "@blueprintjs/popover2";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, where } from "firebase/firestore";
 import { Divider } from "@blueprintjs/core";
 
-export const fetchBlogArticles = async (setState) => {
+export const fetchBlogArticles = async (setState, role) => {
   const collectionRef = collection(db, "/blog/");
-  const q = query(collectionRef /*, where("visible", "==", true)*/);
+  const q = ["editor", "admin"].includes(role)
+    ? query(collectionRef)
+    : query(collectionRef, where("visible", "==", true));
 
   const docsData = [];
   const docs = await getDocs(q);
@@ -77,17 +79,20 @@ const Blog = () => {
       .then((role) => {
         setUserRole(role);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setUserRole("user");
+      });
   }, [currentUser]);
 
   React.useEffect(() => {
-    fetchBlogArticles(setBlogs).then(() =>
-      loadingDispatch({
-        type: "set",
-        value: new Array(blogs.length).fill(false),
-      })
-    );
-  }, []);
+    if (userRole)
+      fetchBlogArticles(setBlogs, userRole).then(() =>
+        loadingDispatch({
+          type: "set",
+          value: new Array(blogs.length).fill(false),
+        })
+      );
+  }, [userRole]);
 
   const createArticle = (name) => {
     setDoc(doc(db, "blog", formatString(name)), {
