@@ -7,6 +7,10 @@
   background: var(--layout-bg);
 }
 
+#article *:not(img) {
+  background: var(--layout-bg);
+}
+
 html {
   background: var(--medium-sea-green);
 }

@@ -4,6 +4,7 @@ import { collection, query, getDocs } from "@firebase/firestore";
 import React from "react";
 import Link from "next/link";
 import { Icon, Spinner } from "@blueprintjs/core";
+import { useRouter } from "next/dist/client/router";
 
 export const fetchBlogArticles = async (setState) => {
   const collectionRef = collection(db, "/blog/");
@@ -62,8 +63,12 @@ const BlogArticle = styled.div`
 export default Blog;
 
 export const BlogList = ({ blogs }) => {
+  const router = useRouter();
   return (
-    <div className="w-full flex-1 flex flex-col items-center">
+    <BlogListDiv
+      pathname={router.pathname}
+      className=" flex-1 flex flex-col items-center"
+    >
       {blogs.map((article) => {
         return (
           <Link href={`/blog/${article.id}`}>
@@ -97,6 +102,23 @@ export const BlogList = ({ blogs }) => {
           </Link>
         );
       })}
-    </div>
+    </BlogListDiv>
   );
 };
+
+const BlogListDiv = styled.div<Pathname>`
+  ${(props) =>
+    props.pathname === "/blog" &&
+    `width: 70%;
+min - width: 450px;`}
+
+  @media (max-width: 800px) {
+    width: 100%;
+    min-width: 0px;
+    padding: 0px;
+  }
+`;
+
+interface Pathname {
+  pathname: string;
+}
