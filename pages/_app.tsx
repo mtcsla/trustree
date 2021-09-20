@@ -1,6 +1,7 @@
 import { Icon } from "@blueprintjs/core";
 import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/table/lib/css/table.css";
+import "@blueprintjs/datetime/lib/css/blueprint-datetime.css";
 import styled from "@emotion/styled";
 import { useRouter } from "next/dist/client/router";
 import React from "react";
@@ -149,7 +150,7 @@ const Navigation = styled.div<Shown>`
   z-index: 10;
 
   @media (max-width: 800px) {
-    transition: width 500ms ease-in-out, padding-left 500ms ease-in-out;
+    transition: width 200ms ease-in-out, padding-left 200ms ease-in-out;
     top: 35px;
     white-space: nowrap;
     min-width: 0px;

@@ -19,10 +19,10 @@ export default function Rezultat() {
   React.useEffect(() => {
     const cookieState = cookies.get("calculatorState");
 
-    if (Object.keys(cookieState).length === 0 || !cookieState) {
+    if (!cookieState || Object.keys(cookieState).length === 0) {
       router.push("/kalkulator");
-      setRelation(cookieState.relation);
     } else {
+      setRelation(cookieState.relation);
       axios.post("/api/calculate-heritage", cookieState).then((res) => {
         setRezultat(res.data.result);
         document.cookie = "calculatorState=;path=/kalkulator";

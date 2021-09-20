@@ -67,10 +67,10 @@ export default function KalkulatorZachowku() {
           <p>
             Dowiedz się, ile możesz odzyskać, jeśli pominięto Cię w testamencie.
           </p>
-          <CardForm style={{ marginTop: 30 }} className="flex">
+          <CardForm style={{ marginTop: 30 }} className="flex flex-wrap">
             <Forms
               className="flex flex-col justify-evenly"
-              style={{ margin: 10, minWidth: 230 }}
+              style={{ margin: 10, minWidth: 230, flex: 1 }}
             >
               <h4 className="font-bold text-sm">Dane majątku zmarłego:</h4>
 

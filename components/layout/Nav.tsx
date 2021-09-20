@@ -236,22 +236,36 @@ const PismaNavList = ({ active, color }) => {
           <Label color={color}>Pozew o zachowek</Label>
         </ListItem>
 
-        <ListItem>
-          <Label color={color}>
-            Wniosek o stwierdzenie nabycia praw do spadku
-          </Label>
-          <SubLabel className=" text-gray-400">
-            wg. dziedziczenia ustawowego
-          </SubLabel>
-        </ListItem>
-        <ListItem>
-          <Label color={color}>
-            Wniosek o stwierdzenie nabycia praw do spadku
-          </Label>
-          <SubLabel className=" text-gray-400">
-            wg. dziedziczenia testamentowego
-          </SubLabel>
-        </ListItem>
+        <Link
+          href={"/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"}
+          passHref
+        >
+          <a style={{ textDecoration: "none", color: "inherit" }}>
+            <ListItem>
+              <Label color={color}>
+                Wniosek o stwierdzenie nabycia praw do spadku
+              </Label>
+              <SubLabel className=" text-gray-400">
+                wg. dziedziczenia ustawowego
+              </SubLabel>
+            </ListItem>
+          </a>
+        </Link>
+        <Link
+          href={"/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"}
+          passHref
+        >
+          <a style={{ textDecoration: "none", color: "inherit" }}>
+            <ListItem>
+              <Label color={color}>
+                Wniosek o stwierdzenie nabycia praw do spadku
+              </Label>
+              <SubLabel className=" text-gray-400">
+                wg. dziedziczenia testamentowego
+              </SubLabel>
+            </ListItem>
+          </a>
+        </Link>
       </ul>
     </>
   );
@@ -310,14 +324,20 @@ const CalculatorsNavList = ({ active, color }) => {
         }}
       >
         <Link href="/kalkulator" passHref>
-          <a>
+          <a
+            href="/kalkulator"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
             <ListItem>
               <Label color={color}>Kalkulator udziału w spadku</Label>
             </ListItem>
           </a>
         </Link>
         <Link href="/kalkulator-zachowku" passHref>
-          <a>
+          <a
+            href="/kalkulator-zachowku"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
             <ListItem>
               <Label color={color}>Kalkulator zachowku</Label>
             </ListItem>

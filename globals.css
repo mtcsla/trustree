@@ -8,12 +8,15 @@
 }
 
 #article *:not(img, button, text, ) {
-  background: var(--layout-bg);
-  line-height: normal;
+  line-height: normal !important;
 }
 
 html {
   background: var(--medium-sea-green);
+}
+
+input {
+  background: var(--input-color) !important;
 }
 
 * {
@@ -31,7 +34,7 @@ h5 {
 }
 
 :root {
-  --input-color: #f8f8f8;
+  --input-color: #fafafa;
   --border-color: #e6e6e6;
   --border-color2: rgb(161, 161, 161);
   --grey-deep: rgb(88, 88, 88);

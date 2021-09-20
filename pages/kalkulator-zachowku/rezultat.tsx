@@ -17,12 +17,13 @@ export default function Rezultat() {
   React.useEffect(() => {
     const cookieData = cookies.get("zachowekState");
 
-    if (cookieData)
+    if (!cookieData || !Object.keys(cookieData).length)
+      router.push("/kalkulator-zachowku");
+    else
       axios.post("/api/calculate-zachowek", cookieData).then((res) => {
         setResult(res.data.result);
         document.cookie = "zachowekState=;path=/kalkulator-zachowku";
       });
-    else router.push("/kalkulator-zachowku");
   }, []);
 
   return (

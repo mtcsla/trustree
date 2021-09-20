@@ -63,10 +63,16 @@ export default RelationForm;
 
 export const FamilyImage = styled(Callout)`
   flex: 1;
-  margin: 10px;
+
   min-height: 250px;
 
+  margin-left: 10px;
+  margin-right: 10px;
   @media (max-width: 800px) {
+    width: 100%;
+    min-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 `;
 

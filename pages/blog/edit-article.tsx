@@ -1,15 +1,14 @@
 import {
   Button,
-  Divider,
-  Icon,
-  Toaster,
   Callout,
-  Spinner,
   FileInput,
+  Icon,
+  Spinner,
+  Toaster,
 } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import { doc, getDoc, updateDoc } from "@firebase/firestore";
-import { deleteObject, getDownloadURL, uploadBytes } from "@firebase/storage";
+import { getDownloadURL, uploadBytes } from "@firebase/storage";
 import { ref } from "firebase/storage";
 import { useRouter } from "next/dist/client/router";
 import React from "react";
@@ -99,7 +98,7 @@ export default function EditArticle() {
     <>
       <Toaster ref={toaster} position="top-right" className="mt-10" />
       {article.title ? (
-        <MarkdownSpan>
+        <MarkdownSpan id="article">
           <Callout
             intent={
               article.contents === lastSavedValue.contents &&
