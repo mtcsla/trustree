@@ -8,8 +8,6 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/dist/client/router";
 
-const cookies = new Cookies();
-
 export const getServerSideProps = async ({ query }) => {
   try {
     let { is18, workable, value, grantsValue, writeValue, share } = JSON.parse(
@@ -20,11 +18,13 @@ export const getServerSideProps = async ({ query }) => {
     workable = parseInt(workable);
     value = parseInt(value);
 
-    grantsValue &&= parseInt(grantsValue);
-    writeValue &&= parseInt(writeValue);
+    if (grantsValue) grantsValue = parseInt(grantsValue);
+    if (writeValue) writeValue = parseInt(writeValue);
 
     const [numerator, denominator] = share.split("/");
     share = parseInt(numerator) / parseInt(denominator);
+
+    console.log({ is18, workable, value, grantsValue, writeValue, share });
 
     if (!is18 || !workable) {
       share = (2 * share) / 3;
