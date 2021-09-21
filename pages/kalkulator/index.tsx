@@ -41,12 +41,9 @@ export default function Kalkulator() {
 
   const onSubmit = () => {
     if (checkRequired()) {
-      document.cookie = `calculatorState=${JSON.stringify(
-        calculatorState
-      )};expires=${new Date(
-        new Date().getTime() + 60 * 60 * 1000 * 48
-      ).toUTCString()};path=/kalkulator`;
-      router.push("/kalkulator/rezultat");
+      router.push(
+        `/kalkulator/rezultat?data=${JSON.stringify(calculatorState)}`
+      );
     }
   };
 
@@ -67,6 +64,11 @@ export default function Kalkulator() {
       calculatorDispatch({ type: "setChildren", value: 1 });
     if (calculatorState.relation === 2 && !calculatorState.kin)
       calculatorDispatch({ type: "setKin", value: 1 });
+    document.cookie = `calculatorState=${JSON.stringify(
+      calculatorState
+    )};expires=${new Date(
+      new Date().getTime() + 60 * 60 * 1000 * 48
+    ).toUTCString()};path=/kalkulator`;
   }, [calculatorState]);
 
   const contextValue = { calculatorState, calculatorDispatch };
