@@ -4,8 +4,6 @@ import React from "react";
 import { FamilyImage } from "../../components/calculator/Relation";
 import { CardForm } from "../kalkulator/index";
 import Link from "next/link";
-import axios from "axios";
-import Cookies from "universal-cookie";
 import { useRouter } from "next/dist/client/router";
 
 export const getServerSideProps = async ({ query }) => {

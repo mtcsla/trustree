@@ -103,16 +103,13 @@ export default function WniosekTestament() {
           otherHereditaries: [],
         }}
       >
-        {({ errors, touched, values, setValues }) => {
-          const [otherHereditaries, setOtherHereditaries] = React.useState(
-            values.otherHereditaries || []
-          );
-
+        {({ errors, touched, values, setFieldValue }) => {
           React.useEffect(() => {
             document.cookie = `ustawaWniosekState=${JSON.stringify(values)};`;
           }, [values]);
+
           React.useEffect(() => {
-            setOtherHereditaries(otherHereditaries);
+            console.log(values.otherHereditaries);
           }, [values.otherHereditaries]);
 
           return (
@@ -574,11 +571,18 @@ export default function WniosekTestament() {
 
               <CardForm>
                 <Formik
-                  onSubmit={(values) => {
-                    console.log({ otherHereditaries, errors });
-                    const newHerediaries = [...otherHereditaries];
-                    newHerediaries.push(values);
-                    setOtherHereditaries(newHerediaries);
+                  onSubmit={(newValues, { resetForm }) => {
+                    console.log({
+                      otherHereditaries: values.otherHereditaries,
+                      errors,
+                      newValues,
+                    });
+                    const newHerediaries = [...values.otherHereditaries];
+                    newHerediaries.push(newValues);
+
+                    setFieldValue("otherHereditaries", newHerediaries);
+
+                    resetForm();
                   }}
                   validationSchema={yup.object().shape({
                     name: yup.string().required("To pole jest wymagane."),
@@ -622,7 +626,7 @@ export default function WniosekTestament() {
                   validateOnBlur={false}
                   validateOnChange={false}
                 >
-                  {({ values, errors, touched, handleReset, handleSubmit }) => {
+                  {({ values, errors, touched, handleSubmit }) => {
                     return (
                       <div className="w-full flex flex-col">
                         <span className="text-2xl font-bold w-full">
@@ -900,8 +904,6 @@ export default function WniosekTestament() {
                           icon="add"
                           onClick={() => {
                             handleSubmit();
-
-                            if (!Object.keys(errors).length) handleReset();
                           }}
                         >
                           DODAJ
@@ -911,7 +913,7 @@ export default function WniosekTestament() {
                   }}
                 </Formik>
                 <OtherHereditariesRenderer
-                  otherHereditaries={otherHereditaries}
+                  otherHereditaries={values.otherHereditaries}
                 />
               </CardForm>
 
@@ -1005,9 +1007,82 @@ const OtherHereditariesRenderer = ({ otherHereditaries }) => {
   } else
     return (
       <>
-        {otherHereditaries.map((hereditary) => (
-          <p>{hereditary.name}</p>
-        ))}
+        <span className="text-xl font-bold mt-4 w-full mb-4">
+          Dodani spadkobiercy:
+        </span>
+
+        <div className="w-full flex flex-col text-sm">
+          {otherHereditaries.map((hereditary) => (
+            <div
+              className="border p-3 rounded-xl mb-6"
+              style={{ background: "var(--input-color)" }}
+            >
+              <div className="flex justify-between">
+                <div className="flex flex-col">
+                  <p className="text-xs">imię i nazwisko:</p>
+                  <p>{hereditary.name}</p>
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-xs">udział w spadku:</p>
+                  <p className="text-right">{hereditary.share}</p>
+                </div>
+              </div>
+              <Divider />
+              <p className="text-xs">adres:</p>
+              <p>{hereditary.address}</p>
+              <Divider />
+              <div className="flex justify-between">
+                <div className="flex flex-col">
+                  <p className="text-xs">forma przyjęcia spadku:</p>
+                  <p>
+                    {hereditary.forma == 0
+                      ? "przyjęcie proste"
+                      : "przyjęcie z dobrodziejstwem inwentarza"}
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-xs text-right">
+                    kim był zmarły dla tego spadkobiercy?
+                  </p>
+                  <p className="text-right">
+                    {getRelation(hereditary.relation)}
+                  </p>
+                </div>
+              </div>
+              <Divider />
+              <span className="text-xl font-bold">
+                Odpis skrócony aktu{" "}
+                {hereditary.actType == 0 || hereditary.relation == 1
+                  ? "małżeństwa"
+                  : "urodzenia"}
+              </span>
+              <div className="flex justify-between">
+                <div className="flex flex-col">
+                  <p className="text-xs">nazwa urzędu stanu cywilnego:</p>
+                  <p>{hereditary.actUscName}</p>
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-xs">
+                    data{" "}
+                    {hereditary.actType == 0 || hereditary.relation == 1
+                      ? "zawarcia małżeństwa"
+                      : "urodzenia"}
+                    :
+                  </p>
+                  <p>
+                    {new Date(hereditary.actDate).toLocaleDateString("en-GB")}
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-xs text-right">
+                    numer odpisu skróconego aktu:
+                  </p>
+                  <p className="text-right">{hereditary.actNumber}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </>
     );
 };
@@ -1054,3 +1129,24 @@ const RowForm = styled.div`
 const RenderErrorMessage = (message) => {
   return <p className="text-xs text-red-500 mt-2">{message}</p>;
 };
+
+function getRelation(relation) {
+  if (typeof relation !== "number") relation = parseInt(relation);
+
+  switch (relation) {
+    case 1:
+      return "małżonkiem";
+    case 2:
+      return "rodzeństwem";
+    case 3:
+      return "dzieckiem";
+    case 4:
+      return "rodzicem";
+    case 5:
+      return "dziadkiem/babcią";
+    case 6:
+      return "wujkiem/ciotką";
+    default:
+      return "małżonkiem";
+  }
+}
