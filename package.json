@@ -33,6 +33,7 @@
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.15.3",
     "react-markdown": "^7.0.1",
+    "react-select": "^4.3.1",
     "react-social-icons": "^5.6.1",
     "rich-markdown-editor": "^11.17.5",
     "stripe": "^8.176.0",

@@ -15,8 +15,8 @@ html {
   background: var(--medium-sea-green);
 }
 
-input {
-  background: var(--input-color) !important;
+strong {
+  line-height: normal !important;
 }
 
 * {
@@ -35,6 +35,7 @@ h5 {
 
 :root {
   --input-color: #fafafa;
+
   --border-color: #e6e6e6;
   --border-color2: rgb(161, 161, 161);
   --grey-deep: rgb(88, 88, 88);
