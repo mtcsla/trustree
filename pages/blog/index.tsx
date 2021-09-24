@@ -332,7 +332,7 @@ export const BlogList = ({
                     <h2 style={{ marginTop: 5 }} className="text-xl font-bold">
                       {article.title}
                     </h2>
-                    <span>{article.author}</span>
+                    <p className="text-xs">{article.author}</p>
                   </div>
                   <div className="flex items-center">
                     <Icon icon="calendar" style={{ marginRight: 5 }} />{" "}

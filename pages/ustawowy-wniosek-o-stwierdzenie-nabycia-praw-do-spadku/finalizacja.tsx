@@ -2,20 +2,35 @@ import { Button, Callout, Divider, Icon } from "@blueprintjs/core";
 import React from "react";
 import { getRelation } from "../../components/wniosek/OtherHereditariesRenderer";
 import { CardForm } from "../kalkulator";
+import { useRouter } from "next/dist/client/router";
 
 export async function getServerSideProps({ query }) {
-  let { data } = query;
-  data = JSON.parse(data);
+  try {
+    let { data } = query;
+    data = JSON.parse(data);
 
-  console.log(data);
-  return {
-    props: {
-      data,
-    },
-  };
+    console.log(data);
+    return {
+      props: {
+        data,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        data: null,
+      },
+    };
+  }
 }
 
 export default function Finalizacja({ data }) {
+  const router = useRouter();
+  React.useEffect(() => {
+    if (!data) {
+      router.push("/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku");
+    }
+  }, []);
   return (
     <>
       <h1 className="text-4xl font-bold">

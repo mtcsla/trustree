@@ -48,7 +48,7 @@ const Article = ({ article }) => {
   }, [article]);
 
   return (
-    <MarkdownSpan id="article">
+    <MarkdownSpan>
       <div
         style={{
           backgroundColor: "var(--grey)",
@@ -79,14 +79,16 @@ const Article = ({ article }) => {
           </p>
         </div>
       </div>
-      <RichMarkdownEditor
-        readOnly
-        value={contents}
-        //@ts-ignore
-        theme={{
-          background: "var(--layout-bg)",
-        }}
-      />
+      <span id="article">
+        <RichMarkdownEditor
+          readOnly
+          value={contents}
+          //@ts-ignore
+          theme={{
+            background: "var(--layout-bg)",
+          }}
+        />
+      </span>
       <Divider />
       <h1
         className={`${windowWidth > 800 ? "text-4xl" : "text-2xl"} font-bold`}

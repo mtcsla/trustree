@@ -98,7 +98,7 @@ export default function EditArticle() {
     <>
       <Toaster ref={toaster} position="top-right" className="mt-10" />
       {article.title ? (
-        <MarkdownSpan id="article">
+        <MarkdownSpan>
           <Callout
             intent={
               article.contents === lastSavedValue.contents &&
@@ -172,20 +172,21 @@ export default function EditArticle() {
               </p>
             </div>
           </div>
-          <RichMarkdownEditor
-            //@ts-ignore
-            theme={{
-              background: "var(--layout-bg)",
-            }}
-            onChange={(value) =>
-              articleDispatch({ value: value() ?? "", type: "setContents" })
-            }
-            defaultValue={article.contents}
-            uploadImage={async (file) => {
-              return await uploadImage(file);
-            }}
-          />
-
+          <span id="article">
+            <RichMarkdownEditor
+              //@ts-ignore
+              theme={{
+                background: "var(--layout-bg)",
+              }}
+              onChange={(value) =>
+                articleDispatch({ value: value() ?? "", type: "setContents" })
+              }
+              defaultValue={article.contents}
+              uploadImage={async (file) => {
+                return await uploadImage(file);
+              }}
+            />
+          </span>
           <Button
             intent={!loading ? "success" : "primary"}
             className="w-full mt-6"

@@ -4,6 +4,7 @@ import { SocialIcon } from "react-social-icons";
 import { useWindowSize } from "../../hooks/windowSize";
 import { Button, Icon } from "@blueprintjs/core";
 import { useNav } from "../../pages/_app";
+import styled from "@emotion/styled";
 
 const Header = () => {
   const windowWidth = useWindowSize().width;
@@ -30,7 +31,12 @@ const Header = () => {
         }}
       />
       <div className="flex flex-col justify-center" style={{ marginRight: 10 }}>
-        <h1 className="font-bold text-2xl m-0">Trustree</h1>
+        <LogoText
+          className={windowWidth > 800 ? "text-3xl" : "text-5xl"}
+          style={{ letterSpacing: 0.5 }}
+        >
+          Trustree
+        </LogoText>
         <Link href="/">
           <p className="text-xs text-gray-500 m-0 no-underline cursor-pointer">
             Strona główna
@@ -69,3 +75,5 @@ const Header = () => {
 };
 
 export default Header;
+
+const LogoText = styled.span``;

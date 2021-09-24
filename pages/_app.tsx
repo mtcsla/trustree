@@ -62,12 +62,12 @@ export default function App({ Component, pageProps }) {
             />
             <div className="flex flex-col justify-center h-full">
               <h1
-                className="text-xl font-bold"
+                className="text-4xl font-bold"
                 style={{ marginTop: 7, lineHeight: 0.8 }}
               >
                 Trustree
               </h1>
-              <a style={{ fontSize: 10, marginLeft: 3, color: "var(--grey)" }}>
+              <a style={{ fontSize: 10 }} className="text-gray-500 text-xs">
                 Strona główna
               </a>
             </div>

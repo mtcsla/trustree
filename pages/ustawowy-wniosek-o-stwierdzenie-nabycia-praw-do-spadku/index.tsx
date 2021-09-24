@@ -1,26 +1,23 @@
-import { CardForm } from "../kalkulator";
-import { ErrorMessage, Field, Formik } from "formik";
-import React from "react";
-import { DateInput } from "@blueprintjs/datetime";
-import { FamilyImage } from "../../components/calculator/Relation";
-import styled from "@emotion/styled";
 import {
-  FormGroup,
-  InputGroup,
-  Divider,
-  HTMLSelect,
   Button,
   Callout,
+  Divider,
+  FormGroup,
+  InputGroup,
 } from "@blueprintjs/core";
-import * as yup from "yup";
-import Select from "react-select";
+import styled from "@emotion/styled";
+import { ErrorMessage, Field, Formik } from "formik";
+import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
+import React from "react";
+import Select from "react-select";
+import * as yup from "yup";
+import { FamilyImage } from "../../components/calculator/Relation";
 import {
   getRelation,
   OtherHereditariesRenderer,
 } from "../../components/wniosek/OtherHereditariesRenderer";
-import Cookies from "universal-cookie";
-import { useRouter } from "next/dist/client/router";
+import { CardForm } from "../kalkulator";
 
 const yupSchema = yup.object().shape({
   email: yup
@@ -139,7 +136,7 @@ export default function WniosekTestament() {
                       className="flex flex-col flex-1"
                       style={{ minWidth: 220 }}
                     >
-                      <span className="text-2xl font-bold">Twoje dane:</span>
+                      <h3 className="text-2xl font-bold">Twoje dane</h3>
                       <p className="mt-2 text-xs">
                         Potrzebujemy Twoich danych osobowych, aby wykonać
                         wniosek w Twoim imieniu.
@@ -356,16 +353,17 @@ export default function WniosekTestament() {
                   </RowForm>
                 </CardForm>
                 <Callout className="mt-10" intent="primary">
-                  <p>
-                    Wniosek o stwierdzenie nabycia spadku - to podstawowe pismo,
-                    które trzeba złożyć w sądzie w przypadku powołania do{" "}
-                    <a className="text-blue-600">
-                      dziedziczenia na podstawie ustawy
-                    </a>
-                    , czyli w trybie tzw. dziedziczenia ustawowego lub na
-                    podstawie testamentu (sporządzonego w formie pisemnej lub
-                    ustnej).
-                  </p>
+                  Wniosek o stwierdzenie nabycia spadku - to podstawowe pismo,
+                  które trzeba złożyć w sądzie w przypadku powołania do{" "}
+                  <a
+                    className="text-blue-600"
+                    href="https://sip.lex.pl/akty-prawne/dzu-dziennik-ustaw/kodeks-cywilny-16785996/art-931"
+                  >
+                    dziedziczenia na podstawie ustawy
+                  </a>
+                  , czyli w trybie tzw. dziedziczenia ustawowego lub na
+                  podstawie testamentu (sporządzonego w formie pisemnej lub
+                  ustnej).
                 </Callout>
                 <>
                   <div className="flex flex-col w-auto">
@@ -483,13 +481,13 @@ export default function WniosekTestament() {
                   {values.actType != null || values.relation == 1 ? (
                     <CardForm className="min-h-0">
                       <div className="flex flex-col w-full">
-                        <span className="text-2xl font-bold w-full">
+                        <h3 className="text-2xl font-bold w-full">
                           {values.relation != 3 ? "Twój o" : "O"}dpis skrócony{" "}
                           {values.relation == 1 || values.actType == 0
                             ? "aktu małżeństwa"
                             : "aktu urodzenia"}
                           {values.relation == 3 ? " zmarłego" : ""}
-                        </span>
+                        </h3>
                         <p className="text-xs">
                           Podaj nam dane dotyczące tego dokumentu.
                         </p>
@@ -567,9 +565,10 @@ export default function WniosekTestament() {
 
                 <CardForm className="items-start">
                   <div className="w-full flex flex-col">
-                    <span className="text-2xl font-bold w-full">
-                      Dane spadkodawcy (zmarłego):
-                    </span>
+                    <h3 className="text-2xl font-bold w-full mb-0">
+                      Dane spadkodawcy
+                    </h3>
+                    <h3 className="text-xs mb-1">(zmarłego)</h3>
                     <p className="text-xs">
                       Aby wykonać wniosek potrzebujemy również danych o zmarłym,
                       po którym jest spadek.
@@ -678,9 +677,9 @@ export default function WniosekTestament() {
                       </ErrorMessage>
                     </FormGroup>
                     <Divider className="mt-4 mb-4 w-full" />
-                    <p className="text-xl font-bold">
+                    <h4 className="text-xl font-bold">
                       Odpis skrócony aktu zgonu zmarłego
-                    </p>
+                    </h4>
                     <FormGroup label="nazwa urzędu stanu cywilnego wydającego dokument:">
                       <Field
                         as={InputGroup}
@@ -788,17 +787,17 @@ export default function WniosekTestament() {
                     }) => {
                       return (
                         <div className="w-full flex flex-col">
-                          <span className="text-2xl font-bold w-full">
+                          <h3 className="text-2xl font-bold w-full">
                             Inni spadkobiercy
-                          </span>
+                          </h3>
                           <p className="text-xs">
                             Dodaj kolejno innych spadkobierców dziedziczących po
                             zmarłym do listy.
                           </p>
                           <Divider className="mt-4 mb-4 w-full" />
-                          <span className="text-sm mb-2 font-bold w-full">
+                          <h3 className="text-sm mb-2 font-bold w-full">
                             DANE SPADKOBIERCY:
-                          </span>
+                          </h3>
                           <RowForm className="mb-5">
                             <RowFormGroup label="imię i nazwisko:">
                               <Field
@@ -1171,9 +1170,9 @@ export default function WniosekTestament() {
 
                 <CardForm className="items-start">
                   <div className="w-full flex flex-col">
-                    <span className="text-2xl font-bold w-full">
-                      Dane sądu, do którego chcesz złożyć wniosek:
-                    </span>
+                    <h4 className="text-2xl font-bold w-full">
+                      Dane sądu, do którego chcesz złożyć wniosek
+                    </h4>
                     <Divider className="mt-4 mb-4 w-full" />
                     <FormGroup label="nazwa sądu:">
                       <Field

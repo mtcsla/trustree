@@ -78,7 +78,7 @@ export default function KalkulatorZachowku() {
                 className="flex flex-col justify-evenly"
                 style={{ margin: 10, minWidth: 230, flex: 1 }}
               >
-                <h4 className="font-bold text-sm">Dane majątku zmarłego:</h4>
+                <h4 className="font-bold text-2xl">Dane majątku zmarłego:</h4>
 
                 <FormGroup
                   label="wartość majątku (w złotych):"

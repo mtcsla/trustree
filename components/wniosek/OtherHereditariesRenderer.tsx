@@ -13,17 +13,15 @@ export const OtherHereditariesRenderer = ({ otherHereditaries, setValue }) => {
   } else
     return (
       <>
-        <span className="text-2xl font-bold mt-4 w-full">
-          Dodani spadkobiercy
-        </span>
+        <h4 className="text-2xl font-bold mt-4 w-full">Dodani spadkobiercy</h4>
         <p className="text-xs mb-4 w-full">Sprawdź, czy dane są poprawne.</p>
 
         <div className="w-full flex flex-col text-sm ">
           {otherHereditaries.map((hereditary) => (
-            <div className="mb-6 border flex flex-col p-5">
-              <span className="text-xl font-bold w-full">
-                DANE SPADKOBIERCY
-              </span>
+            <div className="mb-6 flex flex-col pt-5 pb-5">
+              <h4 className="text-xl font-bold w-full">
+                DANE SPADKOBIERCY #{otherHereditaries.indexOf(hereditary) + 1}
+              </h4>
               <Divider />
               <div className="flex justify-between">
                 <div className="flex flex-col">
@@ -61,13 +59,13 @@ export const OtherHereditariesRenderer = ({ otherHereditaries, setValue }) => {
                 </div>
               </div>
 
-              <span className="text-xl font-bold uppercase">
+              <h4 className="text-xl font-bold uppercase">
                 ODPIS SKRÓCONY AKTU{" "}
                 {hereditary.actType == 0 || hereditary.relation == 1
                   ? "małżeństwa"
                   : "urodzenia"}{" "}
                 {hereditary.relation == 3 ? "zmarłego" : ""}
-              </span>
+              </h4>
               <Divider />
 
               <div className="flex justify-between">
