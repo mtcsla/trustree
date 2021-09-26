@@ -8,9 +8,7 @@ import { useRouter } from "next/dist/client/router";
 
 export const getServerSideProps = async ({ query }) => {
   try {
-    let { is18, workable, value, grantsValue, writeValue, share } = JSON.parse(
-      query.data
-    );
+    let { is18, workable, value, grantsValue, writeValue, share } = query;
 
     is18 = parseInt(is18);
     workable = parseInt(workable);
@@ -21,8 +19,6 @@ export const getServerSideProps = async ({ query }) => {
 
     const [numerator, denominator] = share.split("/");
     share = parseInt(numerator) / parseInt(denominator);
-
-    console.log({ is18, workable, value, grantsValue, writeValue, share });
 
     if (!is18 || !workable) {
       share = (2 * share) / 3;
@@ -48,7 +44,7 @@ export default function Rezultat({ result }) {
 
   React.useEffect(() => {
     if (!result) router.push("/kalkulator-zachowku");
-    else document.cookie = "zachowekState=;path=/kalkulator-zachowku";
+    else sessionStorage.removeItem("calculatorZachowekState");
   }, []);
 
   return (

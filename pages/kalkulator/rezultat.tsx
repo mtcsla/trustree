@@ -75,7 +75,7 @@ const HereditaryEnkel = ({
 };
 
 export const getServerSideProps = async (context) => {
-  const data = JSON.parse(context.query.data);
+  const data = context.query;
   const { relation } = data;
   console.log(data);
 
@@ -131,10 +131,8 @@ export default function Rezultat({ rezultat, relation }) {
 
   React.useEffect(() => {
     if (!rezultat) router.push("/kalkulator");
-    else document.cookie = "calculatorState=;path=/kalkulator";
+    else sessionStorage.removeItem("calculatorState");
   }, []);
-
-  React.useEffect(() => {}, []);
 
   return (
     <>

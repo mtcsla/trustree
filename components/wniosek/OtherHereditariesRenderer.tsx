@@ -1,7 +1,16 @@
 import { Button, Callout, Divider } from "@blueprintjs/core";
 import React from "react";
+import ColorfulIcon from "../layout/ColorfulIcon";
 
-export const OtherHereditariesRenderer = ({ otherHereditaries, setValue }) => {
+export const OtherHereditariesRenderer = ({
+  otherHereditaries,
+  setValue,
+  readonly,
+}: {
+  otherHereditaries: any[];
+  setValue: any;
+  readonly?: boolean;
+}) => {
   function spliceAt(index) {
     const newOtherHereditaries = [...otherHereditaries];
     newOtherHereditaries.splice(index, 1);
@@ -13,49 +22,59 @@ export const OtherHereditariesRenderer = ({ otherHereditaries, setValue }) => {
   } else
     return (
       <>
-        <h4 className="text-2xl font-bold mt-4 w-full">Dodani spadkobiercy</h4>
-        <p className="text-xs mb-4 w-full">Sprawdź, czy dane są poprawne.</p>
+        {!readonly ? (
+          <h4 className="flex items-center text-2xl font-bold mt-4 w-full">
+            <ColorfulIcon
+              size={18}
+              style={{ marginRight: 7 }}
+              color="165, 42, 42"
+              icon="document"
+            />
+            Dodani spadkobiercy
+          </h4>
+        ) : null}
+        <p className="text-xs  w-full">Sprawdź, czy dane są poprawne.</p>
 
         <div className="w-full flex flex-col text-sm ">
           {otherHereditaries.map((hereditary) => (
             <div className="mb-6 flex flex-col pt-5 pb-5">
-              <h4 className="text-xl font-bold w-full">
+              <h4 className="flex items-center text-xl font-bold w-full">
                 DANE SPADKOBIERCY #{otherHereditaries.indexOf(hereditary) + 1}
               </h4>
               <Divider />
               <div className="flex justify-between">
                 <div className="flex flex-col">
                   <p className="text-xs">imię i nazwisko:</p>
-                  <p>{hereditary.name}</p>
+                  <h3 className="text-base">{hereditary.name}</h3>
                 </div>
                 <div className="flex flex-col">
                   <p className="text-xs">udział w spadku:</p>
-                  <p className="text-right">{hereditary.share}</p>
+                  <h3 className="text-right text-base">{hereditary.share}</h3>
                 </div>
               </div>
               <div className="flex justify-between mt-3">
                 <div className="flex flex-col">
                   <p className="text-xs">adres:</p>
-                  <p>{hereditary.address}</p>
+                  <h3 className="text-base">{hereditary.address}</h3>
                 </div>
               </div>
 
-              <div className="flex justify-between mb-4 mt-3">
+              <div className="flex justify-between mb-8 mt-3">
                 <div className="flex flex-col">
                   <p className="text-xs">forma przyjęcia spadku:</p>
-                  <p>
+                  <h3 className="text-base">
                     {hereditary.forma == 0
                       ? "przyjęcie proste"
                       : "przyjęcie z dobrodziejstwem inwentarza"}
-                  </p>
+                  </h3>
                 </div>
                 <div className="flex flex-col">
                   <p className="text-xs text-right">
                     kim był zmarły dla tego spadkobiercy?
                   </p>
-                  <p className="text-right">
+                  <h3 className="text-right text-base">
                     {getRelation(hereditary.relation)}
-                  </p>
+                  </h3>
                 </div>
               </div>
 
@@ -71,14 +90,16 @@ export const OtherHereditariesRenderer = ({ otherHereditaries, setValue }) => {
               <div className="flex justify-between">
                 <div className="flex flex-col">
                   <p className="text-xs">nazwa urzędu stanu cywilnego:</p>
-                  <p>{hereditary.actUscName}</p>
+                  <h3 className="text-base">{hereditary.actUscName}</h3>
                 </div>
 
                 <div className="flex flex-col">
                   <p className="text-xs text-right">
                     numer odpisu skróconego aktu:
                   </p>
-                  <p className="text-right">{hereditary.actNumber}</p>
+                  <h3 className="text-right text-base">
+                    {hereditary.actNumber}
+                  </h3>
                 </div>
               </div>
               <div className="flex justify-between mt-3">
@@ -90,22 +111,24 @@ export const OtherHereditariesRenderer = ({ otherHereditaries, setValue }) => {
                       : "urodzenia"}
                     :
                   </p>
-                  <p>
+                  <h3 className="text-base">
                     {new Date(hereditary.actDate).toLocaleDateString("en-GB")}
-                  </p>
+                  </h3>
                 </div>
               </div>
-              <Button
-                intent="danger"
-                fill
-                className="mt-4 mb-0"
-                icon="trash"
-                onClick={() => {
-                  spliceAt(otherHereditaries.indexOf(hereditary));
-                }}
-              >
-                USUŃ
-              </Button>
+              {!readonly ? (
+                <Button
+                  intent="danger"
+                  fill
+                  className="mt-4 mb-0"
+                  icon="trash"
+                  onClick={() => {
+                    spliceAt(otherHereditaries.indexOf(hereditary));
+                  }}
+                >
+                  USUŃ
+                </Button>
+              ) : null}
             </div>
           ))}
         </div>

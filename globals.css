@@ -5,6 +5,15 @@
 
 @import "~@blueprintjs/popover2/lib/css/blueprint-popover2.css";
 
+@media (max-width: 800px) {
+  .text-base {
+    font-size: 14px;
+  }
+  .text-xs {
+    font-size: 10px;
+  }
+}
+
 #article h1,
 h2,
 h3,

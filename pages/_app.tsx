@@ -11,8 +11,10 @@ import { AuthProvider } from "../components/firebase/firebaseAuth";
 import Header from "../components/layout/Header";
 import { Nav } from "../components/layout/Nav";
 import "../globals.css";
+import Head from "next/head";
 import { useOnClickOutside } from "../hooks/onClickOutside";
 import { useWindowSize } from "../hooks/windowSize";
+import Link from "next/link";
 
 const navContext = React.createContext<any>({});
 export const useNav = () => React.useContext(navContext);
@@ -33,6 +35,9 @@ export default function App({ Component, pageProps }) {
   return (
     <navContext.Provider value={navContextValue}>
       <AuthProvider>
+        <Head>
+          <title>Trustree | serwis z pismami sądowymi</title>
+        </Head>
         <TopHeader
           className="fixed flex justify-center text-center"
           style={{
@@ -82,6 +87,7 @@ export default function App({ Component, pageProps }) {
                 borderRadius: 5,
                 padding: 3,
               }}
+              href="https://www.facebook.com/Trustree.fb"
               bgColor="rgba(0, 0, 0, 0)"
               fgColor="rgba(0, 0, 0, 1)"
             />
@@ -95,6 +101,7 @@ export default function App({ Component, pageProps }) {
                 borderRadius: 5,
                 padding: 3,
               }}
+              href="https://www.facebook.com/Trustree.fb"
               bgColor="rgba(0, 0, 0, 0)"
               fgColor="rgba(0, 0, 0, 1)"
             />
@@ -113,7 +120,9 @@ export default function App({ Component, pageProps }) {
               className="flex justify-between items-center"
               style={{ paddingBottom: 40 }}
             >
-              <p className="text-xs text-gray-600 m-6 ">Trustree © 2021</p>
+              <p className="flex text-xs items-center text-gray-600 m-6 ">
+                Trustree © 2021
+              </p>
             </div>
           </Navigation>
 

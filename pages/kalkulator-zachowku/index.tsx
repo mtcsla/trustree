@@ -16,8 +16,6 @@ import { CardForm } from "../kalkulator/index";
 import { useRouter } from "next/dist/client/router";
 import Cookie from "universal-cookie";
 
-const cookies: Cookie = new Cookie();
-
 export default function KalkulatorZachowku() {
   const toaster = React.useRef<Toaster>();
   const router = useRouter();
@@ -42,30 +40,42 @@ export default function KalkulatorZachowku() {
 
   return (
     <Formik
-      initialValues={
-        cookies.get("zachowekState") || {
-          value: "",
-          share: "",
-          is18: null,
-          workable: null,
-          writeSum: "",
-          grantsSum: "",
-        }
-      }
+      initialValues={{
+        value: "",
+        share: "",
+        is18: null,
+        workable: null,
+        writeSum: "",
+        grantsSum: "",
+      }}
       onSubmit={(values) => {
         router.push(
-          `/kalkulator-zachowku/rezultat?data=${JSON.stringify(values)}`
+          `/kalkulator-zachowku/rezultat?${new URLSearchParams(
+            values
+          ).toString()}`
         );
       }}
       validationSchema={FormSchema}
       validateOnChange
     >
-      {({ errors, touched, handleSubmit, values }) => {
+      {({ errors, touched, handleSubmit, values, setValues }) => {
         React.useEffect(() => {
-          document.cookie = `zachowekState=${JSON.stringify(
-            values
-          )};path=/kalkulator-zachowku`;
+          setValues(
+            JSON.parse(
+              sessionStorage.getItem("calculatorZachowekState") ||
+                JSON.stringify(values)
+            ),
+            false
+          );
+        }, []);
+
+        React.useEffect(() => {
+          sessionStorage.setItem(
+            "calculatorZachowekState",
+            JSON.stringify(values)
+          );
         }, [values]);
+
         return (
           <>
             <h1 className="text-4xl font-bold">Kalkulator zachowku</h1>

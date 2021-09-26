@@ -63,7 +63,13 @@ const yupSchema = yup.object().shape({
   courtName: yup.string().required("To pole jest wymagane."),
   courtAddress: yup.string().required("To pole jest wymagane."),
   courtNumber: yup.string().required("To pole jest wymagane.").nullable(),
-
+  //testament
+  testamentDate: yup.date().required().nullable(),
+  testamentNotarial: yup.boolean().required().nullable(),
+  testamentNotarialName: yup.string(),
+  testamentNotarialCity: yup.string(),
+  testamentNotarialRepository: yup.string(),
+  testamentNotarialNumber: yup.string(),
   //otherHereditaries
   otherHereditaries: yup.array(),
 });
@@ -79,7 +85,7 @@ export default function WniosekTestament() {
       <h1 className="text-4xl font-bold">
         Wygeneruj wniosek o stwierdzenie nabycia praw do spadku
         <br />
-        <p className="text-sm mb-5">wg. dziedziczenia ustawowego</p>
+        <p className="text-sm mb-5">wg. dziedziczenia testamentowego</p>
       </h1>
       <p>Podaj nam swoje dane, a my utworzymy za Ciebie wniosek.</p>
       <Callout intent="primary" className="mt-6">
@@ -96,21 +102,21 @@ export default function WniosekTestament() {
       {loaded ? (
         <Formik
           onSubmit={(values) => {
-            const newValues = Object.assign({}, values);
+            const newValues = { ...values };
+
             newValues.otherHereditaries = JSON.stringify(
               newValues.otherHereditaries
             );
 
             router.push(
-              "/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku/finalizacja?" +
+              "/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku/finalizacja?" +
                 new URLSearchParams(newValues).toString()
             );
           }}
           validateOnChange
           validationSchema={yupSchema}
           initialValues={
-            (localStorage.getItem("wniosekUstawowyValues") &&
-              JSON.parse(localStorage.getItem("wniosekUstawowyValues"))) || {
+            JSON.parse(localStorage.getItem("wniosekTestamentowyValues")) || {
               email: "",
               name: "",
               pesel: "",
@@ -136,13 +142,19 @@ export default function WniosekTestament() {
               courtAddress: "",
               courtNumber: null,
               otherHereditaries: [],
+              testamentDate: null,
+              testamentNotarial: null,
+              testamentNotarialName: "",
+              testamentNotarialCity: "",
+              testamentNotarialRepository: "",
+              testamentNotarialNumber: "",
             }
           }
         >
           {({ errors, touched, values, setFieldValue, handleSubmit }) => {
             React.useEffect(() => {
               localStorage.setItem(
-                "wniosekUstawowyValues",
+                "wniosekTestamentowyValues",
                 JSON.stringify(values)
               );
             }, [values]);
@@ -220,7 +232,7 @@ export default function WniosekTestament() {
                           display: "flex",
                           justifyContent: "flex-end",
                           alignItems: "flex-end",
-                          backgroundImage: "url(/people.svg)",
+                          backgroundImage: "url(/people2.svg)",
                           height: "100%",
                           backgroundSize: "cover",
                           backgroundPosition: "50% 40%",
@@ -490,8 +502,8 @@ export default function WniosekTestament() {
                             : {
                                 value: values.actType,
                                 label: values.actType
-                                  ? "odpis skrócony aktu urodzenia"
-                                  : "odpis skrócony aktu małżeństwa",
+                                  ? "odpis skrócony aktu małżeństwa"
+                                  : "odpis skrócony aktu urodzenia",
                               }
                         }
                         placeholder="wybierz..."
@@ -824,6 +836,7 @@ export default function WniosekTestament() {
                       actDate: yup.date().nullable(),
                       actuscName: yup.string(),
                       actNumber: yup.string(),
+                      //testament
                     })}
                     initialValues={{
                       name: "",
@@ -1235,7 +1248,175 @@ export default function WniosekTestament() {
                     }}
                   />
                 </CardForm>
+                <CardForm
+                  className="items-stretch"
+                  style={{
+                    minHeight: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <h4 className="flex items-center text-2xl font-bold w-full">
+                    <ColorfulIcon
+                      size={18}
+                      style={{ marginRight: 7 }}
+                      color="200, 170, 75"
+                      icon="rotate-document"
+                    />
+                    Testament, który spisał spadkodawca
+                  </h4>
+                  <Divider className="w-full mt-4 mb-4" />
+                  <FormGroup label="data spisania testamentu:">
+                    <Field
+                      as={InputGroup}
+                      name="testamentDate"
+                      type="date"
+                      leftIcon="calendar"
+                      placeholder="np. Sąd Rejonowy w Elblągu"
+                      intent={
+                        errors.testamentDate && touched.testamentDate
+                          ? "danger"
+                          : "none"
+                      }
+                    />
+                    <ErrorMessage name="testamentDate">
+                      {RenderErrorMessage}
+                    </ErrorMessage>
+                  </FormGroup>
+                  <FormGroup label="czy testament był potwierdzony notarialnie?">
+                    <Field
+                      as={Select}
+                      options={[
+                        {
+                          value: true,
+                          label: "tak",
+                        },
+                        {
+                          value: false,
+                          label: "nie",
+                        },
+                      ]}
+                      isSearchable={false}
+                      onChange={({ value }) => {
+                        setFieldValue("testamentNotarial", value);
+                      }}
+                      value={{
+                        value: values.testamentNotarial,
+                        label: values.testamentNotarial ? "tak" : "nie",
+                      }}
+                      placeholder="wybierz..."
+                      name="testamentNotarial"
+                      leftIcon="take-action"
+                      intent={
+                        errors.testamentNotarial && touched.testamentNotarial
+                          ? "danger"
+                          : "none"
+                      }
+                    />
+                    <ErrorMessage name="testamentNotarial">
+                      {RenderErrorMessage}
+                    </ErrorMessage>
+                    {values.testamentNotarial ? (
+                      <>
+                        <h4 className="flex items-center text-xl font-bold w-full mt-6">
+                          <ColorfulIcon
+                            size={14}
+                            style={{ marginRight: 7 }}
+                            color="100, 80, 175"
+                            icon="edit"
+                          />
+                          Dane testamentu potwierdzonego notarialnie
+                        </h4>
+                        <Divider className="mt-3 mb-3" />
 
+                        <FormGroup label="imię i nazwisko notariusza:">
+                          <Field
+                            as={InputGroup}
+                            validate={(value) => {
+                              if (!value) return "To pole jest wymagane.";
+                              else return null;
+                            }}
+                            name="testamentNotarialName"
+                            leftIcon="person"
+                            placeholder="np. Andrzej Nowak"
+                            intent={
+                              errors.testamentNotarialName &&
+                              touched.testamentNotarialName
+                                ? "danger"
+                                : "none"
+                            }
+                          />
+                          <ErrorMessage name="testamentNotarialName">
+                            {RenderErrorMessage}
+                          </ErrorMessage>
+                        </FormGroup>
+                        <FormGroup label="miejscowość kancelarii notarialnej:">
+                          <Field
+                            as={InputGroup}
+                            validate={(value) => {
+                              if (!value) return "To pole jest wymagane.";
+                              else return null;
+                            }}
+                            name="testamentNotarialCity"
+                            leftIcon="office"
+                            placeholder="np. Gdynia"
+                            intent={
+                              errors.testamentNotarialCity &&
+                              touched.testamentNotarialCity
+                                ? "danger"
+                                : "none"
+                            }
+                          />
+                          <ErrorMessage name="testamentNotarialCity">
+                            {RenderErrorMessage}
+                          </ErrorMessage>
+                        </FormGroup>
+                        <FormGroup label="repozytorium aktu:">
+                          <Field
+                            as={InputGroup}
+                            validate={(value) => {
+                              if (!value) return "To pole jest wymagane.";
+                              else return null;
+                            }}
+                            name="testamentNotarialRepository"
+                            leftIcon="book"
+                            placeholder="np. A"
+                            intent={
+                              errors.testamentNotarialRepository &&
+                              touched.testamentNotarialRepository
+                                ? "danger"
+                                : "none"
+                            }
+                          />
+                          <ErrorMessage name="testamentNotarialRepository">
+                            {RenderErrorMessage}
+                          </ErrorMessage>
+                        </FormGroup>
+                        <FormGroup label="numer aktu notarialnego:">
+                          <Field
+                            as={InputGroup}
+                            validate={(value) => {
+                              if (!value) return "To pole jest wymagane.";
+                              else return null;
+                            }}
+                            name="testamentNotarialNumber"
+                            leftIcon="numerical"
+                            placeholder="np. 4523/2008"
+                            intent={
+                              errors.testamentNotarialNumber &&
+                              touched.testamentNotarialNumber
+                                ? "danger"
+                                : "none"
+                            }
+                          />
+                          <ErrorMessage name="testamentNotarialNumber">
+                            {RenderErrorMessage}
+                          </ErrorMessage>
+                        </FormGroup>
+                      </>
+                    ) : null}
+                  </FormGroup>
+                </CardForm>
                 <CardForm className="items-start">
                   <div className="w-full flex flex-col">
                     <h4 className="flex items-center text-2xl font-bold w-full">

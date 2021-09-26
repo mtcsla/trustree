@@ -329,6 +329,81 @@ export default function Finalizacja({ data }) {
           <span>{data.courtNumber}</span>
         </div>
       </CardForm>
+      <CardForm>
+        <h2 className="flex items-center w-full font-bold text-2xl mb-0">
+          <ColorfulIcon
+            size={18}
+            color="256, 122, 15"
+            icon={"edit"}
+            style={{ marginRight: 7 }}
+          />{" "}
+          Testament
+        </h2>
+        <Divider className="w-full mt-4 mb-4" />
+
+        <div className="flex justify-between w-full">
+          <div>
+            <div className="w-full uppercase text-xs flex items-center">
+              <Icon icon="calendar" className="mr-2" size={12} /> data spisania:{" "}
+            </div>
+            <span className="w-full text-base">
+              {new Date(data.testamentDate).toLocaleDateString("en-GB")}
+            </span>
+          </div>
+
+          <div className="flex flex-col pl-2">
+            <div className="w-full uppercase text-xs flex items-center text-right justify-end">
+              potwierdzony notarialnie?{" "}
+              <Icon icon="envelope" className="ml-2" size={12} />
+            </div>
+            <span className="w-full text-base text-right w-full">
+              {data.testamentNotarial == "true" ? "tak" : "nie"}
+            </span>
+          </div>
+        </div>
+
+        <Divider className="w-full mt-4 mb-4" />
+        <h3 className="w-full flex items-center mt-6">
+          <ColorfulIcon
+            icon={"document"}
+            color="21,37,200"
+            size={14}
+            style={{ marginRight: 10 }}
+          />
+          Dane aktu notarialnego testamentu
+        </h3>
+        <Divider className="w-full mt-4 mb-4" />
+
+        <div className="flex flex-col w-full">
+          <p className="flex items-center uppercase text-xs">
+            <Icon icon="person" className="mr-2" size={12} /> imię i nazwisko
+            notariusza:
+          </p>
+          <span>{data.testamentNotarialName}</span>
+        </div>
+        <Divider className="w-full mt-4 mb-4" />
+        <div className="flex flex-col w-full">
+          <p className="flex items-center uppercase text-xs">
+            <Icon icon="office" className="mr-2" size={12} /> miejscowośc
+            kancelarii:
+          </p>
+          <span>{data.testamentNotarialCity}</span>
+        </div>
+        <Divider className="w-full mt-4 mb-4" />
+        <div className="flex flex-col w-full">
+          <p className="flex items-center uppercase text-xs">
+            <Icon icon="book" className="mr-2" size={12} /> repozytorium aktu:
+          </p>
+          <span>{data.testamentNotarialRepository}</span>
+        </div>
+        <Divider className="w-full mt-4 mb-4" />
+        <div className="flex flex-col w-full">
+          <p className="flex items-center uppercase text-xs">
+            <Icon icon="numerical" className="mr-2" size={12} /> numer aktu:
+          </p>
+          <span>{data.testamentNotarialNumber}</span>
+        </div>
+      </CardForm>
       <Button intent="success" className="mt-8" rightIcon="caret-right" fill>
         PRZEJDŹ DO PŁATNOŚCI
       </Button>

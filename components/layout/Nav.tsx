@@ -2,6 +2,7 @@ import { Button, Collapse, Icon, IconName } from "@blueprintjs/core";
 import { Classes, Popover2 } from "@blueprintjs/popover2";
 import styled from "@emotion/styled";
 import { collection, getDocs, query } from "@firebase/firestore";
+import { where } from "firebase/firestore";
 import Link from "next/link";
 import React from "react";
 import { db } from "../firebase/firebase";
@@ -96,6 +97,10 @@ export const Nav = () => {
           Contents={BlogNavList}
         />
       </div>
+      <div
+        className="border-t border-b h-10 mt-2"
+        style={{ display: "none" }}
+      ></div>
     </>
   );
 };
@@ -221,17 +226,24 @@ const PismaNavList = ({ active, color }) => {
     <>
       <ul
         style={{
-          listStyleType: "square",
           marginTop: 10,
           maxWidth: 150,
         }}
       >
-        <ListItem>
-          <Label color={color}>Oświadczenie odrzucenia spadku</Label>
-        </ListItem>
-        <ListItem>
-          <Label color={color}>Oświadczenie przyjęcia spadku</Label>
-        </ListItem>
+        <Link href={"/oswiadczenie-o-odrzuceniu-spadku"} passHref>
+          <a style={{ textDecoration: "none", color: "inherit" }}>
+            <ListItem>
+              <Label color={color}>Oświadczenie o odrzuceniu spadku</Label>
+            </ListItem>
+          </a>
+        </Link>
+        <Link href={"/oswiadczenie-o-przyjeciu-spadku"} passHref>
+          <a style={{ textDecoration: "none", color: "inherit" }}>
+            <ListItem>
+              <Label color={color}>Oświadczenie o przyjeciu spadku</Label>
+            </ListItem>
+          </a>
+        </Link>
         <ListItem>
           <Label color={color}>Pozew o zachowek</Label>
         </ListItem>
@@ -276,7 +288,7 @@ const BlogNavList = ({ active, color }) => {
 
   const fetchBlogArticles = async () => {
     const collectionRef = collection(db, "/blog/");
-    const q = query(collectionRef /*, where("visible", "==", true)*/);
+    const q = query(collectionRef, where("visible", "==", true));
 
     const docsData = [];
     const docs = await getDocs(q);
@@ -291,7 +303,6 @@ const BlogNavList = ({ active, color }) => {
   return (
     <ul
       style={{
-        listStyleType: "square",
         marginTop: 10,
         maxWidth: 150,
       }}
@@ -318,7 +329,6 @@ const CalculatorsNavList = ({ active, color }) => {
     <>
       <ul
         style={{
-          listStyleType: "square",
           marginTop: 10,
           maxWidth: 150,
         }}

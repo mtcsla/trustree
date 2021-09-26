@@ -46,6 +46,8 @@ const Header = () => {
       <div className="flex flex-col justify-center m-1">
         <SocialIcon
           network="facebook"
+          href="https://www.facebook.com/Trustree.fb"
+          hrefLang="pl"
           style={{
             height: 28,
             width: 28,
@@ -58,6 +60,7 @@ const Header = () => {
         />
         <SocialIcon
           network="instagram"
+          href="https://www.facebook.com/Trustree.fb"
           style={{
             height: 28,
             width: 28,
@@ -76,4 +79,4 @@ const Header = () => {
 
 export default Header;
 
-const LogoText = styled.span``;
+const LogoText = styled.h1``;
