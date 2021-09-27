@@ -35,7 +35,7 @@ export default function OswiadczenieOdrzuc() {
     <>
       <div className="text-4xl mb-0 mt-0 w-auto text-right flex justify-start text-gray-700 items-center">
         <div
-          className="flex items-center p-3 w-full"
+          className="rounded flex items-center p-3 w-full"
           style={{
             alignSelf: "flex-end",
             background: "rgba(75, 181, 67, 0.2)",

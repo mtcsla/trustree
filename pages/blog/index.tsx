@@ -119,10 +119,12 @@ const Blog = () => {
       <Toaster position="top-right" ref={toaster} className="z-50 mt-10" />{" "}
       <div className="flex-col flex-1 h-full m-2">
         {" "}
-        <h1 className="text-4xl font-bold" style={{ marginBottom: 5 }}>
-          {" "}
-          Nasz blog{" "}
-        </h1>{" "}
+        <div className="text-4xl mb-0 mt-0 w-auto text-right flex justify-start text-gray-700 items-center">
+          <div className="flex items-center p-3 w-full rounded bg-gray-300 bg-opacity-60 mb-3">
+            <Icon icon="edit" size={33} className="mr-2" />
+            <span>NASZ BLOG</span>
+          </div>
+        </div>
         <p>Dowiedz się więcej na temat swojej sprawy.</p>{" "}
         {blogs.length ? (
           <BlogList
