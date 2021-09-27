@@ -95,7 +95,7 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
         ${metadata.testator.name}, zmarł${isTestatorMale ? "y" : "a"} w dniu
         ${moment(metadata.testator.deathDate)
           .toDate()
-          .toLocaleDateString("en-GB")}
+          .toLocaleDateString("pl-PL")}
         w miejscowości ${metadata.testator.deathPlace}, ostatnio
         zamieszkał${isTestatorMale ? "y" : "a"} pod adresem
         ${metadata.testator.address}, w trybie dziedziczenia ustawowego
@@ -125,7 +125,7 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
         miejscowości ${metadata.testator.deathPlace} w dniu
         ${moment(metadata.testator.deathDate)
           .toDate()
-          .toLocaleDateString("en-GB")}.
+          .toLocaleDateString("pl-PL")}.
         <br /><br />
 
         Wnioskodawc${isHereditaryMale ? "a" : "zyni"} to
@@ -145,7 +145,7 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
         ${metadata.testator.uscName} z dnia
         ${moment(metadata.testator.deathDate)
           .toDate()
-          .toLocaleDateString("en-GB")}
+          .toLocaleDateString("pl-PL")}
         nr ${metadata.testator.number},<br />
         &nbsp;&nbsp;&nbsp;&nbsp;2) odpis skrócony aktu
         ${(metadata.hereditary.changedSurname ||
@@ -158,7 +158,7 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
         z ${metadata.hereditary.act.uscName} z dnia
         ${moment(metadata.hereditary.act.date)
           .toDate()
-          .toLocaleDateString("en-GB")},
+          .toLocaleDateString("pl-PL")},
         nr ${metadata.hereditary.act.number}.<br />
         ${getFurtherProof(metadata, isTestatorMale)}
         <br /><br />
@@ -247,7 +247,7 @@ function getFurtherProof(metadata, isTestatorMale) {
         : ` spadkobiercy: ${i.name}`)
     } z ${i["act.uscName"]} z dnia ${moment(i["act.date"])
       .toDate()
-      .toLocaleDateString("en-GB")}, nr ${i["act.number"]}<br> `;
+      .toLocaleDateString("pl-PL")}, nr ${i["act.number"]}<br> `;
     number += 1;
   }
   return furtherProof;

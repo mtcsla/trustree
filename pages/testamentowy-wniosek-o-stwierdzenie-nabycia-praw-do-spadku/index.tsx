@@ -1477,10 +1477,14 @@ export default function WniosekTestament() {
                         onChange={({ value }) =>
                           setFieldValue("courtNumber", value)
                         }
-                        value={{
-                          value: values.courtNumber,
-                          label: values.courtNumber,
-                        }}
+                        value={
+                          values.courtName == null
+                            ? null
+                            : {
+                                value: values.courtNumber,
+                                label: values.courtNumber,
+                              }
+                        }
                         options={[
                           {
                             value: "I",
@@ -1547,7 +1551,7 @@ export default function WniosekTestament() {
   );
 }
 
-const Body = styled.div`
+export const Body = styled.div`
   @media (max-width: 800px) {
     width: 100%;
 
@@ -1569,13 +1573,13 @@ const WrapFlex = styled.div`
   }
 `;
 
-const RowFormGroup = styled(FormGroup)`
+export const RowFormGroup = styled(FormGroup)`
   width: 49%;
   @media (max-width: 800px) {
     width: 100%;
   }
 `;
-const RowForm = styled.div`
+export const RowForm = styled.div`
   display: flex;
   width: 100%;
   flex-wrap: wrap;
@@ -1586,6 +1590,6 @@ const RowForm = styled.div`
   }
 `;
 
-const RenderErrorMessage = (message) => {
+export const RenderErrorMessage = (message) => {
   return <p className="text-xs text-red-500 mt-2">{message}</p>;
 };

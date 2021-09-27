@@ -89,12 +89,12 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
         ${metadata.testator.name}, zmarł${isTestatorMale ? "y" : "a"} w dniu
         ${moment(metadata.testator.deathDate)
           .toDate()
-          .toLocaleDateString("en-GB")}
+          .toLocaleDateString("pl-PL")}
         w miejscowości ${metadata.testator.deathPlace}, ostatnio
         zamieszkał${isTestatorMale ? "y" : "a"} pod adresem
         ${metadata.testator.address}, na podstawie testamentu sporządzonego w
         dniu
-        ${moment(metadata.testament.date).toDate().toLocaleDateString("en-GB")}
+        ${moment(metadata.testament.date).toDate().toLocaleDateString("pl-PL")}
         przez spadkodawc${isTestatorMale ? "ę" : "zynię"} w trybie art. 949 § 1
         kc,
         ${metadata.otherHereditaries.length === 0
@@ -113,7 +113,7 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
         <br /><br />&nbsp;&nbsp;&nbsp;&nbsp; 2. otwarcie i ogłoszenie
         testamentu, który sporządził${isTestatorMale ? "" : "a"}
         ${metadata.testator.name} z dnia
-        ${moment(metadata.testament.date).toDate().toLocaleDateString("en-GB")},
+        ${moment(metadata.testament.date).toDate().toLocaleDateString("pl-PL")},
         sporządzonego w trybie art. 949 §1 kc.<br /><br />
         Ponadto wnoszę o:<br /><br />
         &nbsp;&nbsp;&nbsp;&nbsp; 3. rozstrzygnięcie co do kosztów postępowania
@@ -126,7 +126,7 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
         miejscowości ${metadata.testator.deathPlace} w dniu
         ${moment(metadata.testator.deathDate)
           .toDate()
-          .toLocaleDateString("en-GB")}.
+          .toLocaleDateString("pl-PL")}.
         <br /><br />
 
         Wnioskodawc${isHereditaryMale ? "a" : "zyni"} to
@@ -147,7 +147,7 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
         ${metadata.testator.uscName} z dnia
         ${moment(metadata.testator.deathDate)
           .toDate()
-          .toLocaleDateString("en-GB")}
+          .toLocaleDateString("pl-PL")}
         nr ${metadata.testator.number},<br />
         &nbsp;&nbsp;&nbsp;&nbsp;2) odpis skrócony aktu
         ${(metadata.hereditary.changedSurname ||
@@ -160,7 +160,7 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
         z ${metadata.hereditary.act.uscName} z dnia
         ${moment(metadata.hereditary.act.date)
           .toDate()
-          .toLocaleDateString("en-GB")},
+          .toLocaleDateString("pl-PL")},
         nr ${metadata.hereditary.act.number}.<br />
         ${getFurtherProof(metadata, isTestatorMale)}
         <br /><br />
@@ -169,7 +169,7 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
           ? html`W dniu
             ${moment(metadata.testament.date)
               .toDate()
-              .toLocaleDateString("en-GB")},
+              .toLocaleDateString("pl-PL")},
             spadkodawc${isTestatorMale ? "a" : "zyni"}
             oświadczył${isTestatorMale ? "" : "a"} swą ostatnią wolę w trybie
             art. 949 kc na piśmie i opatrzył${isTestatorMale ? "" : "a"}
@@ -179,7 +179,7 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
             sporządzony w dniu
             ${moment(metadata.testament.date)
               .toDate()
-              .toLocaleDateString("en-GB")}
+              .toLocaleDateString("pl-PL")}
             przed notariuszem: ${metadata.testament.notarial.name}, w Kancelarii
             Notarialnej w miejscowości ${metadata.testament.notarial.city}, Rep.
             ${metadata.testament.notarial.repository} nr
@@ -190,7 +190,7 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
           ? html`oryginał testamentu z dnia
             ${moment(metadata.testament.date)
               .toDate()
-              .toLocaleDateString("en-GB")}`
+              .toLocaleDateString("pl-PL")}`
           : html`wypis aktu notarialnego zawierającego testament`}
         <br /><br />
         III. Zapewniam w trybie art. 671 kpc, iż niniejszym sporządzony w trybie
@@ -248,7 +248,7 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
           ? html`Oryginał testamentu z dnia
             ${moment(metadata.testament.date)
               .toDate()
-              .toLocaleDateString("en-GB")},
+              .toLocaleDateString("pl-PL")},
             plus kserokopia`
           : "Odpis testamentu"},<br />
         &nbsp;&nbsp;&nbsp;&nbsp;3. Odpis skrócony aktu zgonu spadkodawcy, plus
@@ -281,7 +281,7 @@ function getFurtherProof(metadata, isTestatorMale) {
         ? html` spadkodawc${isTestatorMale ? "y" : "zyni"}`
         : html` spadkobiercy: ${i.name}`)}
       z ${i["act.uscName"]} z dnia
-      ${moment(i["act.date"]).toDate().toLocaleDateString("en-GB")}, nr
+      ${moment(i["act.date"]).toDate().toLocaleDateString("pl-PL")}, nr
       ${i["act.number"]}<br />
       html`;
     number += 1;

@@ -1296,10 +1296,14 @@ export default function WniosekTestament() {
                         onChange={({ value }) =>
                           setFieldValue("courtNumber", value)
                         }
-                        value={{
-                          value: values.courtNumber,
-                          label: values.courtNumber,
-                        }}
+                        value={
+                          values.courtNumber == null
+                            ? null
+                            : {
+                                value: values.courtNumber,
+                                label: values.courtNumber,
+                              }
+                        }
                         options={[
                           {
                             value: "I",

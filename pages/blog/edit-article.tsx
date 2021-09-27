@@ -168,7 +168,7 @@ export default function EditArticle() {
               <p>{article.author}</p>
               <p className="flex items-center">
                 <Icon icon="calendar" className="m-2" />
-                {article.date.toDate().toLocaleDateString("en-GB")}
+                {article.date.toDate().toLocaleDateString("pl-PL")}
               </p>
             </div>
           </div>

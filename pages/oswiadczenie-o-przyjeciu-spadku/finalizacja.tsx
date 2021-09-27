@@ -3,7 +3,7 @@ import React from "react";
 import {
   getRelation,
   OtherHereditariesRenderer,
-} from "../../components/wniosek/OtherHereditariesRenderer";
+} from "../../components/oswiadczenie/OtherHereditariesRenderer";
 import { CardForm } from "../kalkulator";
 import { useRouter } from "next/dist/client/router";
 import ColorfulIcon from "../../components/layout/ColorfulIcon";
@@ -11,7 +11,6 @@ import ColorfulIcon from "../../components/layout/ColorfulIcon";
 export async function getServerSideProps({ query }) {
   try {
     query.otherHereditaries = JSON.parse(query.otherHereditaries);
-
     return {
       props: {
         data: query,
@@ -30,25 +29,15 @@ export default function Finalizacja({ data }) {
   const router = useRouter();
   React.useEffect(() => {
     if (!data) {
-      router.push("/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku");
+      router.push("/oswiadczenie-o-odrzuceniu-spadku");
     }
   }, []);
   return data ? (
     <>
-      <h1 className="text-4xl font-bold">
-        Wniosek o stwierdzenie nabycia praw do spadku
-      </h1>
+      <h1 className="text-4xl font-bold">Oświadczenie o przyjęciu spadku</h1>
       <p className="text-sm">Upewnij się, że wprowadzone dane są poprawne.</p>
       <Callout intent="primary" className="mt-6">
-        Wykonanie tego pisma kosztuje:
-        <ul className="list-disc list-inside">
-          <li>
-            <b>50zł</b>, jeśli jesteś jedynym spadkobiercą
-          </li>
-          <li>
-            <b>100zł</b>, jeśli jest więcej spadkobierców
-          </li>
-        </ul>
+        Wykonanie tego pisma kosztuje <b>20zł</b>.
       </Callout>
       <CardForm>
         <h2 className="flex items-center w-full font-bold text-2xl mb-0">
@@ -88,103 +77,29 @@ export default function Finalizacja({ data }) {
               {data.street + ", " + data.postal + " " + data.city}
             </span>
           </div>
-          <div className="flex flex-col pl-2">
-            <div className="w-full uppercase text-xs flex items-center text-right justify-end">
-              Udział w spadku{" "}
-              <Icon icon="pie-chart" className="ml-2" size={12} />
-            </div>
-            <span className="w-full text-base text-right w-full">
-              {data.share}
-            </span>
-          </div>
-        </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="flex justify-between w-full">
-          <div className="flex flex-col">
-            <div className="w-full uppercase text-xs flex items-center">
-              <Icon icon="people" className="mr-2" size={12} />
+          <div className="flex flex-col pl-2 items-end">
+            <div className="w-full uppercase text-xs text-right flex flex-row-reverse items-center">
+              <Icon icon="people" className="ml-2" size={12} />
               Kim był zmarły wobec Ciebie?
             </div>
-            <span className="w-full text-base">
+            <span className="w-full text-base text-right">
               {getRelation(data.relation)}
             </span>
           </div>
-          <div className="flex flex-col pl-2">
-            <div className="w-full uppercase text-xs flex items-center text-right justify-end">
-              Twoja płeć <Icon icon="one-to-many" className="ml-2" size={12} />
-            </div>
-            <span className="w-full text-base text-right w-full">
-              {data.gender == 0 ? "mężczyzna" : "kobieta"}
-            </span>
-          </div>
         </div>
         <Divider className="w-full mt-4 mb-4" />
-        <div className="flex justify-between w-full">
-          <div className="flex flex-col">
+        <div className="flex w-full justify-between">
+          <div className="flex flex-col items-end">
             <div className="w-full uppercase text-xs flex items-center">
-              <Icon icon="document" className="mr-2" size={12} /> Forma
-              przyjęcia spadku:
+              <Icon icon="people" className="mr-2" size={12} />
+              forma przyjęcia spadku:
             </div>
             <span className="w-full text-base">
-              {data.forma == 0
-                ? "przyjęcie proste"
-                : "przyjęcie z dobrodziejstwem inwentarza"}
+              {data.forma == 1
+                ? "przyjęcie z dobrodziejstwem inwentarza"
+                : "przyjęcie proste"}
             </span>
           </div>
-          <div className="flex flex-col pl-2">
-            <div className="w-full uppercase text-xs flex items-center text-right justify-end">
-              dowód pokrewieństwa
-              <Icon icon="document-share" className="ml-2" size={12} />
-            </div>
-            <span className="w-full text-base text-right w-full">
-              {data.actType == 0
-                ? "odpis skrócony aktu małżeństwa"
-                : "odpis skrócony aktu urodzenia"}
-            </span>
-          </div>
-        </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="w-full uppercase text-xs flex items-center">
-          <Icon icon="numerical" className="mr-2" size={12} /> numer pesel:
-        </div>
-        <span className="w-full text-base">{data.pesel}</span>
-        <h3 className="w-full flex items-center mt-6">
-          <ColorfulIcon
-            icon={"document"}
-            color="21,37,200"
-            size={14}
-            style={{ marginRight: 10 }}
-          />
-          Dane {data.relation == 3 ? "" : "twojego "} skróconego odpisu aktu{" "}
-          {data.actType == 0 || data.relation == 1 ? "małżeństwa" : "urodzenia"}{" "}
-          {data.relation == 3 ? "zmarłego" : ""}
-        </h3>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="office" className="mr-2" size={12} /> nazwa urzędu stanu
-            cywilnego:{" "}
-          </p>
-          <span>{data.actUscName}</span>
-        </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="numerical" className="mr-2" size={12} /> numer odpisu
-            skróconego aktu:
-          </p>
-          <span>{data.actNumber}</span>
-        </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="calendar" className="mr-2" size={12} /> data{" "}
-            {data.actType == 0 || data.relation == 1
-              ? "zawarcia małżeństwa"
-              : "urodzenia"}
-            :
-          </p>
-          <span>{new Date(data.actDate).toLocaleDateString("pl-PL")}</span>
         </div>
       </CardForm>
 
@@ -192,6 +107,7 @@ export default function Finalizacja({ data }) {
         Jeśli wypełniłeś formularz wadliwymi danymi i zakupisz pismo, nie będzie
         możliwości jego edycji!
       </Callout>
+
       <CardForm>
         <h2 className="flex items-center w-full font-bold text-2xl mb-0">
           <ColorfulIcon
@@ -278,6 +194,32 @@ export default function Finalizacja({ data }) {
           </p>
           <span>{data.deadActNumber}</span>
         </div>
+        <Divider className="w-full mt-4 mb-4" />
+
+        <h3 className="w-full flex items-center mt-6">
+          <ColorfulIcon
+            icon={"document"}
+            color="220,150,70"
+            size={14}
+            style={{ marginRight: 10 }}
+          />
+          Dane testamentu
+        </h3>
+        <Divider className="w-full mt-4 mb-4" />
+
+        {data.testament == 1 ? (
+          <div className="flex w-full justify-between">
+            <div className="flex flex-col">
+              <div className="w-full uppercase text-xs flex items-center">
+                <Icon icon="calendar" className="mr-2" size={12} /> data
+                spisania:{" "}
+              </div>
+              <span className="w-full text-base">
+                {new Date(data.testamentDate).toLocaleDateString("pl-PL")}
+              </span>
+            </div>
+          </div>
+        ) : null}
       </CardForm>
       <CardForm>
         <h2 className="flex items-center w-full font-bold text-2xl mb-0">
@@ -326,81 +268,6 @@ export default function Finalizacja({ data }) {
             cywilnego sądu:
           </p>
           <span>{data.courtNumber}</span>
-        </div>
-      </CardForm>
-      <CardForm>
-        <h2 className="flex items-center w-full font-bold text-2xl mb-0">
-          <ColorfulIcon
-            size={18}
-            color="256, 122, 15"
-            icon={"edit"}
-            style={{ marginRight: 7 }}
-          />{" "}
-          Testament
-        </h2>
-        <Divider className="w-full mt-4 mb-4" />
-
-        <div className="flex justify-between w-full">
-          <div>
-            <div className="w-full uppercase text-xs flex items-center">
-              <Icon icon="calendar" className="mr-2" size={12} /> data spisania:{" "}
-            </div>
-            <span className="w-full text-base">
-              {new Date(data.testamentDate).toLocaleDateString("pl-PL")}
-            </span>
-          </div>
-
-          <div className="flex flex-col pl-2">
-            <div className="w-full uppercase text-xs flex items-center text-right justify-end">
-              potwierdzony notarialnie?{" "}
-              <Icon icon="envelope" className="ml-2" size={12} />
-            </div>
-            <span className="w-full text-base text-right w-full">
-              {data.testamentNotarial == "true" ? "tak" : "nie"}
-            </span>
-          </div>
-        </div>
-
-        <Divider className="w-full mt-4 mb-4" />
-        <h3 className="w-full flex items-center mt-6">
-          <ColorfulIcon
-            icon={"document"}
-            color="21,37,200"
-            size={14}
-            style={{ marginRight: 10 }}
-          />
-          Dane aktu notarialnego testamentu
-        </h3>
-        <Divider className="w-full mt-4 mb-4" />
-
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="person" className="mr-2" size={12} /> imię i nazwisko
-            notariusza:
-          </p>
-          <span>{data.testamentNotarialName}</span>
-        </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="office" className="mr-2" size={12} /> miejscowośc
-            kancelarii:
-          </p>
-          <span>{data.testamentNotarialCity}</span>
-        </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="book" className="mr-2" size={12} /> repozytorium aktu:
-          </p>
-          <span>{data.testamentNotarialRepository}</span>
-        </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="numerical" className="mr-2" size={12} /> numer aktu:
-          </p>
-          <span>{data.testamentNotarialNumber}</span>
         </div>
       </CardForm>
       <Button intent="success" className="mt-8" rightIcon="caret-right" fill>

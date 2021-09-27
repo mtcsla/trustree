@@ -285,14 +285,18 @@ const PismaNavList = ({ active, color }) => {
 
 const BlogNavList = ({ active, color }) => {
   const [blogArticles, setBlogArticles] = React.useState([]);
+  const { getUserRole } = useAuth();
 
   const fetchBlogArticles = async () => {
     const collectionRef = collection(db, "/blog/");
-    const q = query(collectionRef, where("visible", "==", true));
+    let q;
+
+    q = query(collectionRef, where("visible", "==", true));
 
     const docsData = [];
     const docs = await getDocs(q);
 
+    //@ts-ignore
     docs.forEach((doc) => docsData.push({ ...doc.data(), id: doc.id }));
     setBlogArticles(docsData);
   };

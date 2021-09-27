@@ -150,16 +150,16 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         I. Dnia
         ${moment(metadata.testator.deathDate)
           .toDate()
-          .toLocaleDateString("en-GB")}
+          .toLocaleDateString("pl-PL")}
         zmarł spadkodawca -
         ${getTestatorRelation(metadata.hereditary.relation, isTestatorMale)}
         powoda, ${metadata.hereditary.name}, pozostawiając testament z dnia
-        ${moment(metadata.testament.date).toDate().toLocaleDateString("en-GB")}.
+        ${moment(metadata.testament.date).toDate().toLocaleDateString("pl-PL")}.
         Zgodnie z tym testamentem, do spadku zostali powołani:
         ${allNamesAndRelations} Na mocy prawomocnego postanowienia wydanego
         przez ${metadata.decision.courtName}, ${metadata.decision.number}
         Wydział Cywilny z dnia
-        ${moment(metadata.decision.name).toDate().toLocaleDateString("en-GB")},
+        ${moment(metadata.decision.name).toDate().toLocaleDateString("pl-PL")},
         spadek po spadkodawcy, ${metadata.testator.name},
         naby${metadata.otherHereditaries.length > 1 ? "li:" : "ł"} ${allNames}
         <br />
@@ -172,20 +172,20 @@ export const zachowekLawsuit_pl = (metadata: any) => {
             ${metadata.testator.number} z dnia
             ${moment(metadata.testator.deathDate)
               .toDate()
-              .toLocaleDateString("en-GB")}, <br />
+              .toLocaleDateString("pl-PL")}, <br />
           </li>
           ${tab}
           <li>
             postanowienie wydane przez ${metadata.decision.courtName} z dnia
             ${moment(metadata.decision.date)
               .toDate()
-              .toLocaleDateString("en-GB")}
+              .toLocaleDateString("pl-PL")}
             sygn. ${metadata.decision.signature}
             ${metadata.decision.clause
               ? `wraz z klauzulą prawomocności z
         dnia ${moment(metadata.decision.clauseDate)
           .toDate()
-          .toLocaleDateString("en-GB")} (odpis notarialny), na okoliczność
+          .toLocaleDateString("pl-PL")} (odpis notarialny), na okoliczność
         nabycia spadku na mocy testamentu przez osobę pozwaną.`
               : "."}
           </li>
@@ -209,7 +209,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         powoda, z dnia
         ${moment(metadata.hereditary.act.date)
           .toDate()
-          .toLocaleDateString("en-GB")},
+          .toLocaleDateString("pl-PL")},
         z ${metadata.hereditary.act.uscName}. <br />
         <br />
         ${metadata.immovables.length > 0 || metadata.movables.length > 0
@@ -268,7 +268,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
                   ${metadata.decision.courtName} z dnia
                   ${moment(metadata.decision.date)
                     .toDate()
-                    .toLocaleDateString("en-GB")}
+                    .toLocaleDateString("pl-PL")}
                   sygn. ${metadata.decision.signature} wraz z pisemnym
                   uzasadnieniem.
                 </li>
@@ -312,7 +312,7 @@ const getImmovables = (immovables, hereditary) => {
         <ol>
           <li>
             odpis zwykły księgi wieczystej nr ${i.number} z dnia
-            ${moment(i.bookDate).toDate().toLocaleDateString("en-GB")}, na
+            ${moment(i.bookDate).toDate().toLocaleDateString("pl-PL")}, na
             okoliczność wchodzenia w skład spadku po spadkodawcy,
             ${!i.testatorShare
               ? `udziału w ${i.testatorShare} części`
@@ -475,19 +475,19 @@ const getGrants = (grants) => {
     for (const i of grants)
       grantsString += html`<li>
         na kwotę ${i.value}zł z dnia
-        ${moment(i.date).toDate().toLocaleDateString("en-GB")}. <br />
+        ${moment(i.date).toDate().toLocaleDateString("pl-PL")}. <br />
         <br />
         <b>Dowód:</b> akt darowizny z dnia
-        ${moment(i.date).toDate().toLocaleDateString("en-GB")} w miejscowości
+        ${moment(i.date).toDate().toLocaleDateString("pl-PL")} w miejscowości
         ${i.city}. <br /><br />
       </li>`;
   else if (grants.length === 1) {
     const i = grants[0];
     grantsString += html` na kwotę ${i.value}zł z dnia
-      ${moment(i.date).toDate().toLocaleDateString("en-GB")}. <br />
+      ${moment(i.date).toDate().toLocaleDateString("pl-PL")}. <br />
       <br />
       <b>Dowód:</b> akt darowizny z dnia
-      ${moment(i.date).toDate().toLocaleDateString("en-GB")} w miejscowości
+      ${moment(i.date).toDate().toLocaleDateString("pl-PL")} w miejscowości
       ${i.city}. <br /><br />`;
   } else return "";
 

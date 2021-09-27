@@ -11,7 +11,6 @@ import ColorfulIcon from "../../components/layout/ColorfulIcon";
 export async function getServerSideProps({ query }) {
   try {
     query.otherHereditaries = JSON.parse(query.otherHereditaries);
-    console.log(query);
 
     return {
       props: {
@@ -185,7 +184,7 @@ export default function Finalizacja({ data }) {
               : "urodzenia"}
             :
           </p>
-          <span>{new Date(data.actDate).toLocaleDateString("en-GB")}</span>
+          <span>{new Date(data.actDate).toLocaleDateString("pl-PL")}</span>
         </div>
       </CardForm>
 
@@ -228,7 +227,7 @@ export default function Finalizacja({ data }) {
               <Icon icon="calendar" className="mr-2" size={12} /> data śmierci:{" "}
             </div>
             <span className="w-full text-base">
-              {new Date(data.deadDate).toLocaleDateString("en-GB")}
+              {new Date(data.deadDate).toLocaleDateString("pl-PL")}
             </span>
           </div>
 

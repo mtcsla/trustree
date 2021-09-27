@@ -336,7 +336,7 @@ export const BlogList = ({
                   </div>
                   <div className="flex items-center">
                     <Icon icon="calendar" style={{ marginRight: 5 }} />{" "}
-                    <h4>{article.date.toDate().toLocaleDateString("en-GB")}</h4>
+                    <h4>{article.date.toDate().toLocaleDateString("pl-PL")}</h4>
                   </div>
                 </div>
               </BlogArticle>

@@ -16,7 +16,7 @@ export const getServerSideProps = async (context) => {
   const doc = await firestore.collection("blog").doc(article).get();
 
   const blogpost = doc.data();
-  blogpost.date = blogpost.date.toDate().toLocaleDateString("en-GB");
+  blogpost.date = blogpost.date.toDate().toLocaleDateString("pl-PL");
 
   return {
     props: { article: blogpost },
