@@ -3,6 +3,7 @@ import {
   Callout,
   Divider,
   FormGroup,
+  Icon,
   InputGroup,
 } from "@blueprintjs/core";
 import styled from "@emotion/styled";
@@ -78,8 +79,18 @@ export default function WniosekTestament() {
     <>
       <h1 className="text-4xl font-bold">
         Wygeneruj wniosek o stwierdzenie nabycia praw do spadku
-        <br />
-        <p className="text-sm mb-5">wg. dziedziczenia ustawowego</p>
+        <br />{" "}
+        <div className="flex">
+          <p
+            className="flex items-center text-sm mb-5 w-auto p-1 rounded mt-1"
+            style={{
+              background: "rgba(250, 200, 0, 0.2)",
+            }}
+          >
+            wg. dziedziczenia ustawowego
+            <Icon icon="document" className="ml-1" size={12} />
+          </p>
+        </div>
       </h1>
       <p>Podaj nam swoje dane, a my utworzymy za Ciebie wniosek.</p>
       <Callout intent="primary" className="mt-6">

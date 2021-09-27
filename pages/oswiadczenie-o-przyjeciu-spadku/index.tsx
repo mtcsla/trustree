@@ -3,6 +3,7 @@ import {
   Callout,
   Divider,
   FormGroup,
+  Icon,
   InputGroup,
 } from "@blueprintjs/core";
 import { ErrorMessage, Field, Formik } from "formik";
@@ -32,9 +33,25 @@ export default function OswiadczenieOdrzuc() {
   }, []);
   return (
     <>
-      <h1 className="text-4xl">Oświadczenie o przyjęciu spadku</h1>
+      <div className="text-4xl mb-0 mt-0 w-auto text-right flex justify-start text-gray-700 items-center">
+        <div
+          className="flex items-center p-3 w-full"
+          style={{
+            alignSelf: "flex-end",
+            background: "rgba(75, 181, 67, 0.2)",
+          }}
+        >
+          <Icon icon="tick" size={30} className="mr-2" />
+          <span>PRZYJMIJ SPADEK</span>
+        </div>
+      </div>
+      <Callout intent="primary" className="mt-1 mb-6">
+        Wykonanie tego pisma kosztuje <b>20zł</b>.
+      </Callout>
+
       <p className="mt-2">
-        Podaj nam swoje dane, a my wykonamy za Ciebie oświadczenie.
+        Podaj nam swoje dane, a my wykonamy za Ciebie oświadczenie o przyjęciu
+        spadku.
       </p>
       {loaded ? (
         <Formik
@@ -124,9 +141,6 @@ export default function OswiadczenieOdrzuc() {
 
             return (
               <>
-                <Callout intent="primary" className="mt-6">
-                  Wykonanie tego pisma kosztuje <b>20zł</b>.
-                </Callout>
                 <CardForm>
                   <div className="flex flex-wrap w-full">
                     <Body

@@ -39,9 +39,8 @@ export default function App({ Component, pageProps }) {
           <title>Trustree | serwis z pismami sądowymi</title>
         </Head>
         <TopHeader
-          className="fixed flex justify-center text-center"
+          className="fixed flex justify-center text-center p-2"
           style={{
-            padding: 2,
             alignItems: "center",
             zIndex: 100,
             color: "white",
@@ -51,7 +50,9 @@ export default function App({ Component, pageProps }) {
             top: 0,
           }}
         >
-          Potrzebujesz pomocy? Przeczytaj posty na naszym blogu!
+          <p style={{ fontSize: windowWidth > 800 ? 14 : 10 }}>
+            Potrzebujesz pomocy? Przeczytaj posty na naszym blogu!
+          </p>
         </TopHeader>
         <NavigationBar>
           <Icon icon="menu" size={30} onClick={() => setNavExtended(true)} />
@@ -211,6 +212,8 @@ const Wrapper = styled.div`
 
 const TopHeader = styled.div`
   height: 40px;
+  box-sizing: border-box;
+
   background: var(--medium-sea-green);
   @media (max-width: 800px) {
     height: 35px;
