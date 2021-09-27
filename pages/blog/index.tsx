@@ -371,12 +371,5 @@ const toggleVisibility = async (
 };
 
 const BlogListDiv = styled.div`
-  width: 70%;
-  min-width: 450px;
-
-  @media (max-width: 800px) {
-    width: 100%;
-    min-width: 0px;
-    padding: 0px;
-  }
+  width: 100%;
 `;

@@ -173,19 +173,21 @@ export default function EditArticle() {
             </div>
           </div>
           <span id="article">
-            <RichMarkdownEditor
-              //@ts-ignore
-              theme={{
-                background: "var(--layout-bg)",
-              }}
-              onChange={(value) =>
-                articleDispatch({ value: value() ?? "", type: "setContents" })
-              }
-              defaultValue={article.contents}
-              uploadImage={async (file) => {
-                return await uploadImage(file);
-              }}
-            />
+            <Editor>
+              <RichMarkdownEditor
+                //@ts-ignore
+                theme={{
+                  background: "var(--layout-bg)",
+                }}
+                onChange={(value) =>
+                  articleDispatch({ value: value() ?? "", type: "setContents" })
+                }
+                defaultValue={article.contents}
+                uploadImage={async (file) => {
+                  return await uploadImage(file);
+                }}
+              />
+            </Editor>
           </span>
           <Button
             intent={!loading ? "success" : "primary"}
@@ -207,6 +209,15 @@ export default function EditArticle() {
   );
 }
 
+const Editor = styled.div`
+  background: transparent !important;
+  width: 70%;
+  min-width: 400px;
+  @media (max-width: 800px) {
+    width: 100%;
+    min-width: 0;
+  }
+`;
 const MarkdownSpan = styled.div`
   width: 70%;
   padding: 30px;

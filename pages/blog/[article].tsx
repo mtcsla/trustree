@@ -80,14 +80,16 @@ const Article = ({ article }) => {
         </div>
       </div>
       <span id="article">
-        <RichMarkdownEditor
-          readOnly
-          value={contents}
-          //@ts-ignore
-          theme={{
-            background: "var(--layout-bg)",
-          }}
-        />
+        <Editor>
+          <RichMarkdownEditor
+            readOnly
+            value={contents}
+            //@ts-ignore
+            theme={{
+              background: "var(--layout-bg)",
+            }}
+          />
+        </Editor>
       </span>
       <Divider />
       <h1
@@ -102,15 +104,21 @@ const Article = ({ article }) => {
 };
 
 export default Article;
-
-const MarkdownSpan = styled.div`
+const Editor = styled.div`
+  background: transparent !important;
   width: 70%;
-  padding: 30px;
-  min-width: 450px;
-
+  min-width: 400px;
   @media (max-width: 800px) {
     width: 100%;
-    min-width: 0px;
+    min-width: 0;
+  }
+`;
+const MarkdownSpan = styled.div`
+  padding: 30px;
+  width: 100%;
+  min-width: 0px;
+
+  @media (max-width: 800px) {
     padding: 0px;
   }
 `;
