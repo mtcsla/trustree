@@ -34,82 +34,116 @@ export default function App({ Component, pageProps }) {
 
   return (
     <navContext.Provider value={navContextValue}>
-      <AuthProvider>
-        <Head>
-          <title>Trustree | serwis z pismami sądowymi</title>
-        </Head>
-        <TopHeader
-          className="fixed flex justify-center text-center p-2"
-          style={{
-            alignItems: "center",
-            zIndex: 100,
-            color: "white",
+      {router.pathname !== "/" ? (
+        <AuthProvider>
+          <Head>
+            <title>Trustree | serwis z pismami sądowymi</title>
+          </Head>
+          <TopHeader
+            className="fixed flex justify-center text-center p-2"
+            style={{
+              alignItems: "center",
+              zIndex: 100,
+              color: "white",
 
-            left: 0,
-            right: 0,
-            top: 0,
-          }}
-        >
-          <p style={{ fontSize: windowWidth > 800 ? 14 : 10 }}>
-            Potrzebujesz pomocy? Przeczytaj posty na naszym blogu!
-          </p>
-        </TopHeader>
-        <NavigationBar>
-          <Icon icon="menu" size={30} onClick={() => setNavExtended(true)} />
-          <div className="flex items-center ">
-            <img
-              src="/logo-light.svg"
-              style={{
-                height: 60,
-                paddingRight: 5,
-                marginLeft: "auto",
-                marginRight: "auto",
-              }}
-            />
-            <div className="flex flex-col justify-center h-full">
-              <h1
-                className="text-4xl font-bold"
-                style={{ marginTop: 7, lineHeight: 0.8 }}
-              >
-                Trustree
-              </h1>
-              <a style={{ fontSize: 10 }} className="text-gray-500 text-xs">
-                Strona główna
-              </a>
+              left: 0,
+              right: 0,
+              top: 0,
+            }}
+          >
+            <p style={{ fontSize: windowWidth > 800 ? 14 : 10 }}>
+              Potrzebujesz pomocy? Przeczytaj posty na naszym blogu!
+            </p>
+          </TopHeader>
+          <NavigationBar>
+            <Icon icon="menu" size={30} onClick={() => setNavExtended(true)} />
+            <div className="flex items-center ">
+              <img
+                src="/logo-light.svg"
+                style={{
+                  height: 60,
+                  paddingRight: 5,
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}
+              />
+              <div className="flex flex-col justify-center h-full">
+                <h1
+                  className="text-4xl font-bold"
+                  style={{ marginTop: 7, lineHeight: 0.8 }}
+                >
+                  Trustree
+                </h1>
+                <a style={{ fontSize: 10 }} className="text-gray-500 text-xs">
+                  Strona główna
+                </a>
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col justify-center">
-            <SocialIcon
-              network="facebook"
+            <div className="flex flex-col justify-center">
+              <SocialIcon
+                network="facebook"
+                style={{
+                  height: 30,
+                  width: 30,
+                  background: "var(--border-color)",
+                  borderRadius: 5,
+                  padding: 3,
+                }}
+                href="https://www.facebook.com/Trustree.fb"
+                bgColor="rgba(0, 0, 0, 0)"
+                fgColor="rgba(0, 0, 0, 1)"
+              />
+              <SocialIcon
+                network="instagram"
+                style={{
+                  height: 30,
+                  width: 30,
+                  marginTop: 5,
+                  background: "var(--border-color)",
+                  borderRadius: 5,
+                  padding: 3,
+                }}
+                href="https://www.facebook.com/Trustree.fb"
+                bgColor="rgba(0, 0, 0, 0)"
+                fgColor="rgba(0, 0, 0, 1)"
+              />
+            </div>
+          </NavigationBar>
+          <Wrapper className="flex h-full" style={{ overflowY: "hidden" }}>
+            <Navigation
+              ref={navRef}
+              shown={navExtended}
+              className="flex flex-col justify-start h-full fixed"
+            >
+              <Header />
+
+              <Nav />
+              <div
+                className="flex justify-between items-center"
+                style={{ paddingBottom: 40 }}
+              >
+                <p className="flex text-xs items-center text-gray-600 m-6 ">
+                  Trustree © 2021
+                </p>
+              </div>
+            </Navigation>
+
+            <Body
+              className="p-10"
               style={{
-                height: 30,
-                width: 30,
-                background: "var(--border-color)",
-                borderRadius: 5,
-                padding: 3,
+                height: "100%",
+                overflowY: "scroll",
+                background: "var(--layout-bg)",
+                flex: 1,
               }}
-              href="https://www.facebook.com/Trustree.fb"
-              bgColor="rgba(0, 0, 0, 0)"
-              fgColor="rgba(0, 0, 0, 1)"
-            />
-            <SocialIcon
-              network="instagram"
-              style={{
-                height: 30,
-                width: 30,
-                marginTop: 5,
-                background: "var(--border-color)",
-                borderRadius: 5,
-                padding: 3,
-              }}
-              href="https://www.facebook.com/Trustree.fb"
-              bgColor="rgba(0, 0, 0, 0)"
-              fgColor="rgba(0, 0, 0, 1)"
-            />
-          </div>
-        </NavigationBar>
-        <Wrapper className="flex h-full" style={{ overflowY: "hidden" }}>
-          <Navigation
+            >
+              <Component {...pageProps} />
+            </Body>
+          </Wrapper>
+        </AuthProvider>
+      ) : (
+        <>
+          <MainPageNav
             ref={navRef}
             shown={navExtended}
             className="flex flex-col justify-start h-full fixed"
@@ -125,21 +159,10 @@ export default function App({ Component, pageProps }) {
                 Trustree © 2021
               </p>
             </div>
-          </Navigation>
-
-          <Body
-            className="p-10"
-            style={{
-              height: "100%",
-              overflowY: "scroll",
-              background: "var(--layout-bg)",
-              flex: 1,
-            }}
-          >
-            <Component {...pageProps} />
-          </Body>
-        </Wrapper>
-      </AuthProvider>
+          </MainPageNav>
+          <Component {...pageProps} />
+        </>
+      )}
     </navContext.Provider>
   );
 }
@@ -173,6 +196,34 @@ const Navigation = styled.div<Shown>`
         width: 300px;
       `}
   }
+
+  background: #fff;
+`;
+
+const MainPageNav = styled.div<Shown>`
+  border-right: 1px solid var(--border-color);
+  width: 300px;
+  min-width: 300px;
+  padding-left: 5%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  box-sizing: content-box;
+  z-index: 10;
+
+  transition: width 200ms ease-in-out, padding-left 200ms ease-in-out;
+
+  white-space: nowrap;
+  min-width: 0px;
+  ${(props) =>
+    !props.shown
+      ? `
+    width: 0px;
+    padding-left: 0;`
+      : `
+        width: 300px;
+      `}
+
   background: #fff;
 `;
 

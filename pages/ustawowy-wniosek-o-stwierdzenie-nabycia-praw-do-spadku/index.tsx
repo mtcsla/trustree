@@ -84,7 +84,7 @@ export default function WniosekTestament() {
           <p
             className="flex items-center text-sm mb-5 w-auto p-1 rounded mt-1"
             style={{
-              background: "rgba(250, 200, 0, 0.2)",
+              background: "rgba(250, 20, 0, 0.2)",
             }}
           >
             wg. dziedziczenia ustawowego

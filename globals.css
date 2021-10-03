@@ -179,6 +179,15 @@ body {
   }
 }
 
+@media (max-width: 600px) {
+  .text-6xl {
+    font-size: 45px !important;
+  }
+  .text-lg {
+    font-size: 14px !important;
+  }
+}
+
 h1 {
   font-size: 30px;
 }
