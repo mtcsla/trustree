@@ -1,13 +1,16 @@
 import { createDocument } from "./apicomponents/documentReducer";
 import { firestore } from "./lib/firebase-admin";
 import sendEmail from "./apicomponents/functions/sendEmail";
+import util from "util";
 
 import md5 from "md5";
+import { getMailTemplate } from "./apicomponents/functions/mailTemplate";
 
 export default async (req, res) => {
   try {
     if (req.body.type === "checkout.session.completed") {
       const sessionDocId = req.body.data.object.metadata.id;
+      const sessionDocOrigin = req.body.data.object.metadata.origin;
 
       let metadata = (
         await firestore.collection("requested-docs").doc(sessionDocId).get()
@@ -26,26 +29,38 @@ export default async (req, res) => {
         .doc(md5(metadata.email))
         .collection("owned");
 
-      /*const doc = await ref.add({
+      const { id } = await ref.add({
         document: document,
         filename: filename,
         name: name,
         date: new Date(),
-      });*/
+      });
 
       sendEmail({
         to: metadata.email,
         subject: name,
-        html: document,
+        html: getMailTemplate({
+          id: id,
+          origin: sessionDocOrigin,
+          ...metadata,
+        }),
       })
         .then(() => res.status(200).send({}))
         .catch((err) => {
-          console.log(err);
+          console.log(
+            console.log(
+              util.inspect(err, {
+                showHidden: false,
+                depth: null,
+                colors: true,
+              })
+            )
+          );
           res.status(400).send(err);
         });
     } else res.status(200).send({});
   } catch (err) {
-    console.log(err);
+    console.log(err.body);
     res.status(400).send(err);
   }
 };

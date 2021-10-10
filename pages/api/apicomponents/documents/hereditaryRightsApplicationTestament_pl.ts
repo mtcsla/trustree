@@ -32,9 +32,14 @@ export const determineRelation = (relation, gender) => {
 
 export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
   const date = new Date();
+  console.log("bruh");
 
   const isTestatorMale = metadata.deadGender == "mężczyzna";
   const isHereditaryMale = metadata.gender == "mężczyzna";
+
+  if (!metadata.share) {
+    metadata.otherHereditaries = [];
+  }
 
   let inventoryNames = [],
     noRestraintsNames = [],
@@ -75,9 +80,9 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
   const whichType = noRestraintsNames.length < inventoryNames.length;
 
   return `
-    <html>
-      <head></head>
-      <body style="font-family: Times New Roman, sans-serif;">
+
+
+      <div style="font-family: 'Montserrat', sans-serif !important;">
         <div style="width: 50%; margin-left: 50%; text-align: right;">
           ${metadata.city}, ${date.getDate()} ${getMonth(date.getMonth())}
           ${date.getFullYear()}<br /><br />
@@ -204,7 +209,7 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
         art. 949 §1 kc testament jest jedynym i wyłącznym testamentem
         spadkodawc${isTestatorMale ? "y" : "zyni"}.
         Spadkodawc${isTestatorMale ? "a" : "zyni"} tegoż testamentu nie
-        odwołał${isTestatorMale ? "" : ""}.
+        odwołał${isTestatorMale ? "" : "a"}.
         <br /><br />
         Ponadto, na podstawie art.1012, art.1018 i art.1026 kc., wnoszę o
         odebranie na pierwszym posiedzeniu w tejże sprawie,
@@ -231,7 +236,7 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
                   whichType ? noRestraintsNames : inventoryNames
                 )}`
                   : ""
-              }.
+              }
             `
         }
         <br /><br />
@@ -274,8 +279,8 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
         },
         plus kserokopia, <br />
         ${getFurtherActs(metadata, isTestatorMale)}
-      </body>
-    </html>
+      </div>
+
   `;
 };
 
@@ -325,11 +330,10 @@ function getFurtherActs(metadata, isTestatorMale) {
 
 const getNamesString = (namesArray: any[]) => {
   let names = ``;
-  for (const otherHereditary of namesArray) {
-    names += `${otherHereditary}${
-      namesArray.indexOf(otherHereditary) == namesArray.length - 1 ? "" : ", "
+  for (let index = 0; index < namesArray.length; index++) {
+    names += `${namesArray[index]}${
+      index == namesArray.length - 1 ? "." : ", "
     }`;
   }
-  console.log("names2", names);
   return names;
 };

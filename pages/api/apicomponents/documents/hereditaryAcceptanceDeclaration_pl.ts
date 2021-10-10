@@ -13,15 +13,15 @@ export const hereditaryAcceptanceDeclaration_pl = (metadata: any) => {
   const isTestatorMale = metadata.deadGender == 0;
 
   return html`
-    <html>
-      <body
-        style="color: black; font-family: Times New Roman, sans-serif; margin: 3rem"
+      <div
+        style="color: black; font-family: 'Montserrat', sans-serif !important; margin: 3rem"
       >
         <p style="text-align: right; width: 100%">
           ${metadata.city}, ${date.getDate()} ${getMonth(date.getMonth())}
           ${date.getFullYear()}<br /><br />
-          ${metadata.courtName}<br /><br />
-          ${metadata.courtNumber} Wydział Cywilny<br /><br />
+          ${metadata.courtName}<br />
+          ${metadata.courtNumber} Wydział Cywilny<br />
+          ${metadata.courtAddress}<br /><br />
           Wnioskodawca: <br/>${metadata.name},<br />
           zamieszkały pod adresem ${metadata.street}, ${metadata.postal}
            ${metadata.city}<br /><br />
@@ -121,8 +121,8 @@ export const hereditaryAcceptanceDeclaration_pl = (metadata: any) => {
           isTestatorMale ? "y" : "zyni"
         }: ${metadata.deadName}</li>
       </ol>
-      </body>
-    </html>
+      </div>
+
   `;
 };
 

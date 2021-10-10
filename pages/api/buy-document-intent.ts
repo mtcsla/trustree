@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         ],
         customer_email: req.body.email,
         locale: "pl",
-        metadata: { id },
+        metadata: { id, origin: req.headers.origin },
         expires_at: Math.floor(today.getTime() / 1000),
         payment_method_types: ["card", "p24"],
         mode: "payment",
