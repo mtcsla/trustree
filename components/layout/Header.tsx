@@ -6,7 +6,7 @@ import { Button, Icon } from "@blueprintjs/core";
 import { useNav } from "../../pages/_app";
 import styled from "@emotion/styled";
 
-const Header = () => {
+const Header = ({ noX }: { noX?: boolean }) => {
   const windowWidth = useWindowSize().width;
   const { navExtended, setNavExtended } = useNav();
 
@@ -15,7 +15,7 @@ const Header = () => {
       className="flex p-4 w-full"
       style={{ borderBottom: "1px solid var(--border-color)" }}
     >
-      {navExtended ? (
+      {navExtended && !noX ? (
         <Button className="fixed left-15" onClick={() => setNavExtended(false)}>
           <Icon icon="cross" />
         </Button>

@@ -25,7 +25,7 @@ import {
 } from "../../components/oswiadczenie/OtherHereditariesRenderer";
 import { useRouter } from "next/dist/client/router";
 
-export default function OswiadczenieOdrzuc() {
+export default function OswiadczeniePrzyjmij() {
   const [loaded, setLoaded] = React.useState(false);
   const router = useRouter();
   React.useEffect(() => {
@@ -42,7 +42,7 @@ export default function OswiadczenieOdrzuc() {
           }}
         >
           <Icon icon="tick" size={30} className="mr-2" />
-          <span>PRZYJMIJ SPADEK</span>
+          <h1 className="text-4xl">PRZYJMIJ SPADEK</h1>
         </div>
       </div>
       <Callout intent="primary" className="mt-1 mb-6">
@@ -79,7 +79,7 @@ export default function OswiadczenieOdrzuc() {
               deadAddress: "",
               deadCity: "",
               deadDate: null,
-              deadGender: "",
+              deadGender: null,
               deadActUscName: "",
               deadActNumber: "",
               courtName: "",
@@ -147,7 +147,7 @@ export default function OswiadczenieOdrzuc() {
                       className="flex flex-col flex-1"
                       style={{ minWidth: 220 }}
                     >
-                      <h3 className="flex items-center text-2xl font-bold">
+                      <h3 className="flex items-center text-2xl ">
                         <ColorfulIcon
                           size={18}
                           style={{ marginRight: 7 }}
@@ -217,7 +217,7 @@ export default function OswiadczenieOdrzuc() {
                   <Divider className="w-full mt-10 mb-6" />
 
                   <RowForm>
-                    <RowFormGroup label="ulica adresu:">
+                    <RowFormGroup label="ulica i numer domu:">
                       <Field
                         as={InputGroup}
                         leftIcon="office"
@@ -231,7 +231,7 @@ export default function OswiadczenieOdrzuc() {
                         {RenderErrorMessage}
                       </ErrorMessage>
                     </RowFormGroup>
-                    <RowFormGroup label="kod pocztowy adresu:">
+                    <RowFormGroup label="kod pocztowy:">
                       <Field
                         as={InputGroup}
                         leftIcon="envelope"
@@ -301,7 +301,7 @@ export default function OswiadczenieOdrzuc() {
                 </CardForm>
                 <CardForm className="items-start">
                   <div className="w-full flex flex-col">
-                    <h3 className="flex items-center text-2xl font-bold w-full mb-0">
+                    <h3 className="flex items-center text-2xl  w-full mb-0">
                       <ColorfulIcon
                         size={18}
                         style={{ marginRight: 7 }}
@@ -472,7 +472,7 @@ export default function OswiadczenieOdrzuc() {
                       </FormGroup>
                     ) : null}
                     <Divider className="mt-4 mb-4 w-full" />
-                    <h4 className="flex items-center text-xl font-bold">
+                    <h4 className="flex items-center text-xl ">
                       <ColorfulIcon
                         size={14}
                         style={{ marginRight: 7 }}
@@ -562,7 +562,7 @@ export default function OswiadczenieOdrzuc() {
                     }) => {
                       return (
                         <div className="w-full flex flex-col">
-                          <h3 className="flex items-center text-2xl font-bold w-full">
+                          <h3 className="flex items-center text-2xl  w-full">
                             <ColorfulIcon
                               size={18}
                               style={{ marginRight: 7 }}
@@ -576,7 +576,7 @@ export default function OswiadczenieOdrzuc() {
                             zmarłym do listy.
                           </p>
                           <Divider className="mt-4 mb-4 w-full" />
-                          <h3 className="text-sm mb-2 font-bold w-full">
+                          <h3 className="text-sm mb-2  w-full">
                             DANE SPADKOBIERCY:
                           </h3>
                           <RowForm>
@@ -596,7 +596,7 @@ export default function OswiadczenieOdrzuc() {
                                 {RenderErrorMessage}
                               </ErrorMessage>
                             </RowFormGroup>
-                            <RowFormGroup label="adres zamieszkania:">
+                            <RowFormGroup label="pełny adres zamieszkania:">
                               <Field
                                 as={InputGroup}
                                 name="address"
@@ -739,7 +739,7 @@ export default function OswiadczenieOdrzuc() {
                 </CardForm>
                 <CardForm className="items-start">
                   <div className="w-full flex flex-col">
-                    <h4 className="flex items-center text-2xl font-bold w-full">
+                    <h4 className="flex items-center text-2xl  w-full">
                       <ColorfulIcon
                         size={18}
                         style={{ marginRight: 7 }}

@@ -23,7 +23,7 @@ export const OtherHereditariesRenderer = ({
     return (
       <>
         {!readonly ? (
-          <h4 className="flex items-center text-2xl font-bold mt-4 w-full">
+          <h4 className="flex items-center text-2xl  mt-4 w-full">
             <ColorfulIcon
               size={18}
               style={{ marginRight: 7 }}
@@ -38,47 +38,49 @@ export const OtherHereditariesRenderer = ({
         <div className="w-full flex flex-col text-sm ">
           {otherHereditaries.map((hereditary) => (
             <div className="mb-6 flex flex-col pt-5 pb-5">
-              <h4 className="flex items-center text-xl font-bold w-full">
+              <h4 className="flex items-center text-xl  w-full">
                 DANE SPADKOBIERCY #{otherHereditaries.indexOf(hereditary) + 1}
               </h4>
               <Divider />
               <div className="flex justify-between">
                 <div className="flex flex-col">
                   <p className="text-xs">imię i nazwisko:</p>
-                  <h3 className="text-base">{hereditary.name}</h3>
+                  <span className="text-base">{hereditary.name}</span>
                 </div>
                 <div className="flex flex-col">
                   <p className="text-xs">udział w spadku:</p>
-                  <h3 className="text-right text-base">{hereditary.share}</h3>
+                  <span className="text-right text-base">
+                    {hereditary.share}
+                  </span>
                 </div>
               </div>
               <div className="flex justify-between mt-3">
                 <div className="flex flex-col">
                   <p className="text-xs">adres:</p>
-                  <h3 className="text-base">{hereditary.address}</h3>
+                  <span className="text-base">{hereditary.address}</span>
                 </div>
               </div>
 
               <div className="flex justify-between mb-8 mt-3">
                 <div className="flex flex-col">
                   <p className="text-xs">forma przyjęcia spadku:</p>
-                  <h3 className="text-base">
+                  <span className="text-base">
                     {hereditary.forma == 0
                       ? "przyjęcie proste"
                       : "przyjęcie z dobrodziejstwem inwentarza"}
-                  </h3>
+                  </span>
                 </div>
                 <div className="flex flex-col">
                   <p className="text-xs text-right">
                     kim był zmarły dla tego spadkobiercy?
                   </p>
-                  <h3 className="text-right text-base">
+                  <span className="text-right text-base">
                     {getRelation(hereditary.relation)}
-                  </h3>
+                  </span>
                 </div>
               </div>
 
-              <h4 className="text-xl font-bold uppercase">
+              <h4 className="text-xl  uppercase">
                 ODPIS SKRÓCONY AKTU{" "}
                 {hereditary.actType == 0 || hereditary.relation == 1
                   ? "małżeństwa"
@@ -90,16 +92,16 @@ export const OtherHereditariesRenderer = ({
               <div className="flex justify-between">
                 <div className="flex flex-col">
                   <p className="text-xs">nazwa urzędu stanu cywilnego:</p>
-                  <h3 className="text-base">{hereditary.actUscName}</h3>
+                  <span className="text-base">{hereditary.actUscName}</span>
                 </div>
 
                 <div className="flex flex-col">
                   <p className="text-xs text-right">
                     numer odpisu skróconego aktu:
                   </p>
-                  <h3 className="text-right text-base">
+                  <span className="text-right text-base">
                     {hereditary.actNumber}
-                  </h3>
+                  </span>
                 </div>
               </div>
               <div className="flex justify-between mt-3">
@@ -111,9 +113,9 @@ export const OtherHereditariesRenderer = ({
                       : "urodzenia"}
                     :
                   </p>
-                  <h3 className="text-base">
+                  <span className="text-base">
                     {new Date(hereditary.actDate).toLocaleDateString("pl-PL")}
-                  </h3>
+                  </span>
                 </div>
               </div>
               {!readonly ? (
@@ -140,6 +142,8 @@ export function getRelation(relation) {
   if (typeof relation !== "number") relation = parseInt(relation);
 
   switch (relation) {
+    case 0:
+      return "niespokrewnionym";
     case 1:
       return "małżonkiem";
     case 2:

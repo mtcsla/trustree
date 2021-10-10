@@ -78,7 +78,7 @@ export default function KalkulatorZachowku() {
 
         return (
           <>
-            <h1 className="text-4xl font-bold">Kalkulator zachowku</h1>
+            <h1 className="text-4xl ">Kalkulator zachowku</h1>
             <p>
               Dowiedz się, ile możesz odzyskać, jeśli pominięto Cię w
               testamencie.
@@ -88,7 +88,7 @@ export default function KalkulatorZachowku() {
                 className="flex flex-col justify-evenly"
                 style={{ margin: 10, minWidth: 230, flex: 1 }}
               >
-                <h4 className="font-bold text-2xl">Dane majątku zmarłego:</h4>
+                <h4 className=" text-2xl">Dane majątku zmarłego:</h4>
 
                 <FormGroup
                   label="wartość majątku (w złotych):"
@@ -211,7 +211,7 @@ export default function KalkulatorZachowku() {
               style={{ justifyContent: "start", minHeight: 0 }}
             >
               <div className="flex flex-col w-full" style={{ margin: 10 }}>
-                <h5 className="mb-2 font-bold w-full">
+                <h5 className="mb-2  w-full">
                   Jeśli zmarły darował część swojego majątku innemu lub innym
                   spadkobiercom{" "}
                   <b className="font-normal">
@@ -241,7 +241,7 @@ export default function KalkulatorZachowku() {
               </div>
               <div className="flex flex-col w-full" style={{ margin: 10 }}>
                 <Divider />
-                <h5 className=" mt-4 font-bold w-full">
+                <h5 className=" mt-4  w-full">
                   Jeśli w testamencie pojawiają się zapisy, podaj ich kwotę.
                 </h5>
                 <FormGroup
@@ -268,7 +268,7 @@ export default function KalkulatorZachowku() {
               </div>
             </CardForm>
             <Button
-              className="mt-10 h-15 font-bold w-full"
+              className="mt-10 h-15  w-full"
               onClick={() => {
                 handleSubmit();
                 if (Object.keys(errors).length) {

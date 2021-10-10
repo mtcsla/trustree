@@ -7,6 +7,7 @@ import {
 import { CardForm } from "../kalkulator";
 import { useRouter } from "next/dist/client/router";
 import ColorfulIcon from "../../components/layout/ColorfulIcon";
+import PaymentForm from "../../components/stripe/PaymentForm";
 
 export async function getServerSideProps({ query }) {
   try {
@@ -35,10 +36,13 @@ export default function Finalizacja({ data }) {
   }, []);
   return data ? (
     <>
-      <h1 className="text-4xl font-bold">
-        Wniosek o stwierdzenie nabycia praw do spadku
+      <h1 className="text-3xl ">
+        Upewnij się, że wprowadzone dane są poprawne.
       </h1>
-      <p className="text-sm">Upewnij się, że wprowadzone dane są poprawne.</p>
+      <p className="text-sm">
+        Wniosek o stwierdzenie nabycia praw do spadku wg dziedziczenia
+        testamentowego
+      </p>
       <Callout intent="primary" className="mt-6">
         Wykonanie tego pisma kosztuje:
         <ul className="list-disc list-inside">
@@ -51,7 +55,7 @@ export default function Finalizacja({ data }) {
         </ul>
       </Callout>
       <CardForm>
-        <h2 className="flex items-center w-full font-bold text-2xl mb-0">
+        <h2 className="flex items-center w-full  text-2xl mb-0">
           <ColorfulIcon
             size={18}
             color="122, 182, 100"
@@ -73,9 +77,7 @@ export default function Finalizacja({ data }) {
             <div className="w-full uppercase text-xs flex items-center text-right justify-end">
               Imię i nazwisko <Icon icon="person" className="ml-2" size={12} />
             </div>
-            <span className="w-full text-base text-right w-full">
-              {data.name}
-            </span>
+            <span className="w-full text-base text-right">{data.name}</span>
           </div>
         </div>
         <Divider className="w-full mt-4 mb-4" />
@@ -93,8 +95,8 @@ export default function Finalizacja({ data }) {
               Udział w spadku{" "}
               <Icon icon="pie-chart" className="ml-2" size={12} />
             </div>
-            <span className="w-full text-base text-right w-full">
-              {data.share}
+            <span className="w-full text-base text-right">
+              {data.share || "całość"}
             </span>
           </div>
         </div>
@@ -113,7 +115,7 @@ export default function Finalizacja({ data }) {
             <div className="w-full uppercase text-xs flex items-center text-right justify-end">
               Twoja płeć <Icon icon="one-to-many" className="ml-2" size={12} />
             </div>
-            <span className="w-full text-base text-right w-full">
+            <span className="w-full text-base text-right">
               {data.gender == 0 ? "mężczyzna" : "kobieta"}
             </span>
           </div>
@@ -136,7 +138,7 @@ export default function Finalizacja({ data }) {
               dowód pokrewieństwa
               <Icon icon="document-share" className="ml-2" size={12} />
             </div>
-            <span className="w-full text-base text-right w-full">
+            <span className="w-full text-base text-right">
               {data.actType == 0
                 ? "odpis skrócony aktu małżeństwa"
                 : "odpis skrócony aktu urodzenia"}
@@ -193,7 +195,7 @@ export default function Finalizacja({ data }) {
         możliwości jego edycji!
       </Callout>
       <CardForm>
-        <h2 className="flex items-center w-full font-bold text-2xl mb-0">
+        <h2 className="flex items-center w-full  text-2xl mb-0">
           <ColorfulIcon
             size={18}
             color="182, 122, 220"
@@ -215,7 +217,7 @@ export default function Finalizacja({ data }) {
             <div className="w-full uppercase text-xs flex items-center text-right justify-end">
               ostatni adres: <Icon icon="envelope" className="ml-2" size={12} />
             </div>
-            <span className="w-full text-base text-right w-full">
+            <span className="w-full text-base text-right">
               {data.deadAddress}
             </span>
           </div>
@@ -236,9 +238,7 @@ export default function Finalizacja({ data }) {
               miejscowość śmierci:{" "}
               <Icon icon="office" className="ml-2" size={12} />
             </div>
-            <span className="w-full text-base text-right w-full">
-              {data.deadCity}
-            </span>
+            <span className="w-full text-base text-right">{data.deadCity}</span>
           </div>
         </div>
         <Divider className="w-full mt-4 mb-4" />
@@ -279,24 +279,26 @@ export default function Finalizacja({ data }) {
           <span>{data.deadActNumber}</span>
         </div>
       </CardForm>
+      {data.share && data.otherHereditaries.length ? (
+        <CardForm>
+          <h2 className="flex items-center w-full  text-2xl mb-0">
+            <ColorfulIcon
+              size={18}
+              color="12, 122, 220"
+              icon={"people"}
+              style={{ marginRight: 7 }}
+            />{" "}
+            Inni spadkobiercy
+          </h2>
+          <OtherHereditariesRenderer
+            otherHereditaries={data.otherHereditaries}
+            setValue={() => {}}
+            readonly
+          />
+        </CardForm>
+      ) : null}
       <CardForm>
-        <h2 className="flex items-center w-full font-bold text-2xl mb-0">
-          <ColorfulIcon
-            size={18}
-            color="12, 122, 220"
-            icon={"people"}
-            style={{ marginRight: 7 }}
-          />{" "}
-          Inni spadkobiercy
-        </h2>
-        <OtherHereditariesRenderer
-          otherHereditaries={data.otherHereditaries}
-          setValue={() => {}}
-          readonly
-        />
-      </CardForm>
-      <CardForm>
-        <h2 className="flex items-center w-full font-bold text-2xl mb-0">
+        <h2 className="flex items-center w-full  text-2xl mb-0">
           <ColorfulIcon
             size={18}
             color="69, 122, 15"
@@ -328,8 +330,8 @@ export default function Finalizacja({ data }) {
           <span>{data.courtNumber}</span>
         </div>
       </CardForm>
-      <CardForm>
-        <h2 className="flex items-center w-full font-bold text-2xl mb-0">
+      <CardForm className="mb-10">
+        <h2 className="flex items-center w-full  text-2xl mb-0">
           <ColorfulIcon
             size={18}
             color="256, 122, 15"
@@ -355,7 +357,7 @@ export default function Finalizacja({ data }) {
               potwierdzony notarialnie?{" "}
               <Icon icon="envelope" className="ml-2" size={12} />
             </div>
-            <span className="w-full text-base text-right w-full">
+            <span className="w-full text-base text-right">
               {data.testamentNotarial == "true" ? "tak" : "nie"}
             </span>
           </div>
@@ -403,9 +405,12 @@ export default function Finalizacja({ data }) {
           <span>{data.testamentNotarialNumber}</span>
         </div>
       </CardForm>
-      <Button intent="success" className="mt-8" rightIcon="caret-right" fill>
-        PRZEJDŹ DO PŁATNOŚCI
-      </Button>
+      <PaymentForm
+        metadata={Object.assign({ docId: 5 }, data)}
+        title="Wykonanie pisma"
+        subtitle="Wniosek o stwierdzenie nabycia praw do spadku"
+        price={data.otherHereditaries.length ? 100 : 50}
+      />
     </>
   ) : null;
 }

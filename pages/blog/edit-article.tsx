@@ -154,9 +154,7 @@ export default function EditArticle() {
 
           <div className="flex flex-col">
             <h1
-              className={`${
-                windowWidth > 800 ? "text-4xl" : "text-2xl"
-              } font-bold`}
+              className={`${windowWidth > 800 ? "text-4xl" : "text-2xl"} `}
               style={{ marginTop: 10 }}
             >
               {article.title}

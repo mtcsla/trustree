@@ -7,6 +7,7 @@ import {
 import { CardForm } from "../kalkulator";
 import { useRouter } from "next/dist/client/router";
 import ColorfulIcon from "../../components/layout/ColorfulIcon";
+import PaymentForm from "../../components/stripe/PaymentForm";
 
 export async function getServerSideProps({ query }) {
   try {
@@ -34,12 +35,14 @@ export default function Finalizacja({ data }) {
   }, []);
   return data ? (
     <>
-      <h1 className="text-4xl font-bold">Oświadczenie o odrzuceniu spadku</h1>
-      <p className="text-sm">Upewnij się, że wprowadzone dane są poprawne.</p>
+      <h1 className="text-3xl font-bold">
+        Upewnij się, że wprowadzone dane są poprawne.
+      </h1>
+      <p className="text-sm">Oświadczenie o odrzuceniu spadku</p>
       <Callout intent="primary" className="mt-6">
         Wykonanie tego pisma kosztuje <b>20zł</b>.
       </Callout>
-      <CardForm>
+      <CardForm className="flex items-start " style={{ minHeight: 0 }}>
         <h2 className="flex items-center w-full font-bold text-2xl mb-0">
           <ColorfulIcon
             size={18}
@@ -62,9 +65,7 @@ export default function Finalizacja({ data }) {
             <div className="w-full uppercase text-xs flex items-center text-right justify-end">
               Imię i nazwisko <Icon icon="person" className="ml-2" size={12} />
             </div>
-            <span className="w-full text-base text-right w-full">
-              {data.name}
-            </span>
+            <span className="w-full text-base text-right">{data.name}</span>
           </div>
         </div>
         <Divider className="w-full mt-4 mb-4" />
@@ -117,7 +118,7 @@ export default function Finalizacja({ data }) {
             <div className="w-full uppercase text-xs flex items-center text-right justify-end">
               ostatni adres: <Icon icon="envelope" className="ml-2" size={12} />
             </div>
-            <span className="w-full text-base text-right w-full">
+            <span className="w-full text-base text-right">
               {data.deadAddress}
             </span>
           </div>
@@ -138,9 +139,7 @@ export default function Finalizacja({ data }) {
               miejscowość śmierci:{" "}
               <Icon icon="office" className="ml-2" size={12} />
             </div>
-            <span className="w-full text-base text-right w-full">
-              {data.deadCity}
-            </span>
+            <span className="w-full text-base text-right">{data.deadCity}</span>
           </div>
         </div>
         <Divider className="w-full mt-4 mb-4" />
@@ -207,7 +206,7 @@ export default function Finalizacja({ data }) {
           </div>
         ) : null}
       </CardForm>
-      <CardForm>
+      <CardForm className="flex items-start " style={{ minHeight: 0 }}>
         <h2 className="flex items-center w-full font-bold text-2xl mb-0">
           <ColorfulIcon
             size={18}
@@ -223,7 +222,7 @@ export default function Finalizacja({ data }) {
           readonly
         />
       </CardForm>
-      <CardForm>
+      <CardForm className="mb-10">
         <h2 className="flex items-center w-full font-bold text-2xl mb-0">
           <ColorfulIcon
             size={18}
@@ -256,9 +255,12 @@ export default function Finalizacja({ data }) {
           <span>{data.courtNumber}</span>
         </div>
       </CardForm>
-      <Button intent="success" className="mt-8" rightIcon="caret-right" fill>
-        PRZEJDŹ DO PŁATNOŚCI
-      </Button>
+      <PaymentForm
+        title="Wykonanie pisma"
+        subtitle="Oświadczenie o odrzuceniu spadku"
+        price={20}
+        metadata={Object.assign({ docId: 0 }, data)}
+      />
     </>
   ) : null;
 }

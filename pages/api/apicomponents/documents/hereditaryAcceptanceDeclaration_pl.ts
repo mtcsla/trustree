@@ -7,7 +7,7 @@ function html(strings, ...tags) {
   return str;
 }
 
-export const hereditaryRefusalDeclaration_pl = (metadata: any) => {
+export const hereditaryAcceptanceDeclaration_pl = (metadata: any) => {
   const date = new Date();
   console.log({ metadata });
   const isTestatorMale = metadata.deadGender == 0;
@@ -47,12 +47,20 @@ export const hereditaryRefusalDeclaration_pl = (metadata: any) => {
           }
         </p>
         <br /><br />
-        <h3 style="text-align: center;">OŚWIADCZENIE O ODRZUCENIU SPADKU</h3>
+        <h3 style="text-align: center;">OŚWIADCZENIE O ${
+          metadata.forma == 0
+            ? "PRZYJĘCIU"
+            : "PRZYJĘCIU Z DOBRODZIEJSTWEM INWENTARZA"
+        } SPADKU</h3>
         <p>
           <br />
-          Niniejszym odrzucam spadek, który pozostawił${
-            isTestatorMale ? "" : "a"
-          } mi ${metadata.deadName},
+          Niniejszym ${
+            metadata.forma == 0
+              ? "przyjmuję"
+              : "przyjmuję z dobrodziejstwem inwentarza"
+          } spadek, który pozostawił${isTestatorMale ? "" : "a"} mi ${
+    metadata.deadName
+  },
           zmarł${isTestatorMale ? "y" : "a"} w miejscowości ${
     metadata.deadCity
   } w dniu
@@ -112,7 +120,6 @@ export const hereditaryRefusalDeclaration_pl = (metadata: any) => {
         <li>odpis skrócony aktu zgonu spadkodawc${
           isTestatorMale ? "y" : "zyni"
         }: ${metadata.deadName}</li>
-       
       </ol>
       </body>
     </html>

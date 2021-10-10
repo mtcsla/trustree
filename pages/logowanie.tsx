@@ -71,7 +71,7 @@ export default function LoginPage() {
     <>
       <div className="flex-1 w-full flex items-start flex-wrap">
         <div className="flex flex-col m-3 h-full justify-center">
-          <h1 className="text-4xl font-bold">Logowanie</h1>
+          <h1 className="text-4xl ">Logowanie</h1>
           <p style={{ marginTop: 10, marginBottom: 20 }}>
             Zaloguj się, aby uzyskać dostęp do swojego konta.
           </p>
@@ -84,7 +84,7 @@ export default function LoginPage() {
 
           <Card className="flex bg-white p-5" style={{ marginTop: 30 }}>
             <LoginForm className="flex flex-col p-4" style={{ minWidth: 250 }}>
-              <h2 className="text-3xl font-bold" style={{ marginBottom: 10 }}>
+              <h2 className="text-3xl " style={{ marginBottom: 10 }}>
                 Twoje dane
               </h2>
               <FormGroup label="adres e-mail" labelFor="email">

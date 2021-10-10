@@ -14,20 +14,17 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
   const date = new Date();
   console.log(metadata);
 
-  const isTestatorMale = metadata.testator.gender === "mężczyzna";
-  const isHereditaryMale = metadata.hereditary.gender === "mężczyzna";
+  const isTestatorMale = metadata.deadGender == 0;
+  const isHereditaryMale = metadata.gender == 0;
 
   let inventoryNames = [],
     noRestraintsNames = [],
     namesAndAddresses = "",
     namesRelationsAndParts =
       metadata.otherHereditaries.length > 0
-        ? `${determineRelation(
-            metadata.hereditary.relation,
-            metadata.hereditary.gender
-          )} ${metadata.hereditary.name}, w części ${
-            metadata.hereditary.part
-          }, `
+        ? `${determineRelation(metadata.relation, metadata.gender)} ${
+            metadata.name
+          }, w części ${metadata.share}, `
         : "",
     namesAndRelations = "";
 
@@ -35,8 +32,8 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
     namesAndAddresses += `${i.name}, ${i.address}<br>`;
     namesRelationsAndParts += `${determineRelation(i.relation, i.gender)} ${
       i.name
-    }, w części ${i.part}${
-      metadata.otherHereditaries.indexOf(i) ===
+    }, w części ${i.share}${
+      metadata.otherHereditaries.indexOf(i) ==
       metadata.otherHereditaries.length - 1
         ? "."
         : ", "
@@ -47,19 +44,18 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
     )} ${
       i.relation !== 0 ? `spadkodaw${isTestatorMale ? "cy" : "czyni"}` : ""
     }${
-      metadata.otherHereditaries.indexOf(i) ===
+      metadata.otherHereditaries.indexOf(i) ==
       metadata.otherHereditaries.length - 1
         ? "."
         : ", "
     }`;
-    if (!i.type) {
+    if (i.forma == 0) {
       noRestraintsNames.push(i.name);
     } else inventoryNames.push(i.name);
   }
 
-  if (!metadata.hereditary.type)
-    noRestraintsNames.push(metadata.hereditary.name);
-  else inventoryNames.push(metadata.hereditary.name);
+  if (metadata.forma == 0) noRestraintsNames.push(metadata.name);
+  else inventoryNames.push(metadata.name);
 
   const whichType = noRestraintsNames.length < inventoryNames.length;
 
@@ -68,18 +64,16 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
       <head></head>
       <body style="font-family: Times New Roman, sans-serif;">
         <div style="width: 50%; margin-left: 50%; text-align: right;">
-          ${metadata.hereditary.city}, ${date.getDate()}
-          ${getMonth(date.getMonth())} ${date.getFullYear()}<br /><br />
+          ${metadata.city}, ${date.getDate()} ${getMonth(date.getMonth())}
+          ${date.getFullYear()}<br /><br />
 
-          ${metadata.court.name}<br />
-          ${metadata.court.number} Wydział Cywilny<br />
-          ${metadata.court.address}<br />
+          ${metadata.courtName}<br />
+          ${metadata.courtNumber} Wydział Cywilny<br />
+          ${metadata.courtAddress}<br />
           <br /><br />
-          Wnioskodawc${isHereditaryMale ? "a" : "zyni"}:
-          ${metadata.hereditary.name}, nr. PESEL: ${metadata.hereditary.pesel},
-          zamieszkał${isHereditaryMale ? "y" : "a"} pod adresem
-          ${metadata.hereditary.address}, ${metadata.hereditary.postal}
-          ${metadata.hereditary.city}<br />
+          Wnioskodawc${isHereditaryMale ? "a" : "zyni"}: ${metadata.name}, nr.
+          PESEL: ${metadata.pesel}, zamieszkał${isHereditaryMale ? "y" : "a"}
+          pod adresem ${metadata.street}, ${metadata.postal} ${metadata.city}<br />
           ${metadata.otherHereditariesLength > 0
             ? `Uczestnicy postępowania: <br>
     ${namesAndAddresses} <br>`
@@ -92,23 +86,19 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
 
         W imieniu własnym uprzejmie wnoszę o:<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;
         1. stwierdzenie, że spadek, który pozostawił${isTestatorMale ? "" : "a"}
-        ${metadata.testator.name}, zmarł${isTestatorMale ? "y" : "a"} w dniu
-        ${moment(metadata.testator.deathDate)
-          .toDate()
-          .toLocaleDateString("pl-PL")}
-        w miejscowości ${metadata.testator.deathPlace}, ostatnio
+        ${metadata.deadName}, zmarł${isTestatorMale ? "y" : "a"} w dniu
+        ${moment(metadata.deadDate).toDate().toLocaleDateString("pl-PL")} w
+        miejscowości ${metadata.deadCity}, ostatnio
         zamieszkał${isTestatorMale ? "y" : "a"} pod adresem
-        ${metadata.testator.address}, w trybie dziedziczenia ustawowego
-        ${metadata.otherHereditaries.length === 0
+        ${metadata.deadAddress}, w trybie dziedziczenia ustawowego
+        ${metadata.otherHereditaries.length == 0
           ? `nabył${isHereditaryMale ? "" : "a"} ${
-              metadata.hereditary.name
+              metadata.name
             }, ${determineRelation(
-              metadata.hereditary.relation,
-              metadata.hereditary.gender
+              metadata.relation,
+              metadata.gender
             )} spadkodawcy w ${
-              metadata.hereditary.part === 100
-                ? "całości"
-                : "części " + metadata.hereditary.part
+              !metadata.share ? "całości" : "części " + metadata.share
             }.`
           : `nabyli: ${namesRelationsAndParts}`}
         ${
@@ -119,47 +109,38 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
         wg norm przepisanych.<br /><br />
         <h3 style="text-align: center;">Uzasadnienie</h3>
 
-        Spadkodawc${isTestatorMale ? "a" : "zyni"}, ${metadata.testator.name},
+        Spadkodawc${isTestatorMale ? "a" : "zyni"}, ${metadata.deadName},
         ostatnio zamieszkał${isTestatorMale ? "y" : "a"} pod adresem
-        ${metadata.testator.address}, zmarł${isTestatorMale ? "" : "a"} w
-        miejscowości ${metadata.testator.deathPlace} w dniu
-        ${moment(metadata.testator.deathDate)
-          .toDate()
-          .toLocaleDateString("pl-PL")}.
+        ${metadata.deadAddress}, zmarł${isTestatorMale ? "" : "a"} w
+        miejscowości ${metadata.deadCity} w dniu
+        ${moment(metadata.deadDate).toDate().toLocaleDateString("pl-PL")}.
         <br /><br />
 
-        Wnioskodawc${isHereditaryMale ? "a" : "zyni"} to
-        ${metadata.hereditary.name},
-        ${metadata.hereditary.relation === 0
+        Wnioskodawc${isHereditaryMale ? "a" : "zyni"} to ${metadata.name},
+        ${metadata.relation == 0
           ? "spadkobierca powołany na podstawie testamentu"
           : `${determineRelation(
-              metadata.hereditary.relation,
-              metadata.hereditary.gender
+              metadata.relation,
+              metadata.gender
             )} spadkodawc${isTestatorMale ? "y" : "zyni"}`}.
         ${metadata.otherHereditaries.length > 0
           ? `Pozostali uczestnicy to: ${namesAndRelations}`
           : ""}
         <br /><br />
         Dowód: <br />&nbsp;&nbsp;&nbsp;&nbsp;1) odpis skrócony aktu zgonu
-        spadkodawc${isTestatorMale ? "y" : "zyni"} z
-        ${metadata.testator.uscName} z dnia
-        ${moment(metadata.testator.deathDate)
-          .toDate()
-          .toLocaleDateString("pl-PL")}
-        nr ${metadata.testator.number},<br />
+        spadkodawc${isTestatorMale ? "y" : "zyni"} z ${metadata.deadActUscName}
+        z dnia ${moment(metadata.deadDate).toDate().toLocaleDateString("pl-PL")}
+        nr ${metadata.deadActNumber},<br />
         &nbsp;&nbsp;&nbsp;&nbsp;2) odpis skrócony aktu
-        ${(metadata.hereditary.changedSurname ||
-        metadata.hereditary.relation === 1
+        ${(metadata.actType == 0 || metadata.relation == 1
           ? "małżeństwa"
           : "urodzenia") +
-        (metadata.hereditary.relation === 3
+        (metadata.relation == 3
           ? ` spadkodawc${isTestatorMale ? "y" : "zyni"}`
           : ` wnioskodawc${isHereditaryMale ? "y" : "zyni"}`)}
-        z ${metadata.hereditary.act.uscName} z dnia
-        ${moment(metadata.hereditary.act.date)
-          .toDate()
-          .toLocaleDateString("pl-PL")},
-        nr ${metadata.hereditary.act.number}.<br />
+        z ${metadata.actUscName} z dnia
+        ${moment(metadata.actDate).toDate().toLocaleDateString("pl-PL")}, nr
+        ${metadata.actNumber}.<br />
         ${getFurtherProof(metadata, isTestatorMale)}
         <br /><br />
         II. Wnioskodawc${isHereditaryMale ? "a" : "zyni"} w trybie art. 671 kpc
@@ -170,14 +151,10 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
 
         Ponadto, na podstawie art.1012, art.1018 i art.1026 kc., wnoszę o
         odebranie na pierwszym posiedzeniu w tejże sprawie,
-        ${metadata.otherHereditaries.length === 0
+        ${metadata.otherHereditaries.length == 0
           ? `oświadczenia o przyjęciu spadku ${
-              metadata.hereditary.part
-                ? "z dobrodziejstwem inwentarza"
-                : "bez ograniczeń"
-            } od wnioskodawcy (${
-              metadata.hereditary.name
-            }), składanego w imieniu własnym.`
+              metadata.share ? "z dobrodziejstwem inwentarza" : "bez ograniczeń"
+            } od wnioskodawcy (${metadata.name}), składanego w imieniu własnym.`
           : `oświadczeń o przyjęciu spadku ${
               whichType
                 ? `z dobrodziejstwem inwentarza
@@ -209,21 +186,20 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
         Załączniki:<br /><br />
 
         &nbsp;&nbsp;&nbsp;&nbsp;1. ${1 + metadata.otherHereditaries.length}
-        odpis${metadata.otherHereditaries.length > 1 &&
-        metadata.otherHereditaries.length < 5
+        odpis${(metadata.otherHereditaries.length % 10) + 1 > 1 &&
+        (metadata.otherHereditaries.length % 10) + 1 < 5
           ? "y"
-          : metadata.otherHereditaries.length >= 5
+          : (metadata.otherHereditaries.length % 10) + 1 >= 5
           ? "ów"
           : ""}
         wniosku o stwierdzenie nabycia spadku,<br />
         &nbsp;&nbsp;&nbsp;&nbsp;2. Odpis skrócony aktu zgonu spadkodawcy, plus
         kserokopia, <br />
         &nbsp;&nbsp;&nbsp;&nbsp;3. Odpis skrócony aktu
-        ${metadata.hereditary.relation === 1 ||
-        metadata.hereditary.changedSurname
+        ${metadata.relation == 1 || metadata.actType == 0
           ? "małżeństwa"
           : "urodzenia"}
-        ${metadata.hereditary.relation === 3
+        ${metadata.relation == 3
           ? `spadkodawc${isTestatorMale ? "y" : "zyni"}`
           : `wnioskodawc${isHereditaryMale ? "y" : "zyni"}`},
         plus kserokopia, <br />
@@ -237,17 +213,17 @@ function getFurtherProof(metadata, isTestatorMale) {
   let furtherProof = "";
   let number = 3;
   for (const i of metadata.otherHereditaries) {
-    if (!i["act.date"] || !i["act.number"] || !i["act.uscName"]) {
+    if (!i.actDate || !i.actNumber || !i.actUscName) {
       continue;
     }
     furtherProof += `&nbsp;&nbsp;&nbsp;&nbsp;${number}) odpis skrócony aktu ${
-      (i.changedSurname || i.relation === 1 ? "małżeństwa" : "urodzenia") +
-      (metadata.hereditary.relation !== 3 && i.relation === 3
+      (i.actType == 0 || i.relation == 1 ? "małżeństwa" : "urodzenia") +
+      (metadata.relation !== 3 && i.relation == 3
         ? ` spadkodawc${isTestatorMale ? "y" : "zyni"}`
         : ` spadkobiercy: ${i.name}`)
-    } z ${i["act.uscName"]} z dnia ${moment(i["act.date"])
+    } z ${i.actUscName} z dnia ${moment(i.actDate)
       .toDate()
-      .toLocaleDateString("pl-PL")}, nr ${i["act.number"]}<br> `;
+      .toLocaleDateString("pl-PL")}, nr ${i.actNumber}<br> `;
     number += 1;
   }
   return furtherProof;
@@ -257,14 +233,14 @@ function getFurtherActs(metadata, isTestatorMale) {
   let furtherActs = "";
   let number = 4;
   for (const i of metadata.otherHereditaries) {
-    if (!i["act.date"] || !i["act.number"] || !i["act.uscName"]) {
+    if (!i.actDate || !i.actNumber || !i.actUscName) {
       continue;
     }
     furtherActs += `&nbsp;&nbsp;&nbsp;&nbsp;${number}. Odpis skrócony aktu ${
-      (i.changedSurname || i.relation === 1 ? "małżeństwa" : "urodzenia") +
-      (metadata.hereditary.relation !== 3 && i.relation === 3
+      (i.actType == 0 || i.relation == 1 ? "małżeństwa" : "urodzenia") +
+      (metadata.relation !== 3 && i.relation == 3
         ? ` spadkodawc${isTestatorMale ? "y" : "zyni"}`
-        : ` spadkobierc${i.gender === "mężczyzna" ? "y" : "zyni"}: ${i.name}`)
+        : ` spadkobierc${i.gender == 0 ? "y" : "zyni"}: ${i.name}`)
     }, plus kserokopia,<br> `;
     number += 1;
   }
@@ -275,7 +251,7 @@ const getNamesString = (namesArray: any[]) => {
   let names = ``;
   for (const otherHereditary of namesArray) {
     names += `${otherHereditary}${
-      namesArray.indexOf(otherHereditary) === namesArray.length - 1 ? "" : ", "
+      namesArray.indexOf(otherHereditary) == namesArray.length - 1 ? "" : ", "
     }`;
   }
   console.log("names2", names);

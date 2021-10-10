@@ -2,47 +2,39 @@ import { createDocument } from "./apicomponents/documentReducer";
 import { firestore } from "./lib/firebase-admin";
 import sendEmail from "./apicomponents/functions/sendEmail";
 
-import * as md5 from "md5";
+import md5 from "md5";
 
 export default async (req, res) => {
   try {
-    if (req.body.type === "payment_intent.succeeded") {
-      const paymentIntent = req.body.data.object;
+    if (req.body.type === "checkout.session.completed") {
+      const sessionDocId = req.body.data.object.metadata.id;
+
       let metadata = (
-        await firestore
-          .collection("stripe-metadata")
-          .doc(paymentIntent.metadata.id)
-          .get()
+        await firestore.collection("requested-docs").doc(sessionDocId).get()
       ).data();
-
-      await firestore
-        .collection("stripe-metadata")
-        .doc(paymentIntent.metadata.id)
-        .delete();
-
-      for (var key in metadata) {
-        metadata[key] = JSON.parse(metadata[key]);
-      }
+      try {
+        await firestore.collection("requested-docs").doc(sessionDocId).delete();
+      } catch {}
 
       const { document, filename, name } = createDocument(
-        metadata.document,
+        metadata.docId,
         metadata
       );
 
       const ref = firestore
         .collection("documents")
-        .doc(md5(metadata.hereditary.email))
+        .doc(md5(metadata.email))
         .collection("owned");
 
-      const doc = await ref.add({
+      /*const doc = await ref.add({
         document: document,
         filename: filename,
         name: name,
         date: new Date(),
-      });
+      });*/
 
       sendEmail({
-        to: metadata.hereditary.email,
+        to: metadata.email,
         subject: name,
         html: document,
       })

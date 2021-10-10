@@ -244,9 +244,21 @@ const PismaNavList = ({ active, color }) => {
             </ListItem>
           </a>
         </Link>
-        <ListItem>
-          <Label color={color}>Pozew o zachowek</Label>
-        </ListItem>
+        <Link href={"/pozew-o-zachowek"} passHref>
+          <a style={{ textDecoration: "none", color: "inherit" }}>
+            <ListItem>
+              <Label color={color}>Pozew o zachowek</Label>
+            </ListItem>
+          </a>
+        </Link>
+
+        <Link href={"/pozew-o-zachowek"} passHref>
+          <a style={{ textDecoration: "none", color: "inherit" }}>
+            <ListItem>
+              <Label color={color}>Wniosek o ustalenie działu spadku</Label>
+            </ListItem>
+          </a>
+        </Link>
 
         <Link
           href={"/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"}
@@ -258,7 +270,7 @@ const PismaNavList = ({ active, color }) => {
                 Wniosek o stwierdzenie nabycia praw do spadku
               </Label>
               <SubLabel className=" text-gray-400">
-                wg. dziedziczenia ustawowego
+                wg dziedziczenia ustawowego
               </SubLabel>
             </ListItem>
           </a>
@@ -273,7 +285,7 @@ const PismaNavList = ({ active, color }) => {
                 Wniosek o stwierdzenie nabycia praw do spadku
               </Label>
               <SubLabel className=" text-gray-400">
-                wg. dziedziczenia testamentowego
+                wg dziedziczenia testamentowego
               </SubLabel>
             </ListItem>
           </a>

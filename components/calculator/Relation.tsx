@@ -9,7 +9,7 @@ const RelationForm = () => {
   return (
     <CardForm style={{ marginTop: 30 }} className="flex">
       <Span className="flex flex-col justify-center m-3">
-        <h3 className="font-bold">Kim był dla Ciebie zmarły?</h3>
+        <h3 className="">Kim był dla Ciebie zmarły?</h3>
         <p style={{ marginBottom: 10, width: 200 }}>
           Wybierz pokrewieństwo zmarłego wobec Ciebie z listy.
         </p>

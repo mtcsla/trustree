@@ -82,9 +82,7 @@ export default function Kalkulator() {
   return (
     <>
       <calculatorContext.Provider value={contextValue}>
-        <h1 className="font-bold text-4xl">
-          Kalkulator ustawowego udziału w spadku
-        </h1>
+        <h1 className=" text-4xl">Kalkulator ustawowego udziału w spadku</h1>
         <p>
           Oblicz, jaka część spadku Ci się należy, jeśli spadkodawca nie
           pozostawił testamentu.
@@ -94,7 +92,7 @@ export default function Kalkulator() {
         <RelativesForm />
         <Button
           onClick={onSubmit}
-          className="mt-10 h-15 font-bold w-full"
+          className="mt-10 h-15  w-full"
           intent="success"
           rightIcon="caret-right"
         >

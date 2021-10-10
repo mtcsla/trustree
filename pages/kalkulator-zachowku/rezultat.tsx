@@ -49,13 +49,13 @@ export default function Rezultat({ result }) {
 
   return (
     <>
-      <h1 className="text-4xl font-bold">
+      <h1 className="text-4xl ">
         Obliczyliśmy kwotę zachowku, o który możesz się ubiegać
       </h1>
       <p>Ta usługa jest darmowa.</p>
       <CardForm className="flex" style={{ minWidth: 200 }}>
         <Content className="flex flex-col m-2">
-          <h4 className="font-bold">Twój należny zachowek:</h4>
+          <h4 className="">Twój należny zachowek:</h4>
           <h1 className="text-4xl p-10 border font-thin m-auto w-full text-center">
             {result ? `${result.toFixed(2)}zł` : <Spinner />}
           </h1>

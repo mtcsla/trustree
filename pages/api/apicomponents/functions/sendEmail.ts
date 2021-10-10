@@ -1,11 +1,9 @@
-import mailgun from "mailgun-js";
+import sgMail from "@sendgrid/mail";
 
-const mg = mailgun({
-  apiKey: "30191d21d59f233e825c3ef7c8e1efe6-aff8aa95-71e35ecd",
-  domain: "trustree.pl",
-  host: "api.eu.mailgun.net",
-  publicApiKey: "pubkey-89507d19571f310fd9ed85d76a1a9baa",
-});
+const sendgrindApiKey =
+  "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";
+
+sgMail.setApiKey(sendgrindApiKey);
 
 interface MaildataProps {
   to: string;
@@ -18,10 +16,11 @@ interface MaildataProps {
 export default async function sendEmail(maildata: MaildataProps) {
   let error;
 
-  if (!maildata.from) maildata.from = "Trustree <testing@trustree.pl>";
+  if (!maildata.from) maildata.from = "noreply@trustree.pl";
 
   try {
-    await mg.messages().send(maildata);
+    //@ts-ignore
+    await sgMail.send(maildata);
   } catch (err) {
     error = err;
   }

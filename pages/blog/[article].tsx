@@ -63,7 +63,7 @@ const Article = ({ article }) => {
 
       <div className="flex flex-col">
         <h1
-          className={`${windowWidth > 800 ? "text-4xl" : "text-2xl"} font-bold`}
+          className={`${windowWidth > 800 ? "text-4xl" : "text-2xl"} `}
           style={{ marginTop: 10 }}
         >
           {title}
@@ -93,7 +93,7 @@ const Article = ({ article }) => {
       </span>
       <Divider />
       <h1
-        className={`${windowWidth > 800 ? "text-4xl" : "text-2xl"} font-bold`}
+        className={`${windowWidth > 800 ? "text-4xl" : "text-2xl"} `}
         style={{ marginTop: 20 }}
       >
         Sprawdź także inne artykuły:

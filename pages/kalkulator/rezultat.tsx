@@ -136,7 +136,7 @@ export default function Rezultat({ rezultat, relation }) {
 
   return (
     <>
-      <h1 className="text-4xl font-bold">
+      <h1 className="text-4xl ">
         Obliczyliśmy udziały twoje oraz innych krewnych zmarłego.
       </h1>
       <p>Ta usługa nic nie kosztuje.</p>
@@ -145,7 +145,7 @@ export default function Rezultat({ rezultat, relation }) {
           className="flex flex-col justify-evenly text-center mr-5"
           style={{ minWidth: 200 }}
         >
-          <h2 className="font-bold">Twój udział:</h2>
+          <h2 className="">Twój udział:</h2>
           {rezultat ? (
             <Card className="w-full">
               <h1
@@ -200,7 +200,7 @@ export default function Rezultat({ rezultat, relation }) {
         </FamilyImage>
       </ShareWrapper>
 
-      <h1 className="text-2xl font-bold mt-10">Udziały innych krewnych:</h1>
+      <h1 className="text-2xl  mt-10">Udziały innych krewnych:</h1>
       <OthersTable
         style={{ minHeight: 200 }}
         className={`w-full mt-4 ${

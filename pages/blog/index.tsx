@@ -117,7 +117,7 @@ const Blog = () => {
     <BlogListDiv>
       {" "}
       <Toaster position="top-right" ref={toaster} className="z-50 mt-10" />{" "}
-      <div className="flex-col flex-1 h-full m-2">
+      <div className="flex flex-col flex-1 h-full m-2">
         {" "}
         <div className="text-4xl mb-0 mt-0 w-auto text-right flex justify-start text-gray-700 items-center">
           <div className="flex items-center p-3 w-full rounded bg-gray-300 bg-opacity-60 mb-3">
@@ -127,46 +127,50 @@ const Blog = () => {
         </div>
         <p>Dowiedz się więcej na temat swojej sprawy.</p>{" "}
         {blogs.length ? (
-          <BlogList
-            {...{ blogs, loading, loadingDispatch, role: userRole, setBlogs }}
-          />
+          <>
+            <BlogList
+              {...{ blogs, loading, loadingDispatch, role: userRole, setBlogs }}
+            />
+            {userRole === "editor" || userRole === "admin" ? (
+              <>
+                <FormGroup label="tytuł nowego artykułu:" className="mt-6">
+                  <InputGroup
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    intent={!name && clicked ? "danger" : "none"}
+                  />
+                  <p className="text-xs text-gray-400">
+                    nie będzie możliwości jego zmiany
+                  </p>
+                  {!name && clicked ? (
+                    <p className="text-sm text-red-500">
+                      Wprowadź nazwę artykułu!
+                    </p>
+                  ) : null}
+                </FormGroup>
+                <Button
+                  rightIcon="edit"
+                  className="w-full"
+                  intent="success"
+                  onClick={() => {
+                    setClicked(true);
+                    if (name) createArticle(name);
+                  }}
+                >
+                  UTWÓRZ POST
+                </Button>
+              </>
+            ) : null}
+          </>
         ) : (
           <div
             style={{ height: "100%" }}
             className="h-full flex items-center justify-center mt-2"
           >
-            <Spinner size={200} className="m-auto mt-10" />
+            <Spinner size={200} />
           </div>
         )}
       </div>
-      {userRole === "editor" || userRole === "admin" ? (
-        <>
-          <FormGroup label="tytuł nowego artykułu:" className="mt-6">
-            <InputGroup
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              intent={!name && clicked ? "danger" : "none"}
-            />
-            <p className="text-xs text-gray-400">
-              nie będzie możliwości jego zmiany
-            </p>
-            {!name && clicked ? (
-              <p className="text-sm text-red-500">Wprowadź nazwę artykułu!</p>
-            ) : null}
-          </FormGroup>
-          <Button
-            rightIcon="edit"
-            className="w-full"
-            intent="success"
-            onClick={() => {
-              setClicked(true);
-              if (name) createArticle(name);
-            }}
-          >
-            UTWÓRZ POST
-          </Button>
-        </>
-      ) : null}
     </BlogListDiv>
   );
 };
@@ -217,6 +221,7 @@ export const BlogList = ({
                 <div className="flex w-full h-full">
                   <div
                     style={{
+                      border: "1px solid var(--border-color)",
                       backgroundSize: "cover",
                       backgroundImage: `url(${article.coverUri})`,
                       backgroundColor: "var(--grey)",
@@ -331,7 +336,7 @@ export const BlogList = ({
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex flex-col">
-                    <h2 style={{ marginTop: 5 }} className="text-xl font-bold">
+                    <h2 style={{ marginTop: 5 }} className="text-xl ">
                       {article.title}
                     </h2>
                     <p className="text-xs">{article.author}</p>
@@ -374,4 +379,6 @@ const toggleVisibility = async (
 
 const BlogListDiv = styled.div`
   width: 100%;
+  display: flex;
+  height: 100%;
 `;

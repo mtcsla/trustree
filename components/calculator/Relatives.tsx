@@ -8,7 +8,7 @@ const RelativesForm = () => {
 
   return (
     <CardForm className="flex flex-col p-6">
-      <h4 className="font-bold text-xl w-full" style={{ marginBottom: 5 }}>
+      <h4 className=" text-xl w-full" style={{ marginBottom: 5 }}>
         Ile wciąż żyjących bądź nieżyjących, lecz z żyjącym potomstwem dzieci
         miał zmarły?
       </h4>
@@ -30,7 +30,7 @@ const RelativesForm = () => {
       />
       <Divider style={{ marginTop: 20, marginBottom: 20 }} />
 
-      <h4 className="font-bold text-xl w-full" style={{ marginBottom: 5 }}>
+      <h4 className=" text-xl w-full" style={{ marginBottom: 5 }}>
         Ile wciąż żyjących bądź nieżyjących, lecz z żyjącym potomstwem braci lub
         sióstr miał zmarły?
       </h4>
@@ -54,7 +54,7 @@ const RelativesForm = () => {
       {[5, 6].includes(calculatorState.relation) ? (
         <>
           <Divider style={{ marginTop: 20, marginBottom: 20 }} />
-          <h4 className="font-bold text-xl" style={{ marginBottom: 5 }}>
+          <h4 className=" text-xl" style={{ marginBottom: 5 }}>
             Ile wciąż żyjących bądź nieżyjących, lecz z żyjącym potomstwem braci
             lub sióstr masz Ty?
           </h4>
