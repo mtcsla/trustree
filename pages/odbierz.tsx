@@ -1,7 +1,8 @@
-import * as pdf from "html2pdf.js";
-import parse from "html-react-parser";
 import { firestore } from "./api/lib/firebase-admin";
-import { CardForm } from "./kalkulator/index";
+
+import React from "react";
+import { Card } from "@blueprintjs/core";
+import dynamic from "next/dynamic";
 
 export const getServerSideProps = async ({ query }) => {
   const { id, col } = query;
@@ -23,6 +24,35 @@ export const getServerSideProps = async ({ query }) => {
   };
 };
 
-export default function Odbierz({ html, filename }) {
-  return <CardForm dangerouslySetInnerHTML={{ __html: html }}></CardForm>;
+const html2pdf: any = dynamic(() => import("html2pdf.js"), {
+  ssr: false,
+});
+
+export default function Odbierz({
+  html,
+  filename,
+}: {
+  html: string;
+  filename: string;
+}) {
+  const [pdf, setPdf] = React.useState(null);
+
+  React.useEffect(() => {
+    setPdf(html2pdf(html));
+  }, []);
+  React.useEffect(() => {
+    if (pdf) {
+      pdf.save(filename);
+    }
+  }, [pdf]);
+
+  return (
+    <Card
+      id="document"
+      className="p-6"
+      dangerouslySetInnerHTML={{
+        __html: html,
+      }}
+    ></Card>
+  );
 }

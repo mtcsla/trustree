@@ -43,7 +43,6 @@ export default function App({ Component, pageProps }) {
             alignItems: "center",
             zIndex: 100,
             color: "white",
-
             left: 0,
             right: 0,
             top: 0,
@@ -107,7 +106,7 @@ export default function App({ Component, pageProps }) {
             />
           </div>
         </NavigationBar>
-        <Wrapper className="flex h-full" style={{ overflowY: "hidden" }}>
+        <Wrapper className="flex h-full" style={{ overflowY: "visible" }}>
           <Navigation
             ref={navRef}
             shown={navExtended}
@@ -127,10 +126,11 @@ export default function App({ Component, pageProps }) {
           </Navigation>
 
           <Body
-            className="p-10"
+            pathname={router.pathname}
+            className={router.pathname != "/" && "p-10"}
             style={{
               height: "100%",
-              overflowY: "scroll",
+              overflowY: "visible",
               background: "var(--layout-bg)",
               flex: 1,
             }}
@@ -230,11 +230,14 @@ const NavigationBar = styled.div`
   align-items: center;
 `;
 
-const Body = styled.div`
+interface Pathname {
+  pathname?: string;
+}
+const Body = styled.div<Pathname>`
   margin-left: calc(300px + 5%);
   @media (max-width: 800px) {
     margin: 0;
-    padding: 25px;
+    padding: ${({ pathname }) => (pathname === "/" ? 0 : "25px")};
   }
 `;
 

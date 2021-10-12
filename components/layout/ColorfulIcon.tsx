@@ -20,15 +20,14 @@ export default function ColorfulIcon({
 }: ColorfulIconProps) {
   return (
     <>
-      <div className={"" + className} {...props}>
+      <div className={"inline-block" + className} {...props}>
         <Icon
           icon={icon}
-          size={size}
-          color={`rgb(${color})`}
+          size={size * 1.4}
           style={{
             padding: size / 2.5,
             borderRadius: size / 2.5,
-            background: `rgba(${color}, 0.2)`,
+
             ...style,
           }}
         />
