@@ -280,7 +280,7 @@ export default function index() {
           <p>Poznaj nasze zalety.</p>
           <div
             className="flex flex-wrap justify-center mb-4 text-left mt-4"
-            style={{ width: "85%", marginLeft: "auto", marginRight: "auto" }}
+            style={{ width: "100%", marginLeft: "auto", marginRight: "auto" }}
           >
             <Item3>
               <Icon
@@ -351,7 +351,7 @@ export default function index() {
               className="flex-1 border  h-full bg-white"
               style={{ marginLeft: 0 }}
             >
-              <div className="flex p-4 h-full flex-col justify-center">
+              <div className="flex p-4 h-full flex-col justify-center items-center">
                 <h1 className=" mb-1">Współpracujemy z prawnikami.</h1>
                 <p>
                   Wszystkie nasze wzory pism oraz usługi są weryfikowane przez
@@ -363,29 +363,24 @@ export default function index() {
             </Item2>
 
             <Mecenas
-              src="mecenas.jpg"
+              src="mecenas.png"
               style={{
                 borderRadius: 10,
-                alignSelf: "start",
-                backgroundColor: "white",
               }}
             />
           </Div>
         </div>
       </div>
 
-      <div
-        className="w-full p-3 flex flex-col"
-        style={{ background: "var(--sea-green)" }}
-      >
-        <p className="w-full text-lg text-white text-center">
+      <div className="w-full p-3 flex flex-col bg-white border-t">
+        <h4 className="w-full text-lg  text-center">
           <Icon
-            className="inline-block mr-2"
+            className="inline-block mr-2 ml-2"
             icon={"envelope"}
             size={width > 800 ? 20 : 18}
           />
           mail@trustree.pl
-        </p>
+        </h4>
       </div>
     </>
   );
@@ -467,6 +462,7 @@ const Item3 = styled.div`
   @media (max-width: 1000px) {
     width: 100%;
   }
+
   margin: 2%;
 `;
 const Generation = styled.h1`

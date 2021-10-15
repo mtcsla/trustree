@@ -35,17 +35,6 @@ export default function Odbierz({
   html: string;
   filename: string;
 }) {
-  const [pdf, setPdf] = React.useState(null);
-
-  React.useEffect(() => {
-    setPdf(html2pdf(html));
-  }, []);
-  React.useEffect(() => {
-    if (pdf) {
-      pdf.save(filename);
-    }
-  }, [pdf]);
-
   return (
     <Card
       id="document"
