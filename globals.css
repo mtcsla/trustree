@@ -9,6 +9,9 @@
   .text-base {
     font-size: 14px;
   }
+  .text-sm {
+    font-size: 12px;
+  }
   .text-xs {
     font-size: 10px;
   }

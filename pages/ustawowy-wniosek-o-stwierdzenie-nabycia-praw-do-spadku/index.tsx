@@ -634,9 +634,7 @@ export default function WniosekTestament() {
                       <h3
                         className="text-xs mb-1"
                         style={{ alignSelf: "flex-end" }}
-                      >
-                        (zmarłego)
-                      </h3>
+                      ></h3>
                     </h3>
                     <p className="text-xs">
                       Aby wykonać wniosek potrzebujemy również danych o zmarłym,
@@ -1425,7 +1423,6 @@ const RowForm = styled.div`
   justify-content: space-between;
   @media (min-width: 800px) {
     text-overflow: ellipsis;
-    white-space: nowrap;
   }
 `;
 

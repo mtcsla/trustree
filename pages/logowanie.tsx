@@ -83,7 +83,7 @@ export default function LoginPage() {
           </Callout>
 
           <Card className="flex bg-white p-5" style={{ marginTop: 30 }}>
-            <LoginForm className="flex flex-col p-4" style={{ minWidth: 250 }}>
+            <LoginForm className="flex flex-col p-4">
               <h2 className="text-3xl " style={{ marginBottom: 10 }}>
                 Twoje dane
               </h2>

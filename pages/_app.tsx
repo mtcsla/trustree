@@ -162,10 +162,12 @@ const Navigation = styled.div<Shown>`
     transition: width 200ms ease-in-out, padding-left 200ms ease-in-out;
     top: 35px;
     white-space: nowrap;
+
     min-width: 0px;
     ${(props) =>
       !props.shown
         ? `
+    border: none;
     width: 0px;
     padding-left: 0;`
         : `

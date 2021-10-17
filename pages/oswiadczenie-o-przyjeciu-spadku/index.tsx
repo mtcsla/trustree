@@ -312,9 +312,7 @@ export default function OswiadczeniePrzyjmij() {
                       <h3
                         className="text-xs mb-1"
                         style={{ alignSelf: "flex-end" }}
-                      >
-                        (zmarłego)
-                      </h3>
+                      ></h3>
                     </h3>
                     <p className="text-xs">
                       Aby wykonać wniosek potrzebujemy również danych o zmarłym,
@@ -654,10 +652,7 @@ export default function OswiadczeniePrzyjmij() {
                                 {RenderErrorMessage}
                               </ErrorMessage>
                             </RowFormGroup>
-                            <RowFormGroup
-                              className="truncate"
-                              label="kim był zmarły dla tego spadkobiercy?"
-                            >
+                            <RowFormGroup label="kim był zmarły dla tego spadkobiercy?">
                               <Field
                                 className="w-full"
                                 as={Select}

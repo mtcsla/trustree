@@ -86,7 +86,7 @@ export default function KalkulatorZachowku() {
             <CardForm style={{ marginTop: 30 }} className="flex flex-wrap">
               <Forms
                 className="flex flex-col justify-evenly"
-                style={{ margin: 10, minWidth: 230, flex: 1 }}
+                style={{ margin: 10, flex: 1 }}
               >
                 <h4 className=" text-2xl">Dane majątku zmarłego:</h4>
 

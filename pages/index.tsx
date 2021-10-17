@@ -32,7 +32,9 @@ export default function index() {
           />
           Co oferujemy?
         </h1>
-        <p>Udzielamy zarówno płatnych, jak i bezpłatnych usług.</p>
+        <p className="text-sm">
+          Udzielamy zarówno płatnych, jak i bezpłatnych usług.
+        </p>
       </div>
       <div
         className="flex flex-wrap justify-center mb-4"
@@ -57,13 +59,13 @@ export default function index() {
           />
           <div className="ml-4 pr-4 flex flex-col">
             <h3 className=" mb-1">Pozew o zachowek</h3>
-            <p>
+            <p className="text-sm">
               Szybko wygeneruj dokładny pozew o zachowek i uratuj swoją
               należność po zmarłym.
             </p>
             <Link href="/" passHref>
-              <a>
-                <h4 className="flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
+              <a className="flex justify-start">
+                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
@@ -81,10 +83,12 @@ export default function index() {
           />
           <div className="ml-4 pr-4 flex flex-col">
             <h3 className=" mb-1">Oświadczenie o przyjęciu spadku</h3>
-            <p>Natychmiastowo wygeneruj oświadczenie o przyjęciu spadku.</p>
+            <p className="text-sm">
+              Natychmiastowo wygeneruj oświadczenie o przyjęciu spadku.
+            </p>
             <Link href="/" passHref>
-              <a>
-                <h4 className="flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
+              <a className="flex justify-start">
+                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
@@ -102,10 +106,12 @@ export default function index() {
           />
           <div className="ml-4 pr-4 flex flex-col">
             <h3 className=" mb-1">Oświadczenie o odrzuceniu spadku</h3>
-            <p>Natychmiastowo wygeneruj oświadczenie o odrzuceniu spadku.</p>
+            <p className="text-sm">
+              Natychmiastowo wygeneruj oświadczenie o odrzuceniu spadku.
+            </p>
             <Link href="/" passHref>
-              <a>
-                <h4 className="flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
+              <a className="flex justify-start">
+                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
@@ -127,13 +133,13 @@ export default function index() {
               Wniosek o stwierdzenie nabycia praw do spadku
             </h3>
             <p className="text-xs text-gray-400">wg dziedziczenia ustawowego</p>
-            <p>
+            <p className="text-sm">
               Wygeneruj wniosek o stwierdzenie nabycia praw do spadku, jeśli
               twój spadkodawca nie zostawił testamentu.
             </p>
             <Link href="/" passHref>
-              <a>
-                <h4 className="flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
+              <a className="flex justify-start">
+                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
@@ -156,13 +162,13 @@ export default function index() {
             <p className="text-xs text-gray-400">
               wg dziedziczenia testamentowego
             </p>
-            <p>
+            <p className="text-sm">
               Wygeneruj wniosek o stwierdzenie nabycia praw do spadku, jeśli
               twój spadkodawca zostawił testament.
             </p>
             <Link href="/" passHref>
-              <a>
-                <h4 className="flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
+              <a className="flex justify-start">
+                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
@@ -181,13 +187,13 @@ export default function index() {
           />
           <div className="ml-4 pr-4 flex flex-col">
             <h3 className=" mb-1">Wniosek o ustalenie działu spadku</h3>
-            <p>
+            <p className="text-sm">
               Utwórz wniosek o ustalenie działu spadku, który pozwoli podzielić
               majątek między spadkobierców.
             </p>
             <Link href="/" passHref>
-              <a>
-                <h4 className="flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
+              <a className="flex justify-start">
+                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
@@ -220,21 +226,21 @@ export default function index() {
         </div>
         <Item2>
           <Icon
-            icon="book"
+            icon="many-to-many"
             size={20}
             style={{ padding: 7 }}
-            className="bg-blue-400  rounded-md"
+            className="bg-yellow-400  rounded-md"
             color={"white"}
           />
           <div className="ml-4 pr-4 flex flex-col">
             <h3 className=" mb-1">Kalkulator zachowku</h3>
-            <p>
+            <p className="text-sm">
               Dowiedz się, jaka kwota zachowku należy ci się, jeśli spadkodawca
               pominął Cię w testamencie.
             </p>
             <Link href="/" passHref>
-              <a>
-                <h4 className="flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
+              <a className="flex justify-start">
+                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
@@ -244,7 +250,7 @@ export default function index() {
         </Item2>
         <Item2>
           <Icon
-            icon="add-location"
+            icon="calculator"
             size={20}
             style={{ padding: 7 }}
             className="bg-purple-400  rounded-md"
@@ -252,13 +258,13 @@ export default function index() {
           />
           <div className="ml-4 pr-4 flex flex-col">
             <h3 className=" mb-1">Kalkulator udziału w spadku</h3>
-            <p>
+            <p className="text-sm">
               Dowiedz się, jaka część spadku w ułamku zwykłym przypada Ci, jeśli
               spadkodawca nie pozostawił testamentu.
             </p>
             <Link href="/" passHref>
-              <a>
-                <h4 className="flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
+              <a className="flex justify-start">
+                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
@@ -277,7 +283,7 @@ export default function index() {
             />
             Dlaczego my?
           </h1>
-          <p>Poznaj nasze zalety.</p>
+          <p className="text-sm">Poznaj nasze zalety.</p>
           <div
             className="flex flex-wrap justify-center mb-4 text-left mt-4"
             style={{ width: "100%", marginLeft: "auto", marginRight: "auto" }}
@@ -292,7 +298,7 @@ export default function index() {
               />
               <div className="ml-4 pr-4 flex flex-col">
                 <h3 className=" mb-1">Szybkość</h3>
-                <p>
+                <p className="text-sm">
                   Wszystkie nasze usługi są natychmiastowe. Nie musisz się
                   martwić o to, kiedy otrzymasz pismo.
                 </p>
@@ -303,12 +309,12 @@ export default function index() {
                 icon="dollar"
                 size={20}
                 style={{ padding: 7 }}
-                className="bg-blue-400  rounded-md"
+                className="bg-green-400  rounded-md"
                 color={"white"}
               />
               <div className="ml-4 pr-4 flex flex-col">
                 <h3 className=" mb-1">Niska cena</h3>
-                <p>
+                <p className="text-sm">
                   Nasze usługi są o wiele tańsze od wizyty u prawnika, a czasem
                   nawet darmowe.
                 </p>
@@ -324,7 +330,7 @@ export default function index() {
               />
               <div className="ml-4 pr-4 flex flex-col">
                 <h3 className=" mb-1">Zdalność</h3>
-                <p>
+                <p className="text-sm">
                   Wygeneruj pisma w dowolnym momencie bez wychodzenia z domu.
                 </p>
               </div>
@@ -347,13 +353,10 @@ export default function index() {
             Nasi partnerzy
           </Generation>
           <Div className="flex justify-between items-center">
-            <Item2
-              className="flex-1 border  h-full bg-white"
-              style={{ marginLeft: 0 }}
-            >
-              <div className="flex p-4 h-full flex-col justify-center items-center">
-                <h1 className=" mb-1">Współpracujemy z prawnikami.</h1>
-                <p>
+            <Item2 className="flex-1 h-full" style={{ marginLeft: 0 }}>
+              <div className="flex p-4 h-full flex-col  justify-center items-center">
+                <h1 className="w-full mb-1">Współpracujemy z prawnikami.</h1>
+                <p className="text-sm">
                   Wszystkie nasze wzory pism oraz usługi są weryfikowane przez
                   prawników przed udostępnieniem ich naszym klientom.
                   Współpracujemy z{" "}
@@ -361,13 +364,17 @@ export default function index() {
                 </p>
               </div>
             </Item2>
-
-            <Mecenas
-              src="mecenas.png"
-              style={{
-                borderRadius: 10,
-              }}
-            />
+            <Radca className="h-full flex flex-col justify-center">
+              <Mecenas
+                src="mecenas.png"
+                style={{
+                  borderRadius: 10,
+                }}
+              />
+              <p className="text-xs text-right italic mt-1">
+                r.pr Piotr Wojtowicz
+              </p>
+            </Radca>
           </Div>
         </div>
       </div>
@@ -388,14 +395,11 @@ export default function index() {
 
 const Mecenas = styled.img`
   width: 200px;
+
   @media (max-width: 1000px) {
     width: 150px;
   }
   @media (max-width: 600px) {
-    width: 100%;
-  }
-  @media (max-width: 500px) {
-    display: none;
   }
 `;
 const Div = styled.div`
@@ -476,6 +480,14 @@ const Generation = styled.h1`
   }
   @media (max-width: 600px) {
     width: 100%;
+  }
+`;
+const Radca = styled.div`
+  @media (max-width: 450px) {
+    align-self: flex-end;
+    height: auto;
+    margin-bottom: 20px;
+    padding-right: 10px;
   }
 `;
 

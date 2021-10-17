@@ -173,10 +173,7 @@ export default function WniosekTestament() {
               <>
                 <CardForm>
                   <div className="flex flex-wrap w-full">
-                    <Body
-                      className="flex flex-col flex-1"
-                      style={{ minWidth: 220 }}
-                    >
+                    <Body className="flex flex-col flex-1">
                       <h3 className="flex items-center text-2xl ">
                         <ColorfulIcon
                           size={18}
@@ -292,7 +289,11 @@ export default function WniosekTestament() {
                     </RowFormGroup>
                   </RowForm>
                   <RowForm className="">
-                    <Callout className="mb-2" intent="success">
+                    <Callout
+                      className="mb-2"
+                      style={{ boxSizing: "border-box" }}
+                      intent="success"
+                    >
                       Jeśli odziedziczyłeś całość spadku, pozostaw pole z
                       udziałem puste.
                     </Callout>
@@ -652,9 +653,7 @@ export default function WniosekTestament() {
                       <h3
                         className="text-xs mb-1"
                         style={{ alignSelf: "flex-end" }}
-                      >
-                        (zmarłego)
-                      </h3>
+                      ></h3>
                     </h3>
                     <p className="text-xs">
                       Aby wykonać wniosek potrzebujemy również danych o zmarłym,
@@ -1590,19 +1589,6 @@ export const Body = styled.div`
   }
 `;
 
-const ColumnForm = styled.div`
-  width: 49%;
-  @media (max-width: 800px) {
-    width: 100%;
-  }
-`;
-
-const WrapFlex = styled.div`
-  @media (max-width: 800px) {
-    flex-wrap: wrap;
-  }
-`;
-
 export const RowFormGroup = styled(FormGroup)`
   width: 49%;
   @media (max-width: 800px) {
@@ -1616,7 +1602,6 @@ export const RowForm = styled.div`
   justify-content: space-between;
   @media (min-width: 800px) {
     text-overflow: ellipsis;
-    white-space: nowrap;
   }
 `;
 
