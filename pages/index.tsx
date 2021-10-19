@@ -3,25 +3,47 @@ import { useNav } from "./_app";
 import { Callout, Card, Icon, Button, Toast } from "@blueprintjs/core";
 import ColorfulIcon from "../components/layout/ColorfulIcon";
 import React from "react";
+
 import styled from "@emotion/styled";
 import Link from "next/link";
 export default function index() {
   const windowWidth = useWindowSize().width;
   const { setNavExtended, navExtended } = useNav();
-
   const { width } = useWindowSize();
 
   return (
     <>
       <div
-        className="w-full flex flex-col items-center p-10 text-center"
-        style={{ background: "var(--sea-green)" }}
+        className="w-full flex p-0 text-left  justify-between"
+        style={{
+          background: "var(--sea-green)",
+          overflowX: "clip",
+        }}
       >
-        <img src="/logo-light.svg" />
-        <h1 className="text-white mt-2">
-          Wygeneruj pisma niezbędne w swoim postępowaniu spadkowym
-        </h1>
-        <p className="text-white">...a także oblicz swój udział i zachowek</p>
+        <HeaderText
+          className="flex flex-col p-10 text-left justify-between"
+          style={{
+            background: "var(--sea-green)",
+          }}
+        >
+          <Logo src="logo-light.svg"></Logo>
+          <div className="flex flex-col">
+            <h1 className={`text-white mt-2  text-${width > 1200 ? 5 : 4}xl`}>
+              Wygeneruj pisma niezbędne w swoim postępowaniu spadkowym
+            </h1>
+            <p className="text-white text-lg mt-4">
+              ...a także oblicz swój udział i zachowek
+            </p>
+          </div>
+          <div className="flex flex-col mt-4">
+            <p className="text-xs text-white bg-white bg-opacity-20 p-2 rounded">
+              Firma powstała przy wsparciu Google for Start-ups, Microsoft
+              Polska oraz Apptension w ramach programu Akceleracyjnego
+              TeenCrunch
+            </p>
+          </div>
+        </HeaderText>
+        <Suited src="/suited.png" style={{ background: "var(--sea-green)" }} />
       </div>
       <div className="w-full flex flex-col items-center p-10 pb-2 text-center">
         <h1 className="w-full">
@@ -392,7 +414,16 @@ export default function index() {
     </>
   );
 }
+const HeaderText = styled.div``;
+const Suited = styled.img`
+  height: 400px;
+  min-height: 400px;
+  align-self: end;
 
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
 const Mecenas = styled.img`
   width: 200px;
 
@@ -468,6 +499,12 @@ const Item3 = styled.div`
   }
 
   margin: 2%;
+`;
+const Logo = styled.img`
+  height: 100px;
+  @media (min-width: 600px) {
+    display: none;
+  }
 `;
 const Generation = styled.h1`
   width: 85%;
