@@ -34,8 +34,8 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
   const date = new Date();
   console.log("bruh");
 
-  const isTestatorMale = metadata.deadGender == "mężczyzna";
-  const isHereditaryMale = metadata.gender == "mężczyzna";
+  const isTestatorMale = metadata.deadGender == 0;
+  const isHereditaryMale = metadata.gender == 0;
 
   if (!metadata.share) {
     metadata.otherHereditaries = [];

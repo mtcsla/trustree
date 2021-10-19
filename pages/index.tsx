@@ -7,8 +7,6 @@ import React from "react";
 import styled from "@emotion/styled";
 import Link from "next/link";
 export default function index() {
-  const windowWidth = useWindowSize().width;
-  const { setNavExtended, navExtended } = useNav();
   const { width } = useWindowSize();
 
   return (
@@ -28,7 +26,11 @@ export default function index() {
         >
           <Logo src="logo-light.svg"></Logo>
           <div className="flex flex-col">
-            <h1 className={`text-white mt-2  text-${width > 1200 ? 5 : 4}xl`}>
+            <h1
+              className={`text-white mt-2  text-${
+                width < 800 ? 4 : width > 1000 ? (width > 1200 ? 5 : 4) : ""
+              }xl`}
+            >
               Wygeneruj pisma niezbędne w swoim postępowaniu spadkowym
             </h1>
             <p className="text-white text-lg mt-4">
@@ -36,7 +38,11 @@ export default function index() {
             </p>
           </div>
           <div className="flex flex-col mt-4">
-            <p className="text-xs text-white bg-white bg-opacity-20 p-2 rounded">
+            <p
+              className={`text-${width > 1300 ? "base" : "xs"} text-white ${
+                width > 800 ? width < 900 && "hidden" : ""
+              } bg-white bg-opacity-20 p-2 rounded`}
+            >
               Firma powstała przy wsparciu Google for Start-ups, Microsoft
               Polska oraz Apptension w ramach programu Akceleracyjnego
               TeenCrunch

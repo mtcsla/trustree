@@ -14,6 +14,7 @@ import "../globals.css";
 import Head from "next/head";
 import { useOnClickOutside } from "../hooks/onClickOutside";
 import { useWindowSize } from "../hooks/windowSize";
+import Link from "next/link";
 
 const navContext = React.createContext<any>({});
 export const useNav = () => React.useContext(navContext);
@@ -37,21 +38,23 @@ export default function App({ Component, pageProps }) {
         <Head>
           <title>Trustree | serwis z pismami sądowymi</title>
         </Head>
-        <TopHeader
-          className="fixed flex justify-center text-center p-2"
-          style={{
-            alignItems: "center",
-            zIndex: 100,
-            color: "white",
-            left: 0,
-            right: 0,
-            top: 0,
-          }}
-        >
-          <p style={{ fontSize: windowWidth > 800 ? 14 : 10 }}>
-            Potrzebujesz pomocy? Przeczytaj posty na naszym blogu!
-          </p>
-        </TopHeader>
+        <Link href="/blog">
+          <TopHeader
+            className="fixed flex justify-center text-center p-2"
+            style={{
+              alignItems: "center",
+              zIndex: 100,
+              color: "white",
+              left: 0,
+              right: 0,
+              top: 0,
+            }}
+          >
+            <p style={{ fontSize: windowWidth > 800 ? 14 : 10 }}>
+              Potrzebujesz pomocy? Przeczytaj posty na naszym blogu!
+            </p>
+          </TopHeader>
+        </Link>
         <NavigationBar>
           <Icon icon="menu" size={30} onClick={() => setNavExtended(true)} />
           <div className="flex items-center ">
@@ -110,7 +113,7 @@ export default function App({ Component, pageProps }) {
           <Navigation
             ref={navRef}
             shown={navExtended}
-            className="flex flex-col justify-start h-full fixed"
+            className="flex flex-col justify-start h-full fixed select-none"
           >
             <Header />
 
