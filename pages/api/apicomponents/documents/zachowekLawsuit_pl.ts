@@ -88,7 +88,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
           <span style="width: 100%; text-align: right;">
             Powód: ${metadata.name}, nr. PESEL: ${metadata.pesel},
             zamieszkał${isHereditaryMale ? "y" : "a"} pod adresem
-            ${metadata.address}, ${metadata.postal} ${metadata.city} <br />
+            ${metadata.street}, ${metadata.postal} ${metadata.city} <br />
             Pozwan${suedNumber == 1 ? "y" : "i"}:
             ${suedNumber > 1 ? "<br />" : ""} ${suedList} <br />
             Wartość przedmiotu sporu: ${metadata.value}zł
