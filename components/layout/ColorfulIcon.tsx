@@ -23,11 +23,11 @@ export default function ColorfulIcon({
       <div className={"inline-block" + className} {...props}>
         <Icon
           icon={icon}
-          size={size * 1.4}
+          size={size}
+          className="border bg-black bg-opacity-10 box-border"
           style={{
-            padding: size / 2.5,
-            borderRadius: size / 2.5,
-
+            padding: size / 3.5,
+            borderRadius: size / 4,
             ...style,
           }}
         />

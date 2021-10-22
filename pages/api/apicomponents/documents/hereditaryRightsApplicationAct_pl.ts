@@ -13,7 +13,6 @@ function html(strings, ...tags) {
 export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
   const date = new Date();
 
-  console.log(metadata);
   if (!metadata.share) {
     metadata.otherHereditaries = [];
   }

@@ -9,7 +9,7 @@ function html(strings, ...tags) {
 
 export const hereditaryRefusalDeclaration_pl = (metadata: any) => {
   const date = new Date();
-  console.log({ metadata });
+
   const isTestatorMale = metadata.deadGender == 0;
 
   return html`

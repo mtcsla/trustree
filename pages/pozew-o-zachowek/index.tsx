@@ -5,6 +5,8 @@ import {
   FormGroup,
   Icon,
   InputGroup,
+  Position,
+  Toaster,
 } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import { ErrorMessage, Field, Formik } from "formik";
@@ -18,8 +20,14 @@ import ColorfulIcon from "../../components/layout/ColorfulIcon";
 import {
   getRelation,
   OtherHereditariesRenderer,
-} from "../../components/wniosek/OtherHereditariesRenderer";
+} from "../../components/pozew-o-zachowek/OtherHereditariesRenderer";
 import { CardForm } from "../kalkulator";
+import Immovables from "../../components/pozew-o-zachowek/Immovables";
+import Movables from "../../components/pozew-o-zachowek/Movables";
+import Grants from "../../components/pozew-o-zachowek/Grants";
+import { ImmovablesRenderer } from "../../components/pozew-o-zachowek/ImmovablesRenderer";
+import { MovablesRenderer } from "../../components/pozew-o-zachowek/MovablesRenderer";
+import { GrantsRenderer } from "../../components/pozew-o-zachowek/GrantsRenderer";
 
 const yupSchema = yup.object().shape({
   email: yup
@@ -44,10 +52,12 @@ const yupSchema = yup.object().shape({
     .string()
 
     .matches(
-      /^[0-9]*\/[0-9]*$/,
+      /^[1-9][0-9]*\/[1-9][0-9]*$/,
       "To pole musi zawierać właściwy ułamek zwykły lub być puste."
     ),
-  forma: yup.number().required("To pole jest wymagane.").nullable(),
+  invalid: yup.number().required("To pole jest wymagane.").nullable(),
+  value: yup.number().required("To pole jest wymagane.").nullable(),
+  mediation: yup.number().required("To pole jest wymagane.").nullable(),
   gender: yup.number().required("To pole jest wymagane.").nullable(),
   relation: yup.number().required("To pole jest wymagane.").nullable(),
 
@@ -66,23 +76,33 @@ const yupSchema = yup.object().shape({
   courtNumber: yup.string().required("To pole jest wymagane.").nullable(),
   //testament
   testamentDate: yup.date().required().nullable(),
-  testamentNotarial: yup.boolean().required().nullable(),
-  testamentNotarialName: yup.string(),
-  testamentNotarialCity: yup.string(),
-  testamentNotarialRepository: yup.string(),
-  testamentNotarialNumber: yup.string(),
+
   //otherHereditaries
+  immovables: yup.array(),
   otherHereditaries: yup.array(),
+  //ruling
+  rulingCourtName: yup.string().required("To pole jest wymagane."),
+  rulingCourtNumber: yup.string().required("To pole jest wymagane.").nullable(),
+  rulingDate: yup.date().required("To pole jest wymagane.").nullable(),
+  rulingSignature: yup.string().required("To pole jest wymagane."),
+  rulingClosure: yup.boolean().required("To pole jest wymagane.").nullable(),
+  rulingClosureDate: yup.date().nullable(),
 });
 
 export default function WniosekTestament() {
   const router = useRouter();
   const [loaded, setLoaded] = React.useState(false);
+  const toaster = React.useRef<Toaster>();
   React.useEffect(() => {
     setLoaded(true);
   }, []);
   return (
     <>
+      <Toaster
+        position={Position.TOP_RIGHT}
+        ref={toaster}
+        className="z-50 mt-10"
+      />
       <h1 className="text-4xl ">Wygeneruj pozew o zachowek</h1>
       <p>Podaj nam swoje dane, a my utworzymy za Ciebie pozew.</p>
       <Callout intent="primary" className="mt-6">
@@ -96,16 +116,19 @@ export default function WniosekTestament() {
             newValues.otherHereditaries = JSON.stringify(
               newValues.otherHereditaries
             );
+            newValues.immovables = JSON.stringify(newValues.immovables);
+            newValues.movables = JSON.stringify(newValues.movables);
+            newValues.grants = JSON.stringify(newValues.grants);
 
             router.push(
-              "/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku/finalizacja?" +
+              "/pozew-o-zachowek/finalizacja?" +
                 new URLSearchParams(newValues).toString()
             );
           }}
           validateOnChange
           validationSchema={yupSchema}
           initialValues={
-            JSON.parse(localStorage.getItem("wniosekTestamentowyValues")) || {
+            JSON.parse(localStorage.getItem("pozewOZachowek")) || {
               email: "",
               name: "",
               pesel: "",
@@ -113,13 +136,16 @@ export default function WniosekTestament() {
               postal: "",
               city: "",
               share: "",
-              forma: null,
+              mediation: null,
+              invalid: null,
               gender: null,
               relation: null,
               actType: null,
+              value: null,
               actUscName: "",
               actNumber: "",
               actDate: null,
+              //
               deadName: "",
               deadAddress: "",
               deadCity: "",
@@ -127,26 +153,31 @@ export default function WniosekTestament() {
               deadGender: null,
               deadActUscName: "",
               deadActNumber: "",
+              //
               courtName: "",
               courtAddress: "",
               courtNumber: null,
+              //
               otherHereditaries: [],
+              immovables: [],
+              movables: [],
+              grants: [],
+              //
               testamentDate: null,
-              testamentNotarial: null,
-              testamentNotarialName: "",
-              testamentNotarialCity: "",
-              testamentNotarialRepository: "",
-              testamentNotarialNumber: "",
+              rulingCourtName: "",
+              rulingCourtNumber: null,
+              rulingDate: null,
+              rulingSignature: "",
+              rulingClosure: null,
+              rulingClosureDate: null,
             }
           }
         >
           {({ errors, touched, values, setFieldValue, handleSubmit }) => {
             React.useEffect(() => {
-              localStorage.setItem(
-                "wniosekTestamentowyValues",
-                JSON.stringify(values)
-              );
+              localStorage.setItem("pozewOZachowek", JSON.stringify(values));
             }, [values]);
+
             return (
               <>
                 <CardForm>
@@ -165,8 +196,8 @@ export default function WniosekTestament() {
                         Twoje dane
                       </h3>
                       <p className="mt-2 text-xs">
-                        Potrzebujemy Twoich danych osobowych, aby wykonać
-                        wniosek w Twoim imieniu.
+                        Potrzebujemy Twoich danych osobowych, aby wykonać pozew
+                        w Twoim imieniu.
                       </p>
                       <Divider className="mt-4 mb-4" />
 
@@ -272,7 +303,16 @@ export default function WniosekTestament() {
                   <RowForm className="">
                     <Callout className="mb-2" intent="success">
                       Jeśli odziedziczyłeś całość spadku, pozostaw pole z
-                      udziałem puste.
+                      udziałem puste. Możesz obliczyć swój udział w spadku i
+                      zachowek w naszych kalkulatorach:
+                      <ul className="list-disc pl-3">
+                        <li className="font-bold">
+                          <a href="/kalkulator">udział w spadku</a>
+                        </li>
+                        <li className="font-bold">
+                          <a href="/kalkulator-zachowku">kwota zachowku</a>
+                        </li>
+                      </ul>
                     </Callout>
                     <RowFormGroup label="miasto adresu:">
                       <Field
@@ -290,7 +330,7 @@ export default function WniosekTestament() {
                     <RowFormGroup
                       className=""
                       label="ustawowy udział w spadku:"
-                      labelInfo="(w ułamku zwykłym)"
+                      labelInfo=""
                     >
                       <Field
                         as={InputGroup}
@@ -306,41 +346,41 @@ export default function WniosekTestament() {
                       </ErrorMessage>
                     </RowFormGroup>
                   </RowForm>
-                  <RowForm className="">
-                    <RowFormGroup label="forma przyjęcia spadku:">
+                  <RowForm>
+                    <RowFormGroup label="czy zgłosiłeś zarzut nieważności testamentu?">
                       <Field
                         className="w-full"
                         as={Select}
                         menuPortalTarget={document.body}
                         isSearchable={false}
-                        name="forma"
+                        name="invalid"
                         intent={
-                          errors.forma && touched.forma ? "danger" : "none"
+                          errors.invalid && touched.invalid ? "danger" : "none"
                         }
-                        onChange={({ value }) => setFieldValue("forma", value)}
+                        onChange={({ value }) =>
+                          setFieldValue("invalid", value)
+                        }
                         placeholder="wybierz..."
                         value={
-                          values.forma == null
+                          values.invalid == null
                             ? null
                             : {
-                                value: values.forma,
-                                label: values.forma
-                                  ? "przyjęcie z dobrodziejstwem inwentarza"
-                                  : "przyjęcie proste",
+                                value: values.invalid,
+                                label: values.invalid ? "tak" : "nie",
                               }
                         }
                         options={[
                           {
                             value: 0,
-                            label: "przyjęcie proste",
+                            label: "nie",
                           },
                           {
                             value: 1,
-                            label: "przyjęcie z dobrodziejstwem inwentarza",
+                            label: "tak",
                           },
                         ]}
                       />
-                      <ErrorMessage name="forma">
+                      <ErrorMessage name="invalid">
                         {RenderErrorMessage}
                       </ErrorMessage>
                     </RowFormGroup>
@@ -379,6 +419,66 @@ export default function WniosekTestament() {
                       />
 
                       <ErrorMessage name="gender">
+                        {RenderErrorMessage}
+                      </ErrorMessage>
+                    </RowFormGroup>
+                  </RowForm>
+                  <RowForm>
+                    <RowFormGroup label="czy próbowałeś dokonać mediacji ze stroną pozwaną?">
+                      <Field
+                        className="w-full"
+                        as={Select}
+                        menuPortalTarget={document.body}
+                        isSearchable={false}
+                        name="mediation"
+                        intent={
+                          errors.mediation && touched.mediation
+                            ? "danger"
+                            : "none"
+                        }
+                        onChange={({ value }) =>
+                          setFieldValue("mediation", value)
+                        }
+                        placeholder="wybierz..."
+                        value={
+                          values.mediation == null
+                            ? null
+                            : {
+                                value: values.mediation,
+                                label: values.mediation ? "tak" : "nie",
+                              }
+                        }
+                        options={[
+                          {
+                            value: 0,
+                            label: "nie",
+                          },
+                          {
+                            value: 1,
+                            label: "tak",
+                          },
+                        ]}
+                      />
+                      <ErrorMessage name="mediation">
+                        {RenderErrorMessage}
+                      </ErrorMessage>
+                    </RowFormGroup>
+                    <RowFormGroup
+                      className=""
+                      label="kwota zachowku, o który chcesz się ubiegać (w zł):"
+                      labelInfo=""
+                    >
+                      <Field
+                        as={InputGroup}
+                        leftIcon="dollar"
+                        name="value"
+                        type="number"
+                        placeholder="np. 10000"
+                        intent={
+                          errors.value && touched.value ? "danger" : "none"
+                        }
+                      />
+                      <ErrorMessage name="value">
                         {RenderErrorMessage}
                       </ErrorMessage>
                     </RowFormGroup>
@@ -434,16 +534,8 @@ export default function WniosekTestament() {
                       }
                       options={[
                         {
-                          value: 0,
-                          label: "niespokrewnionym",
-                        },
-                        {
                           value: 1,
                           label: "małżonkiem",
-                        },
-                        {
-                          value: 2,
-                          label: "rodzeństwem",
                         },
                         {
                           value: 3,
@@ -452,14 +544,6 @@ export default function WniosekTestament() {
                         {
                           value: 4,
                           label: "rodzicem",
-                        },
-                        {
-                          value: 5,
-                          label: "dziadkiem/babcią",
-                        },
-                        {
-                          value: 6,
-                          label: "wujkiem/ciotką",
                         },
                       ]}
                     />
@@ -490,7 +574,6 @@ export default function WniosekTestament() {
                         menuPortalTarget={document.body}
                         isSearchable={false}
                         onChange={({ value }) => {
-                          console.log({ value });
                           setFieldValue("actType", value);
                         }}
                         value={
@@ -499,8 +582,8 @@ export default function WniosekTestament() {
                             : {
                                 value: values.actType,
                                 label: values.actType
-                                  ? "odpis skrócony aktu małżeństwa"
-                                  : "odpis skrócony aktu urodzenia",
+                                  ? "odpis skrócony aktu urodzenia"
+                                  : "odpis skrócony aktu małżeństwa",
                               }
                         }
                         placeholder="wybierz..."
@@ -633,7 +716,7 @@ export default function WniosekTestament() {
                       ></h3>
                     </h3>
                     <p className="text-xs">
-                      Aby wykonać wniosek potrzebujemy również danych o zmarłym,
+                      Aby wykonać pozew potrzebujemy również danych o zmarłym,
                       po którym jest spadek.
                     </p>
                     <Divider className="mt-4 mb-4 w-full" />
@@ -791,469 +874,352 @@ export default function WniosekTestament() {
                   pragnął/pragnęła przyjąć spadek w formie prostej bądź z
                   dobrodziejstwem inwentarza.
                 </Callout>
-                {values.share ? (
-                  <CardForm>
-                    <Formik
-                      onSubmit={(newValues, { resetForm }) => {
-                        console.log({
-                          otherHereditaries: values.otherHereditaries,
-                          errors,
-                          newValues,
-                        });
-                        const newHerediaries = [...values.otherHereditaries];
-                        newHerediaries.push(newValues);
 
-                        setFieldValue("otherHereditaries", newHerediaries);
-                        resetForm();
-                      }}
-                      validationSchema={yup.object().shape({
-                        name: yup.string().required("To pole jest wymagane."),
-                        address: yup
-                          .string()
-                          .required("To pole jest wymagane."),
-                        share: yup
-                          .string()
-                          .required("To pole jest wymagane.")
-                          .matches(
-                            /^[0-9]*\/[0-9]*$/,
-                            "To pole musi zawierać właściwy ułamek zwykły."
-                          ),
-                        forma: yup
-                          .number()
-                          .required("To pole jest wymagane.")
-                          .nullable(),
-                        gender: yup
-                          .number()
-                          .required("To pole jest wymagane.")
-                          .nullable(),
-                        relation: yup
-                          .number()
-                          .required("To pole jest wymagane.")
-                          .nullable(),
-                        actType: yup.number().nullable(),
-                        actDate: yup.date().nullable(),
-                        actuscName: yup.string(),
-                        actNumber: yup.string(),
-                        //testament
-                      })}
-                      initialValues={{
-                        name: "",
-                        address: "",
-                        share: "",
-                        forma: null,
-                        gender: null,
-                        relation: null,
-                        actType: null,
-                        actUscName: "",
-                        actNumber: "",
-                        actDate: null,
-                      }}
-                      validateOnBlur={false}
-                      validateOnChange={false}
-                    >
-                      {({
-                        values,
-                        errors,
-                        touched,
-                        handleSubmit,
-                        setFieldValue,
-                      }) => {
-                        return (
-                          <div className="w-full flex flex-col">
-                            <h3 className="flex items-center text-2xl  w-full">
-                              <ColorfulIcon
-                                size={18}
-                                style={{ marginRight: 7 }}
-                                color="100, 149, 237"
-                                icon="people"
-                              />
-                              Inni spadkobiercy
-                            </h3>
-                            <p className="text-xs">
-                              Dodaj kolejno innych spadkobierców dziedziczących
-                              po zmarłym do listy.
-                            </p>
-                            <Divider className="mt-4 mb-4 w-full" />
-                            <h3 className="text-sm mb-2  w-full">
-                              DANE SPADKOBIERCY:
-                            </h3>
-                            <RowForm className="mb-5">
-                              <RowFormGroup label="imię i nazwisko:">
-                                <Field
-                                  as={InputGroup}
-                                  name="name"
-                                  leftIcon="person"
-                                  placeholder="np. Janusz Kowalski"
-                                  intent={
-                                    errors.name && touched.name
-                                      ? "danger"
-                                      : "none"
-                                  }
-                                />
-                                <ErrorMessage name="name">
-                                  {RenderErrorMessage}
-                                </ErrorMessage>
-                              </RowFormGroup>
-                              <RowFormGroup label="pełny adres zamieszkania:">
-                                <Field
-                                  as={InputGroup}
-                                  name="address"
-                                  leftIcon="home"
-                                  placeholder="np. ul. Polska 12, 21-522 Gdańsk"
-                                  intent={
-                                    errors.address && touched.address
-                                      ? "danger"
-                                      : "none"
-                                  }
-                                />
-                                <ErrorMessage name="address">
-                                  {RenderErrorMessage}
-                                </ErrorMessage>
-                              </RowFormGroup>
-                            </RowForm>
-                            <RowForm>
-                              <RowFormGroup
-                                label="udział spadkobiercy w spadku:"
-                                helperText={
-                                  <Link passHref href="/kalkulator">
-                                    <a className="text-gray-400">
-                                      oblicz w naszym kalkulatorze
-                                    </a>
-                                  </Link>
+                <CardForm>
+                  <Formik
+                    onSubmit={(newValues, { resetForm }) => {
+                      const newHerediaries = [...values.otherHereditaries];
+                      newHerediaries.push(newValues);
+
+                      setFieldValue("otherHereditaries", newHerediaries);
+                      resetForm();
+                    }}
+                    validationSchema={yup.object().shape({
+                      name: yup.string().required("To pole jest wymagane."),
+                      address: yup.string().required("To pole jest wymagane."),
+                      share: yup
+                        .string()
+                        .required("To pole jest wymagane.")
+                        .matches(
+                          /^[1-9][0-9]*\/[1-9][0-9]*$/,
+                          "To pole musi zawierać właściwy ułamek zwykły."
+                        ),
+                      forma: yup
+                        .number()
+                        .required("To pole jest wymagane.")
+                        .nullable(),
+                      gender: yup
+                        .number()
+                        .required("To pole jest wymagane.")
+                        .nullable(),
+                      relation: yup
+                        .number()
+                        .required("To pole jest wymagane.")
+                        .nullable(),
+                      sued: yup
+                        .number()
+                        .nullable()
+                        .required("To pole jest wymagane."),
+                      //testament
+                    })}
+                    initialValues={{
+                      name: "",
+                      address: "",
+                      share: "",
+                      forma: null,
+                      gender: null,
+                      sued: null,
+                      relation: null,
+                    }}
+                    validateOnBlur={false}
+                    validateOnChange={false}
+                  >
+                    {({
+                      values,
+                      errors,
+                      touched,
+                      handleSubmit,
+                      setFieldValue,
+                    }) => {
+                      return (
+                        <div className="w-full flex flex-col">
+                          <h3 className="flex items-center text-2xl  w-full">
+                            <ColorfulIcon
+                              size={18}
+                              style={{ marginRight: 7 }}
+                              color="100, 149, 237"
+                              icon="people"
+                            />
+                            Spadkobiercy testamentowi
+                          </h3>
+                          <p className="text-xs">
+                            Dodaj kolejno spadkobierców, którym zmarły przepisał
+                            majątek.
+                          </p>
+                          <Divider className="mt-4 mb-4 w-full" />
+                          <h3 className="text-sm mb-2  w-full">
+                            DANE SPADKOBIERCY:
+                          </h3>
+                          <RowForm className="mb-5">
+                            <RowFormGroup label="imię i nazwisko:">
+                              <Field
+                                as={InputGroup}
+                                name="name"
+                                leftIcon="person"
+                                placeholder="np. Janusz Kowalski"
+                                intent={
+                                  errors.name && touched.name
+                                    ? "danger"
+                                    : "none"
                                 }
-                              >
-                                <Field
-                                  as={InputGroup}
-                                  name="share"
-                                  leftIcon="pie-chart"
-                                  placeholder="np. 2/3"
-                                  intent={
-                                    errors.share && touched.share
-                                      ? "danger"
-                                      : "none"
-                                  }
-                                />
-                                <ErrorMessage name="share">
-                                  {RenderErrorMessage}
-                                </ErrorMessage>
-                              </RowFormGroup>
-                              <RowFormGroup label="forma przyjęcia spadku:">
-                                <Field
-                                  className="w-full"
-                                  as={Select}
-                                  menuPortalTarget={document.body}
-                                  isSearchable={false}
-                                  name="forma"
-                                  intent={
-                                    errors.forma && touched.forma
-                                      ? "danger"
-                                      : "none"
-                                  }
-                                  onChange={({ value }) =>
-                                    setFieldValue("forma", value)
-                                  }
-                                  placeholder="wybierz..."
-                                  value={
-                                    values.forma == null
-                                      ? null
-                                      : {
-                                          value: values.forma,
-                                          label: values.forma
-                                            ? "przyjęcie z dobrodziejstwem inwentarza"
-                                            : "przyjęcie proste",
-                                        }
-                                  }
-                                  options={[
-                                    {
-                                      value: 0,
-                                      label: "przyjęcie proste",
-                                    },
-                                    {
-                                      value: 1,
-                                      label:
-                                        "przyjęcie z dobrodziejstwem inwentarza",
-                                    },
-                                  ]}
-                                />
-                                <ErrorMessage name="address">
-                                  {RenderErrorMessage}
-                                </ErrorMessage>
-                              </RowFormGroup>
-                            </RowForm>
-                            <RowForm>
-                              <RowFormGroup label="płeć:">
-                                <Field
-                                  className="w-full"
-                                  as={Select}
-                                  menuPortalTarget={document.body}
-                                  isSearchable={false}
-                                  name="gender"
-                                  intent={
-                                    errors.gender && touched.gender
-                                      ? "danger"
-                                      : "none"
-                                  }
-                                  placeholder="wybierz..."
-                                  onChange={({ value }) => {
-                                    setFieldValue("gender", value);
-                                  }}
-                                  value={
-                                    values.gender == null
-                                      ? null
-                                      : {
-                                          value: values.gender,
-                                          label: !values.gender
-                                            ? "mężczyzna"
-                                            : "kobieta",
-                                        }
-                                  }
-                                  options={[
-                                    {
-                                      value: 0,
-                                      label: "mężczyzna",
-                                    },
-                                    { value: 1, label: "kobieta" },
-                                  ]}
-                                />
-
-                                <ErrorMessage name="gender">
-                                  {RenderErrorMessage}
-                                </ErrorMessage>
-                              </RowFormGroup>
-                              <RowFormGroup label="kim był zmarły dla tego spadkobiercy?">
-                                <Field
-                                  className="w-full"
-                                  as={Select}
-                                  menuPortalTarget={document.body}
-                                  isSearchable={false}
-                                  name="relation"
-                                  intent={
-                                    errors.relation && touched.relation
-                                      ? "danger"
-                                      : "none"
-                                  }
-                                  placeholder="wybierz..."
-                                  onChange={({ value }) => {
-                                    setFieldValue("relation", value);
-                                  }}
-                                  value={
-                                    values.relation == null
-                                      ? null
-                                      : {
-                                          value: values.relation,
-                                          label: getRelation(values.relation),
-                                        }
-                                  }
-                                  options={[
-                                    {
-                                      value: 0,
-                                      label: "niespokrewnionym",
-                                    },
-                                    {
-                                      value: 1,
-                                      label: "małżonkiem",
-                                    },
-                                    {
-                                      value: 2,
-                                      label: "rodzeństwem",
-                                    },
-                                    {
-                                      value: 3,
-                                      label: "dzieckiem",
-                                    },
-                                    {
-                                      value: 4,
-                                      label: "rodzicem",
-                                    },
-                                    {
-                                      value: 5,
-                                      label: "dziadkiem/babcią",
-                                    },
-                                    {
-                                      value: 6,
-                                      label: "wujkiem/ciotką",
-                                    },
-                                  ]}
-                                />
-
-                                <ErrorMessage name="relation">
-                                  {RenderErrorMessage}
-                                </ErrorMessage>
-                              </RowFormGroup>
-                            </RowForm>
-
-                            {values.relation && values.relation != 1 ? (
-                              <>
-                                <Divider className="mt-6 mb-6 w-full"></Divider>
-                                <h2 className="text-xl">
-                                  Którym dokumentem chcesz udowodnić powiązanie
-                                  tego spadkobiercy ze zmarłym?
-                                </h2>
-                                <p className="text-xs">
-                                  Wybierz dokument, którym chcesz dowieść
-                                  pokrewieństwa tego spadkobiercy, oba z nich są
-                                  poprawne w każdym przypadku.
-                                </p>
-                                <Field
-                                  as={Select}
-                                  menuPortalTarget={document.body}
-                                  isSearchable={false}
-                                  onChange={({ value }) => {
-                                    console.log({ value });
-                                    setFieldValue("actType", value);
-                                  }}
-                                  value={
-                                    values.actType == null
-                                      ? null
-                                      : {
-                                          value: values.actType,
-                                          label: values.actType
-                                            ? "odpis skrócony aktu małżeństwa"
-                                            : "odpis skrócony aktu urodzenia",
-                                        }
-                                  }
-                                  placeholder="wybierz..."
-                                  name="actType"
-                                  className="mb-0 mt-4"
-                                  validate={(value) => {
-                                    if (value == null)
-                                      return "To pole jest wymagane.";
-                                    else return null;
-                                  }}
-                                  options={[
-                                    {
-                                      value: 0,
-                                      label: "odpis skrócony aktu małżeństwa",
-                                    },
-                                    {
-                                      value: 1,
-                                      label: "odpis skrócony aktu urodzenia",
-                                    },
-                                  ]}
-                                />
-                                <ErrorMessage name="actType">
-                                  {RenderErrorMessage}
-                                </ErrorMessage>
-                              </>
-                            ) : null}
-
-                            {values.relation == 1 || values.actType != null ? (
-                              <>
-                                <Divider className="mt-6 mb-6 w-full" />
-
-                                <div className="flex flex-col w-full">
-                                  <span className="text-2xl  w-full">
-                                    Odpis skrócony{" "}
-                                    {values.relation == 1 || values.actType == 0
-                                      ? "aktu małżeństwa"
-                                      : "aktu urodzenia"}
-                                    {values.relation == 3
-                                      ? " zmarłego"
-                                      : " tego spadkobiercy"}
-                                  </span>
-                                  <p className="text-xs">
-                                    Podaj nam dane dotyczące tego dokumentu.
-                                  </p>
-                                  <Divider className="mt-4 mb-4 w-full" />
-                                  <FormGroup label="nazwa urzędu stanu cywilnego wydającego dokument:">
-                                    <Field
-                                      validate={(value) => {
-                                        if (!value)
-                                          return "To pole jest wymagane.";
-                                      }}
-                                      as={InputGroup}
-                                      name="actUscName"
-                                      leftIcon="office"
-                                      placeholder="np. USC w Warszawie"
-                                      intent={
-                                        errors.actUscName && touched.actUscName
-                                          ? "danger"
-                                          : "none"
-                                      }
-                                    />
-                                    <ErrorMessage name="actUscName">
-                                      {RenderErrorMessage}
-                                    </ErrorMessage>
-                                  </FormGroup>
-                                  <FormGroup
-                                    label={
-                                      "data " +
-                                      (values.relation == 1 ||
-                                      values.actType == 0
-                                        ? "zawarcia małżeństwa"
-                                        : "urodzenia") +
-                                      (values.relation == 3
-                                        ? " zmarłego"
-                                        : "") +
-                                      ":"
-                                    }
-                                  >
-                                    <Field
-                                      validate={(value) => {
-                                        if (!value)
-                                          return "To pole jest wymagane.";
-                                      }}
-                                      as={InputGroup}
-                                      type="date"
-                                      name="actDate"
-                                      leftIcon="calendar"
-                                      intent={
-                                        errors.actDate && touched.actDate
-                                          ? "danger"
-                                          : "none"
-                                      }
-                                    />
-                                    <ErrorMessage name="actDate">
-                                      {RenderErrorMessage}
-                                    </ErrorMessage>
-                                  </FormGroup>
-                                  <FormGroup label="numer odpisu skróconego aktu:">
-                                    <Field
-                                      as={InputGroup}
-                                      name="actNumber"
-                                      validate={(value) => {
-                                        if (!value)
-                                          return "To pole jest wymagane.";
-                                      }}
-                                      leftIcon="numerical"
-                                      placeholder="np. 3321/2007"
-                                      intent={
-                                        errors.actNumber && touched.actNumber
-                                          ? "danger"
-                                          : "none"
-                                      }
-                                    />
-                                    <ErrorMessage name="actNumber">
-                                      {RenderErrorMessage}
-                                    </ErrorMessage>
-                                  </FormGroup>
-                                </div>
-                              </>
-                            ) : null}
-
-                            <Button
-                              className="w-full mt-4"
-                              outlined
-                              icon="add"
-                              onClick={() => {
-                                handleSubmit();
-                                console.log({ errors });
-                              }}
+                              />
+                              <ErrorMessage name="name">
+                                {RenderErrorMessage}
+                              </ErrorMessage>
+                            </RowFormGroup>
+                            <RowFormGroup label="pełny adres zamieszkania:">
+                              <Field
+                                as={InputGroup}
+                                name="address"
+                                leftIcon="home"
+                                placeholder="np. ul. Polska 12, 21-522 Gdańsk"
+                                intent={
+                                  errors.address && touched.address
+                                    ? "danger"
+                                    : "none"
+                                }
+                              />
+                              <ErrorMessage name="address">
+                                {RenderErrorMessage}
+                              </ErrorMessage>
+                            </RowFormGroup>
+                          </RowForm>
+                          <RowForm>
+                            <RowFormGroup
+                              label="udział spadkobiercy w spadku:"
+                              helperText={
+                                <Link passHref href="/kalkulator">
+                                  <a className="text-gray-400">
+                                    oblicz w naszym kalkulatorze
+                                  </a>
+                                </Link>
+                              }
                             >
-                              DODAJ
-                            </Button>
-                          </div>
-                        );
-                      }}
-                    </Formik>
-                    <OtherHereditariesRenderer
-                      otherHereditaries={values.otherHereditaries}
-                      setValue={(value) => {
-                        setFieldValue("otherHereditaries", value);
-                      }}
-                    />
-                  </CardForm>
-                ) : null}
+                              <Field
+                                as={InputGroup}
+                                name="share"
+                                leftIcon="pie-chart"
+                                placeholder="np. 2/3"
+                                intent={
+                                  errors.share && touched.share
+                                    ? "danger"
+                                    : "none"
+                                }
+                              />
+                              <ErrorMessage name="share">
+                                {RenderErrorMessage}
+                              </ErrorMessage>
+                            </RowFormGroup>
+                            <RowFormGroup label="forma przyjęcia spadku:">
+                              <Field
+                                className="w-full"
+                                as={Select}
+                                menuPortalTarget={document.body}
+                                isSearchable={false}
+                                name="forma"
+                                intent={
+                                  errors.forma && touched.forma
+                                    ? "danger"
+                                    : "none"
+                                }
+                                onChange={({ value }) =>
+                                  setFieldValue("forma", value)
+                                }
+                                placeholder="wybierz..."
+                                value={
+                                  values.forma == null
+                                    ? null
+                                    : {
+                                        value: values.forma,
+                                        label: values.forma
+                                          ? "przyjęcie z dobrodziejstwem inwentarza"
+                                          : "przyjęcie proste",
+                                      }
+                                }
+                                options={[
+                                  {
+                                    value: 0,
+                                    label: "przyjęcie proste",
+                                  },
+                                  {
+                                    value: 1,
+                                    label:
+                                      "przyjęcie z dobrodziejstwem inwentarza",
+                                  },
+                                ]}
+                              />
+                              <ErrorMessage name="address">
+                                {RenderErrorMessage}
+                              </ErrorMessage>
+                            </RowFormGroup>
+                          </RowForm>
+                          <RowForm>
+                            <RowFormGroup label="płeć:">
+                              <Field
+                                className="w-full"
+                                as={Select}
+                                menuPortalTarget={document.body}
+                                isSearchable={false}
+                                name="gender"
+                                intent={
+                                  errors.gender && touched.gender
+                                    ? "danger"
+                                    : "none"
+                                }
+                                placeholder="wybierz..."
+                                onChange={({ value }) => {
+                                  setFieldValue("gender", value);
+                                }}
+                                value={
+                                  values.gender == null
+                                    ? null
+                                    : {
+                                        value: values.gender,
+                                        label: !values.gender
+                                          ? "mężczyzna"
+                                          : "kobieta",
+                                      }
+                                }
+                                options={[
+                                  {
+                                    value: 0,
+                                    label: "mężczyzna",
+                                  },
+                                  { value: 1, label: "kobieta" },
+                                ]}
+                              />
+
+                              <ErrorMessage name="gender">
+                                {RenderErrorMessage}
+                              </ErrorMessage>
+                            </RowFormGroup>
+                            <RowFormGroup label="kim był zmarły dla tego spadkobiercy?">
+                              <Field
+                                className="w-full"
+                                as={Select}
+                                menuPortalTarget={document.body}
+                                isSearchable={false}
+                                name="relation"
+                                intent={
+                                  errors.relation && touched.relation
+                                    ? "danger"
+                                    : "none"
+                                }
+                                placeholder="wybierz..."
+                                onChange={({ value }) => {
+                                  setFieldValue("relation", value);
+                                }}
+                                value={
+                                  values.relation == null
+                                    ? null
+                                    : {
+                                        value: values.relation,
+                                        label: getRelation(values.relation),
+                                      }
+                                }
+                                options={[
+                                  {
+                                    value: 0,
+                                    label: "niespokrewnionym",
+                                  },
+                                  {
+                                    value: 1,
+                                    label: "małżonkiem",
+                                  },
+                                  {
+                                    value: 2,
+                                    label: "rodzeństwem",
+                                  },
+                                  {
+                                    value: 3,
+                                    label: "dzieckiem",
+                                  },
+                                  {
+                                    value: 4,
+                                    label: "rodzicem",
+                                  },
+                                  {
+                                    value: 5,
+                                    label: "dziadkiem/babcią",
+                                  },
+                                  {
+                                    value: 6,
+                                    label: "wujkiem/ciotką",
+                                  },
+                                ]}
+                              />
+
+                              <ErrorMessage name="relation">
+                                {RenderErrorMessage}
+                              </ErrorMessage>
+                            </RowFormGroup>
+                          </RowForm>
+                          <RowForm>
+                            <RowFormGroup
+                              style={{ width: "100%" }}
+                              label="czy chcesz pozwać tego spadkobiercę?"
+                              helperText="musisz pozwać conajmniej jednego"
+                            >
+                              <Field
+                                className="w-full"
+                                as={Select}
+                                menuPortalTarget={document.body}
+                                isSearchable={false}
+                                name="sued"
+                                intent={
+                                  errors.sued && touched.sued
+                                    ? "danger"
+                                    : "none"
+                                }
+                                placeholder="wybierz..."
+                                onChange={({ value }) => {
+                                  setFieldValue("sued", value);
+                                }}
+                                value={
+                                  values.sued == null
+                                    ? null
+                                    : {
+                                        value: values.sued,
+                                        label: !values.sued ? "nie" : "tak",
+                                      }
+                                }
+                                options={[
+                                  {
+                                    value: 0,
+                                    label: "nie",
+                                  },
+                                  { value: 1, label: "tak" },
+                                ]}
+                              />
+
+                              <ErrorMessage name="sued">
+                                {RenderErrorMessage}
+                              </ErrorMessage>
+                            </RowFormGroup>
+                          </RowForm>
+
+                          <Button
+                            className="w-full mt-4"
+                            outlined
+                            icon="add"
+                            onClick={() => {
+                              handleSubmit();
+                            }}
+                          >
+                            DODAJ
+                          </Button>
+                        </div>
+                      );
+                    }}
+                  </Formik>
+                  <OtherHereditariesRenderer
+                    otherHereditaries={values.otherHereditaries}
+                    setValue={(value) => {
+                      setFieldValue("otherHereditaries", value);
+                    }}
+                  />
+                </CardForm>
+
                 <CardForm
                   className="items-stretch"
                   style={{
@@ -1278,7 +1244,7 @@ export default function WniosekTestament() {
                       name="testamentDate"
                       type="date"
                       leftIcon="calendar"
-                      placeholder="np. Sąd Rejonowy w Elblągu"
+                      placeholder="np. Sąd Okręgowy w Elblągu"
                       intent={
                         errors.testamentDate && touched.testamentDate
                           ? "danger"
@@ -1288,139 +1254,6 @@ export default function WniosekTestament() {
                     <ErrorMessage name="testamentDate">
                       {RenderErrorMessage}
                     </ErrorMessage>
-                  </FormGroup>
-                  <FormGroup label="czy testament był potwierdzony notarialnie?">
-                    <Field
-                      as={Select}
-                      options={[
-                        {
-                          value: true,
-                          label: "tak",
-                        },
-                        {
-                          value: false,
-                          label: "nie",
-                        },
-                      ]}
-                      isSearchable={false}
-                      onChange={({ value }) => {
-                        setFieldValue("testamentNotarial", value);
-                      }}
-                      value={{
-                        value: values.testamentNotarial,
-                        label: values.testamentNotarial ? "tak" : "nie",
-                      }}
-                      placeholder="wybierz..."
-                      name="testamentNotarial"
-                      leftIcon="take-action"
-                      intent={
-                        errors.testamentNotarial && touched.testamentNotarial
-                          ? "danger"
-                          : "none"
-                      }
-                    />
-                    <ErrorMessage name="testamentNotarial">
-                      {RenderErrorMessage}
-                    </ErrorMessage>
-                    {values.testamentNotarial ? (
-                      <>
-                        <h4 className="flex items-center text-xl  w-full mt-6">
-                          <ColorfulIcon
-                            size={14}
-                            style={{ marginRight: 7 }}
-                            color="100, 80, 175"
-                            icon="edit"
-                          />
-                          Dane testamentu potwierdzonego notarialnie
-                        </h4>
-                        <Divider className="mt-3 mb-3" />
-
-                        <FormGroup label="imię i nazwisko notariusza:">
-                          <Field
-                            as={InputGroup}
-                            validate={(value) => {
-                              if (!value) return "To pole jest wymagane.";
-                              else return null;
-                            }}
-                            name="testamentNotarialName"
-                            leftIcon="person"
-                            placeholder="np. Andrzej Nowak"
-                            intent={
-                              errors.testamentNotarialName &&
-                              touched.testamentNotarialName
-                                ? "danger"
-                                : "none"
-                            }
-                          />
-                          <ErrorMessage name="testamentNotarialName">
-                            {RenderErrorMessage}
-                          </ErrorMessage>
-                        </FormGroup>
-                        <FormGroup label="miejscowość kancelarii notarialnej:">
-                          <Field
-                            as={InputGroup}
-                            validate={(value) => {
-                              if (!value) return "To pole jest wymagane.";
-                              else return null;
-                            }}
-                            name="testamentNotarialCity"
-                            leftIcon="office"
-                            placeholder="np. Gdynia"
-                            intent={
-                              errors.testamentNotarialCity &&
-                              touched.testamentNotarialCity
-                                ? "danger"
-                                : "none"
-                            }
-                          />
-                          <ErrorMessage name="testamentNotarialCity">
-                            {RenderErrorMessage}
-                          </ErrorMessage>
-                        </FormGroup>
-                        <FormGroup label="repozytorium aktu:">
-                          <Field
-                            as={InputGroup}
-                            validate={(value) => {
-                              if (!value) return "To pole jest wymagane.";
-                              else return null;
-                            }}
-                            name="testamentNotarialRepository"
-                            leftIcon="book"
-                            placeholder="np. A"
-                            intent={
-                              errors.testamentNotarialRepository &&
-                              touched.testamentNotarialRepository
-                                ? "danger"
-                                : "none"
-                            }
-                          />
-                          <ErrorMessage name="testamentNotarialRepository">
-                            {RenderErrorMessage}
-                          </ErrorMessage>
-                        </FormGroup>
-                        <FormGroup label="numer aktu notarialnego:">
-                          <Field
-                            as={InputGroup}
-                            validate={(value) => {
-                              if (!value) return "To pole jest wymagane.";
-                              else return null;
-                            }}
-                            name="testamentNotarialNumber"
-                            leftIcon="numerical"
-                            placeholder="np. 4523/2008"
-                            intent={
-                              errors.testamentNotarialNumber &&
-                              touched.testamentNotarialNumber
-                                ? "danger"
-                                : "none"
-                            }
-                          />
-                          <ErrorMessage name="testamentNotarialNumber">
-                            {RenderErrorMessage}
-                          </ErrorMessage>
-                        </FormGroup>
-                      </>
-                    ) : null}
                   </FormGroup>
                 </CardForm>
                 <CardForm className="items-start">
@@ -1432,7 +1265,267 @@ export default function WniosekTestament() {
                         color="199, 21, 133"
                         icon="take-action"
                       />
-                      Dane sądu, do którego chcesz złożyć wniosek
+                      Postanowienie sądu
+                    </h4>
+                    <p className="text-xs">
+                      Podaj nam dane dotyczące postanowienia sądu ws. nabycia
+                      spadku na podstawie testamentu.
+                    </p>
+                    <Divider className="mt-4 mb-4 w-full" />
+                    <FormGroup label="nazwa sądu:">
+                      <Field
+                        as={InputGroup}
+                        name="rulingCourtName"
+                        leftIcon="take-action"
+                        placeholder="np. Sąd Okręgowy w Elblągu"
+                        intent={
+                          errors.rulingCourtName && touched.rulingCourtName
+                            ? "danger"
+                            : "none"
+                        }
+                      />
+                      <ErrorMessage name="rulingCourtName">
+                        {RenderErrorMessage}
+                      </ErrorMessage>
+                    </FormGroup>
+
+                    <FormGroup label="numer wydziału cywilnego sądu:">
+                      <Field
+                        as={Select}
+                        menuPortalTarget={document.body}
+                        placeholder="wybierz..."
+                        className="w-full"
+                        intent={
+                          errors.rulingCourtNumber && touched.rulingCourtNumber
+                            ? "danger"
+                            : "none"
+                        }
+                        isSearchable={false}
+                        onChange={({ value }) =>
+                          setFieldValue("rulingCourtNumber", value)
+                        }
+                        value={
+                          !values.rulingCourtName ||
+                          values.rulingCourtName == null
+                            ? null
+                            : {
+                                value: values.rulingCourtNumber,
+                                label: values.rulingCourtNumber,
+                              }
+                        }
+                        options={[
+                          {
+                            value: "I",
+                            label: "I",
+                          },
+                          {
+                            value: "II",
+                            label: "II",
+                          },
+                          {
+                            value: "III",
+                            label: "III",
+                          },
+                          {
+                            value: "IV",
+                            label: "IV",
+                          },
+                          {
+                            value: "V",
+                            label: "V",
+                          },
+                          {
+                            value: "VI",
+                            label: "VI",
+                          },
+                          {
+                            value: "VII",
+                            label: "VII",
+                          },
+                          {
+                            value: "VIII",
+                            label: "VIII",
+                          },
+                          {
+                            value: "IX",
+                            label: "IX",
+                          },
+                          {
+                            value: "X",
+                            label: "X",
+                          },
+                        ]}
+                      />
+                      <ErrorMessage name="rulingCourtNumber">
+                        {RenderErrorMessage}
+                      </ErrorMessage>
+                    </FormGroup>
+                    <Divider className="mt-4 mb-4" />
+                    <FormGroup label="data wydania postanowienia:">
+                      <Field
+                        as={InputGroup}
+                        name="rulingDate"
+                        leftIcon="calendar"
+                        type="date"
+                        intent={
+                          errors.rulingDate && touched.rulingDate
+                            ? "danger"
+                            : "none"
+                        }
+                      />
+                      <ErrorMessage name="rulingDate">
+                        {RenderErrorMessage}
+                      </ErrorMessage>
+                    </FormGroup>
+                    <FormGroup label="sygnatura postanowienia:">
+                      <Field
+                        as={InputGroup}
+                        name="rulingSignature"
+                        leftIcon="edit"
+                        placeholder="np. AKT II NE 421/17"
+                        intent={
+                          errors.rulingSignature && touched.rulingSignature
+                            ? "danger"
+                            : "none"
+                        }
+                      />
+                      <ErrorMessage name="rulingSignature">
+                        {RenderErrorMessage}
+                      </ErrorMessage>
+                    </FormGroup>
+                    <Divider className="mt-4 mb-4" />
+
+                    <FormGroup label="czy istnieje klauzula wykonalności?">
+                      <Field
+                        as={Select}
+                        menuPortalTarget={document.body}
+                        name="rulingClosure"
+                        placeholder="wybierz..."
+                        className="w-full"
+                        intent={
+                          errors.rulingClosure && touched.rulingClosure
+                            ? "danger"
+                            : "none"
+                        }
+                        isSearchable={false}
+                        onChange={({ value }) =>
+                          setFieldValue("rulingClosure", value)
+                        }
+                        value={
+                          values.rulingClosure == null
+                            ? null
+                            : {
+                                value: values.rulingClosure,
+                                label:
+                                  values.rulingClosure == 1 ? "tak" : "nie",
+                              }
+                        }
+                        options={[
+                          {
+                            value: 0,
+                            label: "nie",
+                          },
+                          {
+                            value: 1,
+                            label: "tak",
+                          },
+                        ]}
+                      />
+                      <ErrorMessage name="rulingClosure">
+                        {RenderErrorMessage}
+                      </ErrorMessage>
+                    </FormGroup>
+                    {values.rulingClosure == 1 ? (
+                      <FormGroup label="sygnatura klauzuli:">
+                        <Field
+                          as={InputGroup}
+                          name="rulingClosureDate"
+                          leftIcon="calendar"
+                          validate={(value) =>
+                            value ? null : "To pole jest wymagane."
+                          }
+                          type="date"
+                          intent={
+                            errors.rulingClosureDate &&
+                            touched.rulingClosureDate
+                              ? "danger"
+                              : "none"
+                          }
+                        />
+                        <ErrorMessage name="rulingClosureDate">
+                          {RenderErrorMessage}
+                        </ErrorMessage>
+                      </FormGroup>
+                    ) : null}
+                  </div>
+                </CardForm>
+                <CardForm>
+                  <Immovables {...{ errors, values, setFieldValue }} />
+                  <ImmovablesRenderer
+                    immovables={values.immovables}
+                    setValue={(value) => setFieldValue("immovables", value)}
+                  />
+                </CardForm>
+                <CardForm>
+                  <Movables {...{ errors, values, setFieldValue }} />
+                  <MovablesRenderer
+                    movables={values.movables}
+                    setValue={(value) => setFieldValue("movables", value)}
+                  />
+                </CardForm>
+                <CardForm>
+                  <Grants {...{ errors, values, setFieldValue }} />
+                  <GrantsRenderer
+                    grants={values.grants}
+                    setValue={(value) => setFieldValue("grants", value)}
+                  />
+                </CardForm>
+                <CardForm
+                  className="items-stretch"
+                  style={{
+                    minHeight: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <h4 className="flex items-center text-2xl  w-full">
+                    <ColorfulIcon
+                      size={18}
+                      style={{ marginRight: 7 }}
+                      color="200, 170, 75"
+                      icon="rotate-document"
+                    />
+                    Testament, który spisał spadkodawca
+                  </h4>
+                  <Divider className="w-full mt-4 mb-4" />
+                  <FormGroup label="data spisania testamentu:">
+                    <Field
+                      as={InputGroup}
+                      name="testamentDate"
+                      type="date"
+                      leftIcon="calendar"
+                      placeholder="np. Sąd Okręgowy w Elblągu"
+                      intent={
+                        errors.testamentDate && touched.testamentDate
+                          ? "danger"
+                          : "none"
+                      }
+                    />
+                    <ErrorMessage name="testamentDate">
+                      {RenderErrorMessage}
+                    </ErrorMessage>
+                  </FormGroup>
+                </CardForm>
+                <CardForm className="items-start">
+                  <div className="w-full flex flex-col">
+                    <h4 className="flex items-center text-2xl  w-full">
+                      <ColorfulIcon
+                        size={18}
+                        style={{ marginRight: 7 }}
+                        color="199, 21, 133"
+                        icon="take-action"
+                      />
+                      Dane sądu, do którego chcesz złożyć pozew
                     </h4>
                     <Divider className="mt-4 mb-4 w-full" />
                     <FormGroup label="nazwa sądu:">
@@ -1440,7 +1533,7 @@ export default function WniosekTestament() {
                         as={InputGroup}
                         name="courtName"
                         leftIcon="take-action"
-                        placeholder="np. Sąd Rejonowy w Elblągu"
+                        placeholder="np. Sąd Okręgowy w Elblągu"
                         intent={
                           errors.courtName && touched.courtName
                             ? "danger"
@@ -1484,7 +1577,7 @@ export default function WniosekTestament() {
                           setFieldValue("courtNumber", value)
                         }
                         value={
-                          values.courtName == null
+                          !values.courtName || values.courtName == null
                             ? null
                             : {
                                 value: values.courtNumber,
@@ -1544,7 +1637,18 @@ export default function WniosekTestament() {
                   rightIcon="caret-right"
                   className="mt-10 w-full"
                   intent="success"
-                  onClick={(e) => handleSubmit(e)}
+                  onClick={(e) => {
+                    if (!countSued(values.otherHereditaries)) {
+                      toaster.current.show({
+                        message:
+                          "Musisz pozwać conajmniej jednego spadkobiercę testamentowego.",
+                        intent: "danger",
+                      });
+                    } else {
+                      handleSubmit(e);
+                    }
+                    console.log(errors);
+                  }}
                 >
                   DALEJ
                 </Button>
@@ -1581,12 +1685,14 @@ const WrapFlex = styled.div`
 
 export const RowFormGroup = styled(FormGroup)`
   width: 49%;
+
   @media (max-width: 800px) {
     width: 100%;
   }
 `;
 export const RowForm = styled.div`
   display: flex;
+
   width: 100%;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -1597,4 +1703,13 @@ export const RowForm = styled.div`
 
 export const RenderErrorMessage = (message) => {
   return <p className="text-xs text-red-500 mt-2">{message}</p>;
+};
+
+const countSued = (hereditaries: any[]) => {
+  if (hereditaries.length === 0) return 0;
+  let sued = 0;
+  for (const i of hereditaries) {
+    if (i.sued == 1) sued++;
+  }
+  return sued;
 };

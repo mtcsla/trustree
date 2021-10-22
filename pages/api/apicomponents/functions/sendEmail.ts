@@ -17,7 +17,6 @@ interface MaildataProps {
 export default async function sendEmail(maildata: MaildataProps) {
   let error;
 
-  console.log("dupa");
   if (!maildata.from) maildata.from = "noreply@trustree.pl";
 
   maildata.attachments = [

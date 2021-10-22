@@ -330,7 +330,7 @@ export default function Finalizacja({ data }) {
           <span>{data.courtNumber}</span>
         </div>
       </CardForm>
-      <CardForm className="mb-10">
+      <CardForm className="mb-10" style={{ minHeight: 0 }}>
         <h2 className="flex items-center w-full  text-2xl mb-0">
           <ColorfulIcon
             size={18}
@@ -362,48 +362,52 @@ export default function Finalizacja({ data }) {
             </span>
           </div>
         </div>
+        {data.testamentNotarial == "true" ? (
+          <>
+            <Divider className="w-full mt-4 mb-4" />
+            <h3 className="w-full flex items-center mt-6">
+              <ColorfulIcon
+                icon={"document"}
+                color="21,37,200"
+                size={14}
+                style={{ marginRight: 10 }}
+              />
+              Dane aktu notarialnego testamentu
+            </h3>
+            <Divider className="w-full mt-4 mb-4" />
 
-        <Divider className="w-full mt-4 mb-4" />
-        <h3 className="w-full flex items-center mt-6">
-          <ColorfulIcon
-            icon={"document"}
-            color="21,37,200"
-            size={14}
-            style={{ marginRight: 10 }}
-          />
-          Dane aktu notarialnego testamentu
-        </h3>
-        <Divider className="w-full mt-4 mb-4" />
-
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="person" className="mr-2" size={12} /> imię i nazwisko
-            notariusza:
-          </p>
-          <span>{data.testamentNotarialName}</span>
-        </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="office" className="mr-2" size={12} /> miejscowośc
-            kancelarii:
-          </p>
-          <span>{data.testamentNotarialCity}</span>
-        </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="book" className="mr-2" size={12} /> repozytorium aktu:
-          </p>
-          <span>{data.testamentNotarialRepository}</span>
-        </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="numerical" className="mr-2" size={12} /> numer aktu:
-          </p>
-          <span>{data.testamentNotarialNumber}</span>
-        </div>
+            <div className="flex flex-col w-full">
+              <p className="flex items-center uppercase text-xs">
+                <Icon icon="person" className="mr-2" size={12} /> imię i
+                nazwisko notariusza:
+              </p>
+              <span>{data.testamentNotarialName}</span>
+            </div>
+            <Divider className="w-full mt-4 mb-4" />
+            <div className="flex flex-col w-full">
+              <p className="flex items-center uppercase text-xs">
+                <Icon icon="office" className="mr-2" size={12} /> miejscowośc
+                kancelarii:
+              </p>
+              <span>{data.testamentNotarialCity}</span>
+            </div>
+            <Divider className="w-full mt-4 mb-4" />
+            <div className="flex flex-col w-full">
+              <p className="flex items-center uppercase text-xs">
+                <Icon icon="book" className="mr-2" size={12} /> repozytorium
+                aktu:
+              </p>
+              <span>{data.testamentNotarialRepository}</span>
+            </div>
+            <Divider className="w-full mt-4 mb-4" />
+            <div className="flex flex-col w-full">
+              <p className="flex items-center uppercase text-xs">
+                <Icon icon="numerical" className="mr-2" size={12} /> numer aktu:
+              </p>
+              <span>{data.testamentNotarialNumber}</span>
+            </div>
+          </>
+        ) : null}
       </CardForm>
       <PaymentForm
         metadata={Object.assign({ docId: 5 }, data)}

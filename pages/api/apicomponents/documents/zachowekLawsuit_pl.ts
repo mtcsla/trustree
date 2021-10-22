@@ -1,7 +1,6 @@
 import moment from "moment";
-
-import { getMonth } from "./functions/polish-months";
 import { determineRelation } from "./hereditaryRightsApplicationTestament_pl";
+import { getMonth } from "./functions/polish-months";
 function html(strings, ...tags) {
   let str = strings[0];
   for (let i = 0; i < tags.length; i++) {
@@ -11,7 +10,8 @@ function html(strings, ...tags) {
 }
 
 //convert fraction string to number
-const getFractionDecimal = (fraction: string): number => {
+const getFractionDecimal = (fraction: string) => {
+  if (!fraction) return 1;
   const [numerator, denominator] = fraction.split("/");
   return parseInt(numerator) / parseInt(denominator);
 };
@@ -20,8 +20,8 @@ const tab = "&nbsp;&nbsp;&nbsp;&nbsp;";
 
 export const zachowekLawsuit_pl = (metadata: any) => {
   const date = new Date();
-  const isTestatorMale = metadata.testator.gender === "mężczyzna";
-  const isHereditaryMale = metadata.hereditary.gender === "mężczyzna";
+  const isTestatorMale = metadata.deadGender == 0;
+  const isHereditaryMale = metadata.gender == 0;
 
   let suedNumber: number;
   let suedList = "";
@@ -30,17 +30,17 @@ export const zachowekLawsuit_pl = (metadata: any) => {
   let allNamesAndRelations = "";
 
   for (const i of metadata.otherHereditaries) {
-    if (i.sued) {
+    if (i.sued || true) {
       suedNumber++;
       suedList +=
         i.name +
-        `zamieszkał${i.gender === "mężczyzna" ? "y" : "a"} pod adresem ${
+        ` zamieszkał${i.gender == 0 ? "y" : "a"} pod adresem ${
           i.address
         } <br/>`;
     }
     allNames +=
       i.name +
-      (metadata.otherHereditaries.indexOf(i) ===
+      (metadata.otherHereditaries.indexOf(i) ==
       metadata.otherHereditaries.length - 1
         ? "."
         : ", ");
@@ -49,7 +49,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
       `, ${determineRelation(i.relation, i.gender)} spadkodawc${
         isTestatorMale ? "y" : "zyni"
       }` +
-      (metadata.otherHereditaries.indexOf(i) ===
+      (metadata.otherHereditaries.indexOf(i) ==
       metadata.otherHereditaries.length - 1
         ? "."
         : ", ");
@@ -57,8 +57,8 @@ export const zachowekLawsuit_pl = (metadata: any) => {
       i.name +
       `, ${determineRelation(i.relation, i.gender)} spadkodawc${
         isTestatorMale ? "y" : "zyni"
-      }, w ${i.part ? `${i.part} części` : "całości"}` +
-      (metadata.otherHereditaries.indexOf(i) ===
+      }, w ${i.share ? `części ${i.share}` : "całości"}` +
+      (metadata.otherHereditaries.indexOf(i) ==
       metadata.otherHereditaries.length - 1
         ? "."
         : ", ");
@@ -69,31 +69,29 @@ export const zachowekLawsuit_pl = (metadata: any) => {
       <body>
         <div style="width: 100%;">
           <span style="width: 100%; text-align: right;">
-            ${metadata.hereditary.city}, ${date.getDate()}
-            ${getMonth(date.getMonth())} ${date.getFullYear()}
+            ${metadata.city}, ${date.getDate()} ${getMonth(date.getMonth())}
+            ${date.getFullYear()}
           </span>
           <br /><br />
           <span style="width: 100%; text-align: left; font-weight: bold;">
-            ${metadata.court.name}
+            ${metadata.courtName}
           </span>
           <br />
           <span style="width: 100%; text-align: left; font-weight: bold;">
-            ${metadata.court.number} Wydział Cywilny
+            ${metadata.courtNumber} Wydział Cywilny
           </span>
           <br /><br />
           <span style="width: 100%; text-align: left;">
-            ${metadata.court.address}
+            ${metadata.courtAddress}
           </span>
           <br />
           <span style="width: 100%; text-align: right;">
-            Powód: ${metadata.hereditary.name}, nr. PESEL:
-            ${metadata.hereditary.pesel},
+            Powód: ${metadata.name}, nr. PESEL: ${metadata.pesel},
             zamieszkał${isHereditaryMale ? "y" : "a"} pod adresem
-            ${metadata.hereditary.address}, ${metadata.hereditary.postal}
-            ${metadata.hereditary.city} <br />
-            Pozwan${suedNumber === 1 ? "y" : "i"}:
+            ${metadata.address}, ${metadata.postal} ${metadata.city} <br />
+            Pozwan${suedNumber == 1 ? "y" : "i"}:
             ${suedNumber > 1 ? "<br />" : ""} ${suedList} <br />
-            Wartość przedmiotu sporu: ${metadata.hereditary.part}zł
+            Wartość przedmiotu sporu: ${metadata.value}zł
           </span>
           <br /><br />
         </div>
@@ -104,9 +102,9 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         <ol>
           <li>
             zasądzenie od strony pozwanej na rzecz powoda kwoty
-            ${metadata.hereditary.part}zł wraz z odsetkami ustawowymi za
-            opóźnienie od dnia wniesienia pozwu do dnia zapłaty, tytułem
-            zachowku, stosownie do treści art. 991 §2 kc,
+            ${metadata.value}zł wraz z odsetkami ustawowymi za opóźnienie od
+            dnia wniesienia pozwu do dnia zapłaty, tytułem zachowku, stosownie
+            do treści art. 991 §2 kc,
           </li>
           <br />
           <br />
@@ -147,75 +145,66 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         </ol>
         <br />
         <h3 style="width: 100%; text-align: center;">Uzasadnienie</h3>
-        I. Dnia
-        ${moment(metadata.testator.deathDate)
-          .toDate()
-          .toLocaleDateString("pl-PL")}
-        zmarł spadkodawca -
-        ${getTestatorRelation(metadata.hereditary.relation, isTestatorMale)}
-        powoda, ${metadata.hereditary.name}, pozostawiając testament z dnia
-        ${moment(metadata.testament.date).toDate().toLocaleDateString("pl-PL")}.
-        Zgodnie z tym testamentem, do spadku zostali powołani:
-        ${allNamesAndRelations} Na mocy prawomocnego postanowienia wydanego
-        przez ${metadata.decision.courtName}, ${metadata.decision.number}
-        Wydział Cywilny z dnia
-        ${moment(metadata.decision.name).toDate().toLocaleDateString("pl-PL")},
-        spadek po spadkodawcy, ${metadata.testator.name},
-        naby${metadata.otherHereditaries.length > 1 ? "li:" : "ł"} ${allNames}
+        I. Dnia ${new Date(metadata.deadDate).toLocaleDateString("pl-PL")} zmarł
+        spadkodawca - ${getTestatorRelation(metadata.relation, isTestatorMale)}
+        powoda, ${metadata.name}, pozostawiając testament z dnia
+        ${new Date(metadata.testamentDate).toLocaleDateString("pl-PL")}. Zgodnie
+        z tym testamentem, do spadku zostali powołani: ${allNamesAndRelations}
+        Na mocy prawomocnego postanowienia wydanego przez
+        ${metadata.rulingCourtName}, ${metadata.rulingCourtNumber} Wydział
+        Cywilny z dnia
+        ${new Date(metadata.rulingDate).toLocaleDateString("pl-PL")}, spadek po
+        spadkodawcy: ${metadata.deadName},
+        naby${metadata.otherHereditaries.length > 1
+          ? "li:"
+          : metadata.otherHereditaries[0].gender == 0
+          ? "ł"
+          : "ła"}
+        ${allNames}
         <br />
         <br />
         Dowody: <br />
         <ol>
           ${tab}
           <li>
-            skrócony akt zgonu spadkodawcy, ${metadata.testator.name} nr
-            ${metadata.testator.number} z dnia
-            ${moment(metadata.testator.deathDate)
-              .toDate()
-              .toLocaleDateString("pl-PL")}, <br />
+            skrócony akt zgonu spadkodawcy, ${metadata.deadName} nr
+            ${metadata.deadActNumber} z dnia
+            ${new Date(metadata.deadDate).toLocaleDateString("pl-PL")},
+            <br />
           </li>
           ${tab}
           <li>
-            postanowienie wydane przez ${metadata.decision.courtName} z dnia
-            ${moment(metadata.decision.date)
-              .toDate()
-              .toLocaleDateString("pl-PL")}
-            sygn. ${metadata.decision.signature}
-            ${metadata.decision.clause
+            postanowienie wydane przez ${metadata.rulingCourtName} z dnia
+            ${new Date(metadata.rulingDate).toLocaleDateString("pl-PL")} sygn.
+            ${" " + metadata.rulingSignature}
+            ${metadata.rulingClosure == 0
               ? `wraz z klauzulą prawomocności z
-        dnia ${moment(metadata.decision.clauseDate)
-          .toDate()
-          .toLocaleDateString("pl-PL")} (odpis notarialny), na okoliczność
+        dnia ${new Date(metadata.rulingClosureDate).toLocaleDateString(
+          "pl-PL"
+        )} (odpis notarialny), na okoliczność
         nabycia spadku na mocy testamentu przez osobę pozwaną.`
               : "."}
           </li>
         </ol>
         <br />
         <br />
-        Powód ${metadata.hereditary.name} jest spadkobiercą ustawowym
-        (${determineRelation(
-          metadata.hereditary.relation,
-          metadata.hereditary.gender
-        )}
-        spadkodawcy), który w związku z dziedziczeniem testamentowym nie
-        otrzymał należnej mu części spadku po spadkodawcy:
-        ${metadata.hereditary.part}zł. <br />
+        Powód ${metadata.name} jest spadkobiercą ustawowym
+        (${determineRelation(metadata.relation, metadata.gender)} spadkodawcy),
+        który w związku z dziedziczeniem testamentowym nie otrzymał należnej mu
+        części spadku po spadkodawcy: ${metadata.value}zł. <br />
         <br />
         Dowód: akt
-        ${metadata.hereditary.changedSurname ||
-        metadata.hereditary.relation === 1
+        ${metadata.actType == 0 || metadata.relation == 1
           ? "małżeństwa"
           : "urodzenia"}
         powoda, z dnia
-        ${moment(metadata.hereditary.act.date)
-          .toDate()
-          .toLocaleDateString("pl-PL")},
-        z ${metadata.hereditary.act.uscName}. <br />
+        ${new Date(metadata.actDate).toLocaleDateString("pl-PL")}, z
+        ${metadata.actUscName}. <br />
         <br />
         ${metadata.immovables.length > 0 || metadata.movables.length > 0
           ? html`II.Wg wiedzy powoda, w skład spadku wchodził:
               <ol>
-                ${getImmovables(metadata.immovables, metadata.hereditary)}
+                ${getImmovables(metadata.immovables, metadata)}
                 ${getVehicles(metadata.immovables)}
                 ${getValuables(metadata.immovables)}
               </ol>
@@ -224,9 +213,9 @@ export const zachowekLawsuit_pl = (metadata: any) => {
           : ""}
         ${metadata.grants.length > 0
           ? `Na podstawie art. 993 kc do spadku należy dołączyć
-        ${metadata.grants.length === 1 ? "darowiznę" : "darowizny"} na rzecz
-        ${suedNumber === 1 ? "pozwanego" : "pozwanych"}${
-              metadata.grants.length === 1 ? "" : ":"
+        ${metadata.grants.length == 1 ? "darowiznę" : "darowizny"} na rzecz
+        ${suedNumber == 1 ? "pozwanego" : "pozwanych"}${
+              metadata.grants.length == 1 ? "" : ":"
             }
         ${
           metadata.grants.length > 1
@@ -245,31 +234,29 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         nieruchomości (stosownych udziałów), wchodzących w skład majątku
         spadkowego po spadkodawcy. <br />
         <br />
-        ${metadata.hereditary.mediation
+        ${metadata.mediation
           ? `Wniesienie niniejszego pozwu jest konieczne, gdyż
         podjęta przez powoda, w trybie art.187 §1 pkt 3 kpc, próba mediacji z
         osobą pozwaną w danej sprawie nie przyniosła rezultatu w postaci zapłaty
         dochodzonej kwoty.`
           : ""} <br />
         <br />
-        ${metadata.hereditary.questioned
+        ${metadata.invalid
           ? html`Roszczenie powoda z tytułu zachowku nie uległo przedawnieniu po
               myśli art.1007 kc, bowiem powód, w toku postępowania o
-              stwierdzenie nabycia spadku, który pozostawił
-              ${metadata.testator.name} (sygn.${metadata.decision.signature})
-              zgłosił zarzut nieważności testamentu spadkodawcy, czym przerwał
-              bieg terminu przedawnienia do żądania w niniejszej sprawie. <br />
+              stwierdzenie nabycia spadku, który pozostawił ${metadata.deadName}
+              (sygn.${metadata.rulingSignature}) zgłosił zarzut nieważności
+              testamentu spadkodawcy, czym przerwał bieg terminu przedawnienia
+              do żądania w niniejszej sprawie. <br />
               <br />
               Dowód:
               <br />
               <ol>
                 <li>
-                  odpis postanowienia wydanego przez
-                  ${metadata.decision.courtName} z dnia
-                  ${moment(metadata.decision.date)
-                    .toDate()
-                    .toLocaleDateString("pl-PL")}
-                  sygn. ${metadata.decision.signature} wraz z pisemnym
+                  odpis postanowienia wydanego przez ${metadata.rulingCourtName}
+                  z dnia
+                  ${new Date(metadata.rulingDate).toLocaleDateString("pl-PL")}
+                  sygn. ${metadata.rulingSignature} wraz z pisemnym
                   uzasadnieniem.
                 </li>
               </ol>
@@ -297,14 +284,16 @@ const getImmovables = (immovables, hereditary) => {
   for (const i of immovables) {
     immovablesString += html`${tab}
       <li>
-        ${i.testatorShare ? `Udział w części ${i.testatorShare}` : "Całość"}
+        ${i.deadShare ? `Udział w części ${i.deadShare}` : "Całość"}
         nieruchomości ${determinePropertyType(i.type)} pod adresem ${i.address},
         dla której to nieruchomości jest prowadzona księga wieczysta nr
         ${i.number} przez ${i.courtName}.${getPropertyTypeMessage(i)} Wartość
         tegoż majątku spadkowego powód ocenia na kwotę co najmniej
-        ${i.value *
-        getFractionDecimal(hereditary.share) *
-        getFractionDecimal(i.testatorShare)}zł${getPropertyValueMessage(i)}zł.
+        ${toTwo(
+          i.propertyValue *
+            getFractionDecimal(hereditary.share) *
+            getFractionDecimal(i.deadShare)
+        )}zł${getPropertyValueMessage(i)}.
         <br />
         <br />
         <b>Dowody:</b> <br />
@@ -312,11 +301,9 @@ const getImmovables = (immovables, hereditary) => {
         <ol>
           <li>
             odpis zwykły księgi wieczystej nr ${i.number} z dnia
-            ${moment(i.bookDate).toDate().toLocaleDateString("pl-PL")}, na
-            okoliczność wchodzenia w skład spadku po spadkodawcy,
-            ${!i.testatorShare
-              ? `udziału w ${i.testatorShare} części`
-              : `całości`}
+            ${new Date(i.date).toLocaleDateString("pl-PL")}, na okoliczność
+            wchodzenia w skład spadku po spadkodawcy,
+            ${!i.deadShare ? `udziału w ${i.deadShare} części` : `całości`}
             tejże nieruchomości.
           </li>
         </ol>
@@ -330,11 +317,11 @@ const getVehicles = (movables) => {
 
   for (const i of movables) {
     movablesString += html`${tab}
-    ${i.type === 1
+    ${i.type == 1
       ? html`<li>
-            ${i.vehicleType === 1
+            ${i.vehicleType == 1
               ? "samochód osobowy"
-              : i.vehicleType === 2
+              : i.vehicleType == 2
               ? "samochód ciężarowy"
               : "motocykl"}
             marki ${i.vehicleBrand}, model ${i.vehicleModel}, o numerze
@@ -345,10 +332,10 @@ const getVehicles = (movables) => {
             <ol>
               <li>
                 kserokopia dowodu rejestracyjnego
-                ${i.vehicleType === 3
+                ${i.vehicleType == 3
                   ? "motocyklu"
                   : `samochodu ${
-                      i.vehicleType === 1 ? "osobowego" : "ciężarowego"
+                      i.vehicleType == 1 ? "osobowego" : "ciężarowego"
                     }`}
                 marki ${i.vehicleBrand}, nr rej. ${i.vehicleRegistration}, na
                 okoliczność wchodzenia w skład spadku po spadkodawcy.
@@ -368,9 +355,9 @@ const getValuables = (movables) => {
   let valuesSum = 0;
 
   for (const i of movables) {
-    if (i.type === 2) {
+    if (i.type == 2) {
       movablesString += `${(() => {
-        let name = [...i.name];
+        let name = [...i.itemName];
         name[0] = name[0].toLowerCase();
         return name.join();
       })()}, `;
@@ -388,6 +375,7 @@ const getValuables = (movables) => {
 };
 
 const determinePropertyType = (type) => {
+  if (typeof type == "string") type = parseInt(type);
   switch (type) {
     case 1:
       return "gruntowej zabudowanej";
@@ -405,7 +393,7 @@ const determinePropertyType = (type) => {
 };
 
 const getPropertyTypeMessage = (property) => {
-  switch (property.type) {
+  switch (property.propertyType) {
     case 1:
       return html`
         Przedmiotowa nieruchomość o powierzchni łącznej
@@ -444,6 +432,10 @@ const getBuildingType = (type) => {
   }
 };
 
+const toTwo = (number) => {
+  return number.toFixed(2);
+};
+
 const getBuildingType2 = (type) => {
   switch (type) {
     case 1:
@@ -456,15 +448,15 @@ const getBuildingType2 = (type) => {
 };
 
 const getPropertyValueMessage = (property) => {
-  if (property.hereditaryShare)
+  if (property.share)
     return html`, jako że wartość całej przedmiotowej nieruchomości wynosi ok.
-    ${property.value}, która to nieruchomość aktualnie stanowi współwłasność
-    ułamkową powoda w ${property.hereditaryShare} części, będąc uprzednio do
+    ${property.propertyValue}zł, która to nieruchomość aktualnie stanowi
+    współwłasność ułamkową powoda w części ${property.share}, będąc uprzednio do
     chwili śmierci spadkodawcy elementem współwłasności łącznej.`;
-  if (property.testatorShare)
+  if (property.deadShare)
     return html`, jako że wartość całej przedmiotowej nieruchomości wynosi ok.
-    ${property.value}, która to nieruchomość stanowiła współwłasność ułamkową
-    spadkodawcy w ${property.testatorShare} części.`;
+    ${property.propertyValue}, która to nieruchomość stanowiła współwłasność
+    ułamkową spadkodawcy w części ${property.deadShare}.`;
   return ".";
 };
 
@@ -475,26 +467,28 @@ const getGrants = (grants) => {
     for (const i of grants)
       grantsString += html`<li>
         na kwotę ${i.value}zł z dnia
-        ${moment(i.date).toDate().toLocaleDateString("pl-PL")}. <br />
+        ${new Date(i.date).toLocaleDateString("pl-PL")}. <br />
         <br />
         <b>Dowód:</b> akt darowizny z dnia
-        ${moment(i.date).toDate().toLocaleDateString("pl-PL")} w miejscowości
+        ${new Date(i.date).toLocaleDateString("pl-PL")} w miejscowości
         ${i.city}. <br /><br />
       </li>`;
-  else if (grants.length === 1) {
+  else if (grants.length == 1) {
     const i = grants[0];
     grantsString += html` na kwotę ${i.value}zł z dnia
-      ${moment(i.date).toDate().toLocaleDateString("pl-PL")}. <br />
+      ${new Date(i.date).toLocaleDateString("pl-PL")}. <br />
       <br />
       <b>Dowód:</b> akt darowizny z dnia
-      ${moment(i.date).toDate().toLocaleDateString("pl-PL")} w miejscowości
-      ${i.city}. <br /><br />`;
+      ${new Date(i.date).toLocaleDateString("pl-PL")} w miejscowości ${i.city}.
+      <br /><br />`;
   } else return "";
 
   return grantsString;
 };
 
 const getTestatorRelation = (relation, isMale) => {
+  if (typeof relation == "string") relation = parseInt(relation);
+
   switch (relation) {
     case 1:
       return isMale ? "mąż" : "żona";

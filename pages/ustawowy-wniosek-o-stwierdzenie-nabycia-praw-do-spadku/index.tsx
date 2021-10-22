@@ -43,7 +43,7 @@ const yupSchema = yup.object().shape({
   share: yup
     .string()
     .matches(
-      /^[0-9]*\/[0-9]*$/,
+      /^[1-9][0-9]*\/[1-9][0-9]*$/,
       "To pole musi zawierać właściwy ułamek zwykły lub być puste."
     ),
   forma: yup.number().required("To pole jest wymagane.").nullable(),
@@ -298,7 +298,7 @@ export default function WniosekTestament() {
                     </RowFormGroup>
                     <RowFormGroup
                       label="ustawowy udział w spadku:"
-                      labelInfo="(w ułamku zwykłym)"
+                      labelInfo=""
                     >
                       <Field
                         as={InputGroup}
@@ -494,7 +494,6 @@ export default function WniosekTestament() {
                         menuPortalTarget={document.body}
                         isSearchable={false}
                         onChange={({ value }) => {
-                          console.log({ value });
                           setFieldValue("actType", value);
                         }}
                         value={
@@ -799,11 +798,6 @@ export default function WniosekTestament() {
                   <CardForm>
                     <Formik
                       onSubmit={(newValues, { resetForm }) => {
-                        console.log({
-                          otherHereditaries: values.otherHereditaries,
-                          errors,
-                          newValues,
-                        });
                         const newHerediaries = [...values.otherHereditaries];
                         newHerediaries.push(newValues);
 
@@ -819,7 +813,7 @@ export default function WniosekTestament() {
                           .string()
                           .required("To pole jest wymagane.")
                           .matches(
-                            /^[0-9]*\/[0-9]*$/,
+                            /^[1-9][0-9]*\/[1-9][0-9]*$/,
                             "To pole musi zawierać właściwy ułamek zwykły."
                           ),
                         forma: yup
@@ -1098,7 +1092,6 @@ export default function WniosekTestament() {
                                   menuPortalTarget={document.body}
                                   isSearchable={false}
                                   onChange={({ value }) => {
-                                    console.log({ value });
                                     setFieldValue("actType", value);
                                   }}
                                   value={
@@ -1236,7 +1229,6 @@ export default function WniosekTestament() {
                               icon="add"
                               onClick={() => {
                                 handleSubmit();
-                                console.log({ errors });
                               }}
                             >
                               DODAJ
@@ -1271,7 +1263,7 @@ export default function WniosekTestament() {
                         as={InputGroup}
                         name="courtName"
                         leftIcon="take-action"
-                        placeholder="np. Sąd Rejonowy w Elblągu"
+                        placeholder="np. Sąd Okręgowy w Elblągu"
                         intent={
                           errors.courtName && touched.courtName
                             ? "danger"

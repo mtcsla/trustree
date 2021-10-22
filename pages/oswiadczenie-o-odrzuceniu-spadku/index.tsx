@@ -521,11 +521,6 @@ export default function OswiadczenieOdrzuc() {
                 <CardForm>
                   <Formik
                     onSubmit={(newValues, { resetForm }) => {
-                      console.log({
-                        otherHereditaries: values.otherHereditaries,
-                        errors,
-                        newValues,
-                      });
                       const newHerediaries = [...values.otherHereditaries];
                       newHerediaries.push(newValues);
 
@@ -720,7 +715,6 @@ export default function OswiadczenieOdrzuc() {
                             icon="add"
                             onClick={() => {
                               handleSubmit();
-                              console.log({ errors });
                             }}
                           >
                             DODAJ
@@ -753,7 +747,7 @@ export default function OswiadczenieOdrzuc() {
                         as={InputGroup}
                         name="courtName"
                         leftIcon="take-action"
-                        placeholder="np. Sąd Rejonowy w Elblągu"
+                        placeholder="np. Sąd Okręgowy w Elblągu"
                         intent={
                           errors.courtName && touched.courtName
                             ? "danger"
@@ -859,7 +853,6 @@ export default function OswiadczenieOdrzuc() {
                   fill
                   onClick={() => {
                     handleSubmit();
-                    console.log(errors);
                   }}
                   rightIcon="caret-right"
                 >

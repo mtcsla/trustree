@@ -3,15 +3,21 @@ import React from "react";
 import {
   getRelation,
   OtherHereditariesRenderer,
-} from "../../components/wniosek/OtherHereditariesRenderer";
+} from "../../components/pozew-o-zachowek/OtherHereditariesRenderer";
 import { CardForm } from "../kalkulator";
 import { useRouter } from "next/dist/client/router";
 import ColorfulIcon from "../../components/layout/ColorfulIcon";
 import PaymentForm from "../../components/stripe/PaymentForm";
+import { ImmovablesRenderer } from "../../components/pozew-o-zachowek/ImmovablesRenderer";
+import { MovablesRenderer } from "../../components/pozew-o-zachowek/MovablesRenderer";
+import { GrantsRenderer } from "../../components/pozew-o-zachowek/GrantsRenderer";
 
 export async function getServerSideProps({ query }) {
   try {
     query.otherHereditaries = JSON.parse(query.otherHereditaries);
+    query.immovables = JSON.parse(query.immovables);
+    query.movables = JSON.parse(query.movables);
+    query.grants = JSON.parse(query.grants);
 
     return {
       props: {
@@ -31,7 +37,7 @@ export default function Finalizacja({ data }) {
   const router = useRouter();
   React.useEffect(() => {
     if (!data) {
-      router.push("/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku");
+      router.push("/pozew-o-zachowek");
     }
   }, []);
   return data ? (
@@ -44,15 +50,7 @@ export default function Finalizacja({ data }) {
         testamentowego
       </p>
       <Callout intent="primary" className="mt-6">
-        Wykonanie tego pisma kosztuje:
-        <ul className="list-disc list-inside">
-          <li>
-            <b>50zł</b>, jeśli jesteś jedynym spadkobiercą
-          </li>
-          <li>
-            <b>100zł</b>, jeśli jest więcej spadkobierców
-          </li>
-        </ul>
+        Wykonanie tego pisma kosztuje <b>300zł</b>.
       </Callout>
       <CardForm>
         <h2 className="flex items-center w-full  text-2xl mb-0">
@@ -124,14 +122,31 @@ export default function Finalizacja({ data }) {
         <div className="flex justify-between w-full">
           <div className="flex flex-col">
             <div className="w-full uppercase text-xs flex items-center">
-              <Icon icon="document" className="mr-2" size={12} /> Forma
-              przyjęcia spadku:
+              <Icon icon="document" className="mr-2" size={12} /> CZY PODJĘTO
+              PRÓBĘ MEDIACJI?
             </div>
             <span className="w-full text-base">
-              {data.forma == 0
-                ? "przyjęcie proste"
-                : "przyjęcie z dobrodziejstwem inwentarza"}
+              {data.mediation == 0 ? "nie" : "tak"}
             </span>
+          </div>
+          <div className="flex flex-col pl-2">
+            <div className="w-full uppercase text-xs flex items-center text-right justify-end">
+              czy zgłoszono zarzut nieważności testamentu?
+              <Icon icon="document-share" className="ml-2" size={12} />
+            </div>
+            <span className="w-full text-base text-right">
+              {data.invalid == 0 ? "nie" : "tak"}
+            </span>
+          </div>
+        </div>
+
+        <Divider className="w-full mt-4 mb-4" />
+        <div className="flex justify-between w-full">
+          <div className="flex flex-col">
+            <div className="w-full uppercase text-xs flex items-center">
+              <Icon icon="numerical" className="mr-2" size={12} /> numer pesel:
+            </div>
+            <span className="w-full text-base">{data.pesel}</span>{" "}
           </div>
           <div className="flex flex-col pl-2">
             <div className="w-full uppercase text-xs flex items-center text-right justify-end">
@@ -145,11 +160,6 @@ export default function Finalizacja({ data }) {
             </span>
           </div>
         </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="w-full uppercase text-xs flex items-center">
-          <Icon icon="numerical" className="mr-2" size={12} /> numer pesel:
-        </div>
-        <span className="w-full text-base">{data.pesel}</span>
         <h3 className="w-full flex items-center mt-6">
           <ColorfulIcon
             icon={"document"}
@@ -188,6 +198,74 @@ export default function Finalizacja({ data }) {
           </p>
           <span>{new Date(data.actDate).toLocaleDateString("pl-PL")}</span>
         </div>
+      </CardForm>
+      <CardForm style={{ minWidth: 0 }}>
+        <h2 className="flex items-center w-full  text-2xl mb-0">
+          <ColorfulIcon
+            size={18}
+            color="122, 182, 100"
+            icon={"take-action"}
+            style={{ marginRight: 7 }}
+          />{" "}
+          Decyzja sądu
+        </h2>
+        <Divider className="w-full mt-4 mb-4" />
+
+        <div className="flex justify-between w-full">
+          <div className="flex flex-col">
+            <div className="w-full uppercase text-xs flex items-center">
+              <Icon icon="home" className="mr-2" size={12} /> nazwa sądu:
+            </div>
+            <span className="w-full text-base">{data.rulingCourtName}</span>{" "}
+          </div>
+          <div className="flex flex-col pl-2">
+            <div className="w-full uppercase text-xs flex items-center text-right justify-end">
+              numer wydziału cywilnego:
+              <Icon icon="document-share" className="ml-2" size={12} />
+            </div>
+            <span className="w-full text-base text-right">
+              {data.rulingCourtNumber}
+            </span>
+          </div>
+        </div>
+
+        <Divider className="w-full mt-4 mb-4" />
+        <div className="flex justify-between w-full">
+          <div className="flex flex-col w-full">
+            <p className="flex items-center uppercase text-xs">
+              <Icon icon="calendar" className="mr-2" size={12} /> data wydania
+              postanowienia:
+            </p>
+            <span>{new Date(data.rulingDate).toLocaleDateString("pl-PL")}</span>
+          </div>
+
+          <div className="flex flex-col pl-2">
+            <div className="w-full uppercase text-xs flex items-center text-right justify-end">
+              czy istnieje klauzula wykonalności?
+              <Icon icon="document" className="ml-2" size={12} />
+            </div>
+            <span className="w-full text-base text-right">
+              {data.rulingClosure == 0 ? "nie" : "tak"}
+            </span>
+          </div>
+        </div>
+        {data.rulingClosure == 1 ? (
+          <>
+            <Divider className="w-full mt-4 mb-4" />
+
+            <div className="flex justify-between w-full">
+              <div className="flex flex-col w-full">
+                <p className="flex items-center uppercase text-xs">
+                  <Icon icon="calendar" className="mr-2" size={12} /> data
+                  wydania klauzuli:
+                </p>
+                <span>
+                  {new Date(data.rulingClosureDate).toLocaleDateString("pl-PL")}
+                </span>
+              </div>
+            </div>
+          </>
+        ) : null}
       </CardForm>
 
       <Callout intent="warning" className="mt-8">
@@ -279,24 +357,84 @@ export default function Finalizacja({ data }) {
           <span>{data.deadActNumber}</span>
         </div>
       </CardForm>
-      {data.share && data.otherHereditaries.length ? (
-        <CardForm>
-          <h2 className="flex items-center w-full  text-2xl mb-0">
-            <ColorfulIcon
-              size={18}
-              color="12, 122, 220"
-              icon={"people"}
-              style={{ marginRight: 7 }}
-            />{" "}
-            Inni spadkobiercy
-          </h2>
+
+      <CardForm style={{ minHeight: 0 }}>
+        <h2 className="flex items-center w-full  text-2xl mb-0">
+          <ColorfulIcon
+            size={18}
+            color="12, 122, 220"
+            icon={"people"}
+            style={{ marginRight: 7 }}
+          />{" "}
+          Spadkobiercy testamentowi
+        </h2>
+        {data.otherHereditaries.length ? (
           <OtherHereditariesRenderer
             otherHereditaries={data.otherHereditaries}
             setValue={() => {}}
             readonly
           />
-        </CardForm>
-      ) : null}
+        ) : (
+          <h1>BRAK</h1>
+        )}
+      </CardForm>
+      <CardForm style={{ minHeight: 0 }}>
+        <h2 className="flex items-center w-full  text-2xl mb-0">
+          <ColorfulIcon
+            size={18}
+            color="12, 122, 220"
+            icon={"home"}
+            style={{ marginRight: 7 }}
+          />{" "}
+          Nieruchomości spadkodawcy
+        </h2>
+        {data.immovables.length ? (
+          <ImmovablesRenderer
+            immovables={data.immovables}
+            setValue={() => {}}
+            readonly
+          />
+        ) : (
+          <h1>BRAK</h1>
+        )}
+      </CardForm>
+      <CardForm style={{ minHeight: 0 }}>
+        <h2 className="flex items-center w-full  text-2xl mb-0">
+          <ColorfulIcon
+            size={18}
+            color="12, 122, 220"
+            icon={"known-vehicle"}
+            style={{ marginRight: 7 }}
+          />{" "}
+          Ruchomości spadkodawcy
+        </h2>
+        {data.otherHereditaries.length ? (
+          <MovablesRenderer
+            movables={data.movables}
+            setValue={() => {}}
+            readonly
+          />
+        ) : (
+          <h1>BRAK</h1>
+        )}
+      </CardForm>
+      <CardForm style={{ minHeight: 0 }}>
+        <h2 className="flex items-center w-full  text-2xl mb-0">
+          <ColorfulIcon
+            size={18}
+            color="12, 122, 220"
+            icon={"bank-account"}
+            style={{ marginRight: 7 }}
+          />{" "}
+          Darowizny, darowane pozwanym przez spadkodawcę
+        </h2>
+        {data.otherHereditaries.length ? (
+          <GrantsRenderer grants={data.grants} setValue={() => {}} readonly />
+        ) : (
+          <h1>BRAK</h1>
+        )}
+      </CardForm>
+
       <CardForm>
         <h2 className="flex items-center w-full  text-2xl mb-0">
           <ColorfulIcon
@@ -330,7 +468,7 @@ export default function Finalizacja({ data }) {
           <span>{data.courtNumber}</span>
         </div>
       </CardForm>
-      <CardForm className="mb-10">
+      <CardForm className="mb-10" style={{ minHeight: 0 }}>
         <h2 className="flex items-center w-full  text-2xl mb-0">
           <ColorfulIcon
             size={18}
@@ -351,65 +489,13 @@ export default function Finalizacja({ data }) {
               {new Date(data.testamentDate).toLocaleDateString("pl-PL")}
             </span>
           </div>
-
-          <div className="flex flex-col pl-2">
-            <div className="w-full uppercase text-xs flex items-center text-right justify-end">
-              potwierdzony notarialnie?{" "}
-              <Icon icon="envelope" className="ml-2" size={12} />
-            </div>
-            <span className="w-full text-base text-right">
-              {data.testamentNotarial == "true" ? "tak" : "nie"}
-            </span>
-          </div>
-        </div>
-
-        <Divider className="w-full mt-4 mb-4" />
-        <h3 className="w-full flex items-center mt-6">
-          <ColorfulIcon
-            icon={"document"}
-            color="21,37,200"
-            size={14}
-            style={{ marginRight: 10 }}
-          />
-          Dane aktu notarialnego testamentu
-        </h3>
-        <Divider className="w-full mt-4 mb-4" />
-
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="person" className="mr-2" size={12} /> imię i nazwisko
-            notariusza:
-          </p>
-          <span>{data.testamentNotarialName}</span>
-        </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="office" className="mr-2" size={12} /> miejscowośc
-            kancelarii:
-          </p>
-          <span>{data.testamentNotarialCity}</span>
-        </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="book" className="mr-2" size={12} /> repozytorium aktu:
-          </p>
-          <span>{data.testamentNotarialRepository}</span>
-        </div>
-        <Divider className="w-full mt-4 mb-4" />
-        <div className="flex flex-col w-full">
-          <p className="flex items-center uppercase text-xs">
-            <Icon icon="numerical" className="mr-2" size={12} /> numer aktu:
-          </p>
-          <span>{data.testamentNotarialNumber}</span>
         </div>
       </CardForm>
       <PaymentForm
-        metadata={Object.assign({ docId: 5 }, data)}
+        metadata={Object.assign({ docId: 2 }, data)}
         title="Wykonanie pisma"
-        subtitle="Wniosek o stwierdzenie nabycia praw do spadku"
-        price={data.otherHereditaries.length ? 100 : 50}
+        subtitle="Pozew o zachowek"
+        price={300}
       />
     </>
   ) : null;

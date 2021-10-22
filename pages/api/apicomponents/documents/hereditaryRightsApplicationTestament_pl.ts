@@ -32,7 +32,6 @@ export const determineRelation = (relation, gender) => {
 
 export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
   const date = new Date();
-  console.log("bruh");
 
   const isTestatorMale = metadata.deadGender == 0;
   const isHereditaryMale = metadata.gender == 0;

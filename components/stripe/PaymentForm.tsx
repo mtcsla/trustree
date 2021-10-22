@@ -30,12 +30,10 @@ export default function PaymentForm({ title, subtitle, metadata, price }) {
       //@ts-ignore
       .then(async (data) => {
         const url = (await data.json()).url;
-        console.log(url);
 
         router.push(url);
       })
       .catch((err) => {
-        console.log(err);
         setError("Wystąpił błąd.");
         setSubmitting(false);
       });

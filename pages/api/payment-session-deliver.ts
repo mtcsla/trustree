@@ -60,7 +60,7 @@ export default async (req, res) => {
         });
     } else res.status(200).send({});
   } catch (err) {
-    console.log(err.body);
+    console.log(err);
     res.status(400).send(err);
   }
 };

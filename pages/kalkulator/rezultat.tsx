@@ -77,7 +77,6 @@ const HereditaryEnkel = ({
 export const getServerSideProps = async (context) => {
   const data = context.query;
   const { relation } = data;
-  console.log(data);
 
   try {
     let rezultat: any[] = [

@@ -54,7 +54,6 @@ export default async function handler(req, res) {
 
       res.status(200).send({ url: session.url });
     } catch (err) {
-      console.log(err.message);
       res.status(err.statusCode || 500).json(err.message);
     }
   } else {
@@ -80,6 +79,7 @@ export const determinePrice = ({ docId, otherHereditaries }) => {
       return otherHereditaries.length ? 10000 : 5000;
     case 5:
       return otherHereditaries.length ? 10000 : 5000;
+
     default:
       return 100000;
   }

@@ -361,12 +361,8 @@ const toggleVisibility = async (
   toggleLoading();
   const newBlogs = [...blogs];
 
-  console.log(newBlogs[newBlogs.indexOf(article)]);
-
   article.visible = !article.visible;
   newBlogs[newBlogs.indexOf(article)] = article;
-
-  console.log(newBlogs[newBlogs.indexOf(article)]);
 
   await updateDoc(doc(collection(db, "blog"), article.id), article);
 

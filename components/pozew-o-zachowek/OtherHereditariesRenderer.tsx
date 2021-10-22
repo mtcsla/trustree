@@ -37,7 +37,7 @@ export const OtherHereditariesRenderer = ({
 
         <div className="w-full flex flex-col text-sm ">
           {otherHereditaries.map((hereditary) => (
-            <div className="mb-6 flex flex-col pt-5 pb-5">
+            <div className="flex flex-col pt-5 pb-5">
               <Divider />
               <div className="flex justify-between">
                 <div className="flex flex-col">
@@ -55,6 +55,12 @@ export const OtherHereditariesRenderer = ({
                 <div className="flex flex-col">
                   <p className="text-xs">adres:</p>
                   <span className="text-base">{hereditary.address}</span>
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-xs text-right">czy pozwany?</p>
+                  <span className="text-right text-base">
+                    {hereditary.sued == 0 ? "nie" : "tak"}
+                  </span>
                 </div>
               </div>
 
@@ -77,44 +83,6 @@ export const OtherHereditariesRenderer = ({
                 </div>
               </div>
 
-              <h4 className="text-sm  uppercase">
-                ODPIS SKRÓCONY AKTU{" "}
-                {hereditary.actType == 0 || hereditary.relation == 1
-                  ? "małżeństwa"
-                  : "urodzenia"}{" "}
-                {hereditary.relation == 3 ? "zmarłego" : ""}
-              </h4>
-              <Divider />
-
-              <div className="flex justify-between">
-                <div className="flex flex-col">
-                  <p className="text-xs">nazwa urzędu stanu cywilnego:</p>
-                  <span className="text-base">{hereditary.actUscName}</span>
-                </div>
-
-                <div className="flex flex-col">
-                  <p className="text-xs text-right">
-                    numer odpisu skróconego aktu:
-                  </p>
-                  <span className="text-right text-base">
-                    {hereditary.actNumber}
-                  </span>
-                </div>
-              </div>
-              <div className="flex justify-between mt-3">
-                <div className="flex flex-col">
-                  <p className="text-xs">
-                    data{" "}
-                    {hereditary.actType == 0 || hereditary.relation == 1
-                      ? "zawarcia małżeństwa"
-                      : "urodzenia"}
-                    :
-                  </p>
-                  <span className="text-base">
-                    {new Date(hereditary.actDate).toLocaleDateString("pl-PL")}
-                  </span>
-                </div>
-              </div>
               {!readonly ? (
                 <Button
                   intent="danger"

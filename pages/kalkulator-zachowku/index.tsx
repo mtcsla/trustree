@@ -29,7 +29,7 @@ export default function KalkulatorZachowku() {
       .string()
       .required("To pole jest wymagane.")
       .matches(
-        /^[0-9]*\/[0-9]*$/,
+        /^[1-9][0-9]*\/[1-9][0-9]*$/,
         "Wprowadź poprawny ułamek zwykły mniejszy od 1."
       ),
     workable: yup.boolean().required("To pole jest wymagane.").nullable(),
