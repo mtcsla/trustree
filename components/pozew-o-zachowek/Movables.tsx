@@ -7,7 +7,7 @@ import {
   RowForm,
   RowFormGroup,
   RenderErrorMessage,
-} from "../../pages/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku";
+} from "../../pages/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku/form";
 import ColorfulIcon from "../layout/ColorfulIcon";
 import { getRelation } from "../oswiadczenie/OtherHereditariesRenderer";
 import * as yup from "yup";

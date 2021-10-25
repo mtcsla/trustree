@@ -253,7 +253,7 @@ const PismaNavList = ({ active, color }) => {
         </Link>
 
         {/*<Link href={"/pozew-o-zachowek"} passHref>
-          <a style={{ textDecoration: "none", color: "inherit" }}>
+          <a style={{ textDecoration: "none", color: "inherit" }}> 
             <ListItem>
               <Label color={color}>Wniosek o ustalenie działu spadku</Label>
             </ListItem>
