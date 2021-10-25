@@ -186,7 +186,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
             postanowienie wydane przez ${metadata.rulingCourtName} z dnia
             ${new Date(metadata.rulingDate).toLocaleDateString("pl-PL")} sygn.
             ${" " + metadata.rulingSignature}
-            ${metadata.rulingClosure == 0
+            ${metadata.rulingClosure == 1
               ? `wraz z klauzulą prawomocności z
         dnia ${new Date(metadata.rulingClosureDate).toLocaleDateString(
           "pl-PL"
