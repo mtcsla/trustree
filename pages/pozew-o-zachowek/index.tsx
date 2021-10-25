@@ -889,10 +889,9 @@ export default function WniosekTestament() {
                       address: yup.string().required("To pole jest wymagane."),
                       share: yup
                         .string()
-                        .required("To pole jest wymagane.")
                         .matches(
                           /^[1-9][0-9]*\/[1-9][0-9]*$/,
-                          "To pole musi zawierać właściwy ułamek zwykły."
+                          "To pole musi zawierać właściwy ułamek zwykły lub być puste."
                         ),
                       forma: yup
                         .number()
@@ -950,7 +949,7 @@ export default function WniosekTestament() {
                           <h3 className="text-sm mb-2  w-full">
                             DANE SPADKOBIERCY:
                           </h3>
-                          <RowForm className="mb-5">
+                          <RowForm className="">
                             <RowFormGroup label="imię i nazwisko:">
                               <Field
                                 as={InputGroup}
@@ -985,6 +984,10 @@ export default function WniosekTestament() {
                             </RowFormGroup>
                           </RowForm>
                           <RowForm>
+                            <Callout className="mb-2" intent="success">
+                              Jeśli spadkobierca odziedziczył całość spadku,
+                              pozostaw pole z udziałem puste.
+                            </Callout>
                             <RowFormGroup
                               label="udział spadkobiercy w spadku:"
                               helperText={

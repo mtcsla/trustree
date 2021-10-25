@@ -47,7 +47,7 @@ export const ImmovablesRenderer = ({
                 <div className="flex flex-col">
                   <p className="text-xs">wartość nieruchomości:</p>
                   <span className="text-right text-base">
-                    {immovable.value}zł
+                    {immovable.propertyValue}zł
                   </span>
                 </div>
               </div>

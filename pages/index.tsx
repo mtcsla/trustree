@@ -91,7 +91,7 @@ export default function index() {
               Szybko wygeneruj dokładny pozew o zachowek i uratuj swoją
               należność po zmarłym.
             </p>
-            <Link href="/" passHref>
+            <Link href="/pozew-o-zachowek" passHref>
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
@@ -114,7 +114,7 @@ export default function index() {
             <p className="text-sm">
               Natychmiastowo wygeneruj oświadczenie o przyjęciu spadku.
             </p>
-            <Link href="/" passHref>
+            <Link href="/oswiadczenie-o-przyjeciu-spadku" passHref>
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
@@ -137,7 +137,7 @@ export default function index() {
             <p className="text-sm">
               Natychmiastowo wygeneruj oświadczenie o odrzuceniu spadku.
             </p>
-            <Link href="/" passHref>
+            <Link href="/oswiadczenie-o-odrzuceniu-spadku" passHref>
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
@@ -165,7 +165,10 @@ export default function index() {
               Wygeneruj wniosek o stwierdzenie nabycia praw do spadku, jeśli
               twój spadkodawca nie zostawił testamentu.
             </p>
-            <Link href="/" passHref>
+            <Link
+              href="/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"
+              passHref
+            >
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
@@ -194,7 +197,10 @@ export default function index() {
               Wygeneruj wniosek o stwierdzenie nabycia praw do spadku, jeśli
               twój spadkodawca zostawił testament.
             </p>
-            <Link href="/" passHref>
+            <Link
+              href="/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"
+              passHref
+            >
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
@@ -219,14 +225,13 @@ export default function index() {
               Utwórz wniosek o ustalenie działu spadku, który pozwoli podzielić
               majątek między spadkobierców.
             </p>
-            <Link href="/" passHref>
-              <a className="flex justify-start">
-                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
-                  SPRAWDŹ 
-                  <Icon className="inline-block" icon="caret-right" />
-                </h4>
-              </a>
-            </Link>
+
+            <p className="flex justify-start">
+              <h4 className="bg-gray-300 p-1 rounded flex items-center text-sm mt-2 text-gray-500 cursor-not-allowed">
+                JUŻ NIEDŁUGO
+                <Icon className="inline-block ml-1" icon="lock" size={9} />
+              </h4>
+            </p>
           </div>
         </Item>
       </div>
@@ -266,7 +271,7 @@ export default function index() {
               Dowiedz się, jaka kwota zachowku należy ci się, jeśli spadkodawca
               pominął Cię w testamencie.
             </p>
-            <Link href="/" passHref>
+            <Link href="/kalkulator-zachowku" passHref>
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
@@ -290,7 +295,7 @@ export default function index() {
               Dowiedz się, jaka część spadku w ułamku zwykłym przypada Ci, jeśli
               spadkodawca nie pozostawił testamentu.
             </p>
-            <Link href="/" passHref>
+            <Link href="/kalkulator" passHref>
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
@@ -400,7 +405,7 @@ export default function index() {
                 }}
               />
               <p className="text-xs text-right italic mt-1">
-                r.pr Piotr Wojtowicz
+                r.pr. Piotr Wojtowicz
               </p>
             </Radca>
           </Div>

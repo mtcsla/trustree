@@ -20,6 +20,7 @@ const tab = "&nbsp;&nbsp;&nbsp;&nbsp;";
 
 export const zachowekLawsuit_pl = (metadata: any) => {
   const date = new Date();
+  console.log(metadata);
   const isTestatorMale = metadata.deadGender == 0;
   const isHereditaryMale = metadata.gender == 0;
 
@@ -46,8 +47,12 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         : ", ");
     allNamesAndRelations +=
       i.name +
-      `, ${determineRelation(i.relation, i.gender)} spadkodawc${
-        isTestatorMale ? "y" : "zyni"
+      `, ${determineRelation(i.relation, i.gender)} ${
+        i.relation != 0
+          ? `spadkodawc${isTestatorMale ? "y" : "zyni"}`
+          : "ze spadkodawc" + isTestatorMale
+          ? "ą"
+          : "zynią"
       }` +
       (metadata.otherHereditaries.indexOf(i) ==
       metadata.otherHereditaries.length - 1
@@ -55,8 +60,12 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         : ", ");
     allNamesRelationsAndShares +=
       i.name +
-      `, ${determineRelation(i.relation, i.gender)} spadkodawc${
-        isTestatorMale ? "y" : "zyni"
+      `, ${determineRelation(i.relation, i.gender)} ${
+        i.relation != 0
+          ? `spadkodawc${isTestatorMale ? "y" : "zyni"}`
+          : "ze spadkodawc" + isTestatorMale
+          ? "ą"
+          : "zynią"
       }, w ${i.share ? `części ${i.share}` : "całości"}` +
       (metadata.otherHereditaries.indexOf(i) ==
       metadata.otherHereditaries.length - 1
@@ -188,7 +197,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         </ol>
         <br />
         <br />
-        Powód ${metadata.name} jest spadkobiercą ustawowym
+        Powód jest spadkobiercą ustawowym
         (${determineRelation(metadata.relation, metadata.gender)} spadkodawcy),
         który w związku z dziedziczeniem testamentowym nie otrzymał należnej mu
         części spadku po spadkodawcy: ${metadata.value}zł. <br />
@@ -202,7 +211,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         ${metadata.actUscName}. <br />
         <br />
         ${metadata.immovables.length > 0 || metadata.movables.length > 0
-          ? html`II.Wg wiedzy powoda, w skład spadku wchodził:
+          ? html`II.Wg wiedzy powoda, w skład spadku wchodziły:
               <ol>
                 ${getImmovables(metadata.immovables, metadata)}
                 ${getVehicles(metadata.immovables)}
@@ -234,18 +243,18 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         nieruchomości (stosownych udziałów), wchodzących w skład majątku
         spadkowego po spadkodawcy. <br />
         <br />
-        ${metadata.mediation
+        ${metadata.mediation == 1
           ? `Wniesienie niniejszego pozwu jest konieczne, gdyż
         podjęta przez powoda, w trybie art.187 §1 pkt 3 kpc, próba mediacji z
         osobą pozwaną w danej sprawie nie przyniosła rezultatu w postaci zapłaty
         dochodzonej kwoty.`
           : ""} <br />
         <br />
-        ${metadata.invalid
+        ${metadata.invalid == 1
           ? html`Roszczenie powoda z tytułu zachowku nie uległo przedawnieniu po
               myśli art.1007 kc, bowiem powód, w toku postępowania o
               stwierdzenie nabycia spadku, który pozostawił ${metadata.deadName}
-              (sygn.${metadata.rulingSignature}) zgłosił zarzut nieważności
+              (sygn. ${metadata.rulingSignature}) zgłosił zarzut nieważności
               testamentu spadkodawcy, czym przerwał bieg terminu przedawnienia
               do żądania w niniejszej sprawie. <br />
               <br />
@@ -290,10 +299,8 @@ const getImmovables = (immovables, hereditary) => {
         ${i.number} przez ${i.courtName}.${getPropertyTypeMessage(i)} Wartość
         tegoż majątku spadkowego powód ocenia na kwotę co najmniej
         ${toTwo(
-          i.propertyValue *
-            getFractionDecimal(hereditary.share) *
-            getFractionDecimal(i.deadShare)
-        )}zł${getPropertyValueMessage(i)}.
+          i.propertyValue * getFractionDecimal(i.deadShare || "1/1")
+        )}zł${getPropertyValueMessage(i)}
         <br />
         <br />
         <b>Dowody:</b> <br />
@@ -303,8 +310,8 @@ const getImmovables = (immovables, hereditary) => {
             odpis zwykły księgi wieczystej nr ${i.number} z dnia
             ${new Date(i.date).toLocaleDateString("pl-PL")}, na okoliczność
             wchodzenia w skład spadku po spadkodawcy,
-            ${!i.deadShare ? `udziału w ${i.deadShare} części` : `całości`}
-            tejże nieruchomości.
+            ${i.deadShare ? `udziału w ${i.deadShare} części` : `całości`} tejże
+            nieruchomości.
           </li>
         </ol>
       </li>`;
@@ -433,7 +440,7 @@ const getBuildingType = (type) => {
 };
 
 const toTwo = (number) => {
-  return number.toFixed(2);
+  return number % 1 == 0 ? number : number.toFixed(2);
 };
 
 const getBuildingType2 = (type) => {

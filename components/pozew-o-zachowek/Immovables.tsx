@@ -115,7 +115,7 @@ export default function Immovables({ errors, values, setFieldValue }) {
                   as={InputGroup}
                   name="number"
                   leftIcon="book"
-                  placeholder="np. Janusz Kowalski"
+                  placeholder="np. KA1S/12345678/9"
                   intent={errors.number && touched.number ? "danger" : "none"}
                 />
                 <ErrorMessage name="number">{RenderErrorMessage}</ErrorMessage>

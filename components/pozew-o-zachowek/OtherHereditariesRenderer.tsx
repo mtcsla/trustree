@@ -47,7 +47,7 @@ export const OtherHereditariesRenderer = ({
                 <div className="flex flex-col">
                   <p className="text-xs">udział w spadku:</p>
                   <span className="text-right text-base">
-                    {hereditary.share}
+                    {hereditary.share || "całość"}
                   </span>
                 </div>
               </div>
