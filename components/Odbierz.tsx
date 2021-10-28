@@ -63,13 +63,20 @@ function Odbierz({
           udostępniać!
         </p>
         <div
-          className="w-full h-72 mt-4 rounded-lg"
+          className="w-full h-72 mt-4 rounded-lg flex justify-end align-end"
           style={{
             backgroundImage: "url('/printer.svg')",
             backgroundSize: "cover",
             backgroundPosition: "20% 20%",
           }}
-        />
+        >
+          <a
+            href="https://www.vecteezy.com/free-vector/printer"
+            className="text-white"
+          >
+            Printer Vectors by Vecteezy
+          </a>
+        </div>
       </Card>
       <Button onClick={() => print(html)} className="w-full" intent="success">
         DRUKUJ
