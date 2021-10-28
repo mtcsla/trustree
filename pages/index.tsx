@@ -43,9 +43,9 @@ export default function index() {
                 width > 800 ? width < 900 && "hidden" : ""
               } bg-white bg-opacity-20 p-2 rounded`}
             >
-              Firma powstała przy wsparciu Google for Start-ups, Microsoft
-              Polska oraz Apptension w ramach programu Akceleracyjnego
-              TeenCrunch
+              Firma powstała w ramach programu akceleracyjnego TeenCrunch,
+              dzięki warsztatowemu wsparciu Google for Start-ups, Microsoft
+              Polska oraz AppTension.
             </p>
           </div>
         </HeaderText>

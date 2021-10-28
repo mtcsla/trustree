@@ -50,9 +50,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
       `, ${determineRelation(i.relation, i.gender)} ${
         i.relation != 0
           ? `spadkodawc${isTestatorMale ? "y" : "zyni"}`
-          : "ze spadkodawc" + isTestatorMale
-          ? "ą"
-          : "zynią"
+          : "ze spadkodawc" + (isTestatorMale ? "ą" : "zynią")
       }` +
       (metadata.otherHereditaries.indexOf(i) ==
       metadata.otherHereditaries.length - 1

@@ -155,7 +155,7 @@ const NavSegment = ({
           size={17}
         />
         <h3
-          className="font-semibold text-sm m-2"
+          className="text-sm m-2"
           style={{
             color:
               activeNav === index || hovered ? `rgb(${activeColor})` : "black",
