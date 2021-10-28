@@ -78,29 +78,36 @@ export const getServerSideProps = async (context) => {
   const data = context.query;
   const { relation } = data;
 
+  console.log({ data });
+
+  for (const i in data) {
+    if (data[i] == "null") data[i] = null;
+    else data[i] = parseInt(data[i]);
+  }
+
   try {
     let rezultat: any[] = [
-      data.spouse || data.relation === 1
+      data.spouse || data.relation == 1
         ? HereditarySpouse(data)
         : new Fraction(0, 1),
 
-      data.kin > 0 || data.relation === 2
+      parseInt(data.kin) > 0 || data.relation == 2
         ? HereditaryKin(data)
         : new Fraction(0, 1),
 
-      data.parents > 0 || data.relation === 3
+      parseInt(data.parents) > 0 || data.relation == 3
         ? HereditaryParent(data)
         : new Fraction(0, 1),
 
-      data.children > 0 || data.relation === 4
+      parseInt(data.children) > 0 || data.relation == 4
         ? HereditaryChild(data)
         : new Fraction(0, 1),
 
-      data.children > 0 || data.relation === 4 || data.relation === 5
+      parseInt(data.children) > 0 || data.relation == 4 || data.relation == 5
         ? HereditaryGrandchild(data)
         : new Fraction(0, 1),
 
-      data.kin > 0 || data.relation === 2 || data.relation === 6
+      parseInt(data.kin) > 0 || data.relation == 2 || data.relation == 6
         ? HereditaryEnkel(data)
         : new Fraction(0, 1),
     ];
@@ -108,6 +115,8 @@ export const getServerSideProps = async (context) => {
     for (const item in rezultat) {
       rezultat[item] = rezultat[item].toString();
     }
+
+    console.log(context.query, rezultat);
 
     return {
       props: {
