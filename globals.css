@@ -120,7 +120,8 @@ span {
   --dark2: rgb(0, 18, 34);
   --dark3: rgb(8, 30, 51);
   --medium-sea-green: #0f9960;
-  --sea-green: #0e8352;
+  --medium-sea-green: #1b476b;
+  --sea-green: #17344e;
   /*--medium-sea-green: slateblue;
   --sea-green: mediumslateblue;
   --medium-sea-green: rgb(0, 34, 66);
