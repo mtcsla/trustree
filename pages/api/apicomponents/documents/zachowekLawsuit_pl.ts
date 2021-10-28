@@ -74,7 +74,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
   }
 
   return html`
-    <di style="margin: 3rem; font-family: 'Times New Roman', sans-serif;">
+    <div style="margin: 3rem; font-family: 'Times New Roman', sans-serif;">
       <div style="width: 100%; ">
         <span style="width: 100%; text-align: right;">
           ${metadata.city}, ${date.getDate()} ${getMonth(date.getMonth())}
@@ -277,7 +277,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         <br />
         <li>dowód uiszczenia opłaty sądowej od pozwu</li>
       </ol>
-    </di>
+    </div>
   `;
 };
 

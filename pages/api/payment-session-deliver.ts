@@ -33,6 +33,7 @@ export default async (req, res) => {
         document: document,
         filename: filename,
         name: name,
+        docId: metadata.docId,
         date: new Date(),
       });
 

@@ -5,6 +5,7 @@ import jsPDF from "jspdf";
 import dynamic from "next/dynamic";
 import { Button, Card } from "@blueprintjs/core";
 import ColorfulIcon from "./layout/ColorfulIcon";
+import { useWindowSize } from "../hooks/windowSize";
 
 function htmlToElement(html) {
   var template = document.createElement("template");
@@ -27,22 +28,48 @@ function print(html: string) {
   printWindow.close();
 }
 
-function Odbierz({ html, filename }: { html: string; filename: string }) {
+function Odbierz({
+  html,
+  filename,
+  name,
+  docId,
+}: {
+  html: string;
+  filename: string;
+  name: string;
+  docId: number;
+}) {
   const cardRef = React.useRef<HTMLDivElement>();
   const [file, setFile] = React.useState(null);
+
+  const { width } = useWindowSize();
 
   return (
     <>
       <Card className="mb-6">
-        <h1 className="text-4xl mb-4 w-full">
-          <ColorfulIcon icon="document-share" size={30} color="" /> Odbierz
-          swoje pismo
+        <h1 className="text-4xl w-full mb-0">
+          <ColorfulIcon
+            icon="document-share"
+            size={width > 800 ? 30 : 20}
+            color=""
+          />{" "}
+          Odbierz swoje pismo
         </h1>
+        <p className="text-xs mb-6">{name}</p>
         <p>
           Kliknij przycisk <b>DRUKUJ</b> poniżej, aby wydrukować pismo, lub
           zapisać je w formacie PDF. Możesz powrócić do tego linka, kiedy
-          będziesz mieć ochotę, ale pamiętaj, aby nikomu go nie udostępniać!
+          będziesz mieć ochotę, ale pamiętaj, aby <b>nikomu</b> go nie
+          udostępniać!
         </p>
+        <div
+          className="w-full h-72 mt-4 rounded-lg"
+          style={{
+            backgroundImage: "url('/printer.svg')",
+            backgroundSize: "cover",
+            backgroundPosition: "20% 20%",
+          }}
+        />
       </Card>
       <Button onClick={() => print(html)} className="w-full" intent="success">
         DRUKUJ

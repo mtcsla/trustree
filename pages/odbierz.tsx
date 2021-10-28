@@ -27,6 +27,8 @@ export const getServerSideProps = async ({ query }) => {
     props: {
       html: data.document,
       filename: data.filename,
+      name: data.name,
+      id: data.docId,
     },
   };
 };
@@ -34,9 +36,13 @@ export const getServerSideProps = async ({ query }) => {
 const OdbierzPage = ({
   html,
   filename,
+  name,
+  docId,
 }: {
   html: string;
   filename: string;
-}) => <Odbierz {...{ html, filename }} />;
+  name: string;
+  docId: number;
+}) => <Odbierz {...{ html, filename, name, docId }} />;
 
 export default dynamic(Promise.resolve(OdbierzPage), { ssr: false });
