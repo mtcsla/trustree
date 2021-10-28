@@ -15,7 +15,7 @@ export const hereditaryRefusalDeclaration_pl = (metadata: any) => {
   return html`
 
       <div
-        style="color: black; font-family: 'Montserrat', sans-serif !important; margin: 3rem"
+        style="color: black; font-family: 'Times New Roman', sans-serif !important; margin: 3rem"
       >
         <p style="text-align: right; width: 100%">
           ${metadata.city}, ${date.getDate()} ${getMonth(date.getMonth())}

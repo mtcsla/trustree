@@ -20,7 +20,7 @@ export default function ColorfulIcon({
 }: ColorfulIconProps) {
   return (
     <>
-      <div className={"inline-block" + className} {...props}>
+      <div className={"inline " + className} {...props}>
         <Icon
           icon={icon}
           size={size}

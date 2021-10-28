@@ -74,158 +74,155 @@ export const zachowekLawsuit_pl = (metadata: any) => {
   }
 
   return html`
-    <html>
-      <body>
-        <div style="width: 100%;">
-          <span style="width: 100%; text-align: right;">
-            ${metadata.city}, ${date.getDate()} ${getMonth(date.getMonth())}
-            ${date.getFullYear()}
-          </span>
-          <br /><br />
-          <span style="width: 100%; text-align: left; font-weight: bold;">
-            ${metadata.courtName}
-          </span>
-          <br />
-          <span style="width: 100%; text-align: left; font-weight: bold;">
-            ${metadata.courtNumber} Wydział Cywilny
-          </span>
-          <br /><br />
-          <span style="width: 100%; text-align: left;">
-            ${metadata.courtAddress}
-          </span>
-          <br />
-          <span style="width: 100%; text-align: right;">
-            Powód: ${metadata.name}, nr. PESEL: ${metadata.pesel},
-            zamieszkał${isHereditaryMale ? "y" : "a"} pod adresem
-            ${metadata.street}, ${metadata.postal} ${metadata.city} <br />
-            Pozwan${suedNumber == 1 ? "y" : "i"}:
-            ${suedNumber > 1 ? "<br />" : ""} ${suedList} <br />
-            Wartość przedmiotu sporu: ${metadata.value}zł
-          </span>
-          <br /><br />
-        </div>
-        <h2 style="width: 100%; text-align: center;">Pozew o zachowek</h2>
+    <di style="margin: 3rem; font-family: 'Times New Roman', sans-serif;">
+      <div style="width: 100%; ">
+        <span style="width: 100%; text-align: right;">
+          ${metadata.city}, ${date.getDate()} ${getMonth(date.getMonth())}
+          ${date.getFullYear()}
+        </span>
+        <br /><br />
+        <span style="width: 100%; text-align: left; font-weight: bold;">
+          ${metadata.courtName}
+        </span>
+        <br />
+        <span style="width: 100%; text-align: left; font-weight: bold;">
+          ${metadata.courtNumber} Wydział Cywilny
+        </span>
+        <br /><br />
+        <span style="width: 100%; text-align: left;">
+          ${metadata.courtAddress}
+        </span>
+        <br />
+        <span style="width: 100%; text-align: right;">
+          Powód: ${metadata.name}, nr. PESEL: ${metadata.pesel},
+          zamieszkał${isHereditaryMale ? "y" : "a"} pod adresem
+          ${metadata.street}, ${metadata.postal} ${metadata.city} <br />
+          Pozwan${suedNumber == 1 ? "y" : "i"}:
+          ${suedNumber > 1 ? "<br />" : ""} ${suedList} <br />
+          Wartość przedmiotu sporu: ${metadata.value}zł
+        </span>
+        <br /><br />
+      </div>
+      <h2 style="width: 100%; text-align: center;">Pozew o zachowek</h2>
 
-        W imieniu własnym uprzejmie wnoszę o: <br />
-        <br />
-        <ol>
-          <li>
-            zasądzenie od strony pozwanej na rzecz powoda kwoty
-            ${metadata.value}zł wraz z odsetkami ustawowymi za opóźnienie od
-            dnia wniesienia pozwu do dnia zapłaty, tytułem zachowku, stosownie
-            do treści art. 991 §2 kc,
-          </li>
-          <br />
-          <br />
-          <li>
-            wydanie wyroku zaocznego, uwzględniającego powództwo, stosownie do
-            treści art. 339 i następnych kpc, w razie zaistnienia ustawowych ku
-            temu przesłanek,
-          </li>
-          <br />
-          <br />
-          <li>
-            nadanie wyrokowi zaocznemu rygoru natychmiastowej wykonalności w
-            trybie art. 333 §1 pkt. 3 kpc,
-          </li>
-          <br />
-          <br />
-          <li>
-            zasądzenie od strony pozwanej na rzecz powoda kosztów procesu według
-            norm przepisanych.
-          </li>
-          <br />
-        </ol>
-        <br />
-        Ponadto wnoszę o: <br />
-        <br />
-        <ol start="5">
-          <li>
-            przeprowadzenie dowodu z dokumentów, niniejszym przedłożonych - na
-            okoliczności wskazane w treści pozwu,
-          </li>
-          <br />
-          <br />
-          <li>
-            przeprowadzenie dowodu z przesłuchania strony powodowej i strony
-            pozwanej.
-          </li>
-          <br />
-        </ol>
-        <br />
-        <h3 style="width: 100%; text-align: center;">Uzasadnienie</h3>
-        I. Dnia ${new Date(metadata.deadDate).toLocaleDateString("pl-PL")} zmarł
-        spadkodawca - ${getTestatorRelation(metadata.relation, isTestatorMale)}
-        powoda, ${metadata.name}, pozostawiając testament z dnia
-        ${new Date(metadata.testamentDate).toLocaleDateString("pl-PL")}. Zgodnie
-        z tym testamentem, do spadku zostali powołani: ${allNamesAndRelations}
-        Na mocy prawomocnego postanowienia wydanego przez
-        ${metadata.rulingCourtName}, ${metadata.rulingCourtNumber} Wydział
-        Cywilny z dnia
-        ${new Date(metadata.rulingDate).toLocaleDateString("pl-PL")}, spadek po
-        spadkodawcy: ${metadata.deadName},
-        naby${metadata.otherHereditaries.length > 1
-          ? "li:"
-          : metadata.otherHereditaries[0].gender == 0
-          ? "ł"
-          : "ła"}
-        ${allNames}
+      W imieniu własnym uprzejmie wnoszę o: <br />
+      <br />
+      <ol>
+        <li>
+          zasądzenie od strony pozwanej na rzecz powoda kwoty
+          ${metadata.value}zł wraz z odsetkami ustawowymi za opóźnienie od dnia
+          wniesienia pozwu do dnia zapłaty, tytułem zachowku, stosownie do
+          treści art. 991 §2 kc,
+        </li>
         <br />
         <br />
-        Dowody: <br />
-        <ol>
-          ${tab}
-          <li>
-            skrócony akt zgonu spadkodawcy, ${metadata.deadName} nr
-            ${metadata.deadActNumber} z dnia
-            ${new Date(metadata.deadDate).toLocaleDateString("pl-PL")},
-            <br />
-          </li>
-          ${tab}
-          <li>
-            postanowienie wydane przez ${metadata.rulingCourtName} z dnia
-            ${new Date(metadata.rulingDate).toLocaleDateString("pl-PL")} sygn.
-            ${" " + metadata.rulingSignature}
-            ${metadata.rulingClosure == 1
-              ? `wraz z klauzulą prawomocności z
+        <li>
+          wydanie wyroku zaocznego, uwzględniającego powództwo, stosownie do
+          treści art. 339 i następnych kpc, w razie zaistnienia ustawowych ku
+          temu przesłanek,
+        </li>
+        <br />
+        <br />
+        <li>
+          nadanie wyrokowi zaocznemu rygoru natychmiastowej wykonalności w
+          trybie art. 333 §1 pkt. 3 kpc,
+        </li>
+        <br />
+        <br />
+        <li>
+          zasądzenie od strony pozwanej na rzecz powoda kosztów procesu według
+          norm przepisanych.
+        </li>
+        <br />
+      </ol>
+      <br />
+      Ponadto wnoszę o: <br />
+      <br />
+      <ol start="5">
+        <li>
+          przeprowadzenie dowodu z dokumentów, niniejszym przedłożonych - na
+          okoliczności wskazane w treści pozwu,
+        </li>
+        <br />
+        <br />
+        <li>
+          przeprowadzenie dowodu z przesłuchania strony powodowej i strony
+          pozwanej.
+        </li>
+        <br />
+      </ol>
+      <br />
+      <h3 style="width: 100%; text-align: center;">Uzasadnienie</h3>
+      I. Dnia ${new Date(metadata.deadDate).toLocaleDateString("pl-PL")} zmarł
+      spadkodawca - ${getTestatorRelation(metadata.relation, isTestatorMale)}
+      powoda, ${metadata.name}, pozostawiając testament z dnia
+      ${new Date(metadata.testamentDate).toLocaleDateString("pl-PL")}. Zgodnie z
+      tym testamentem, do spadku zostali powołani: ${allNamesAndRelations} Na
+      mocy prawomocnego postanowienia wydanego przez
+      ${metadata.rulingCourtName}, ${metadata.rulingCourtNumber} Wydział Cywilny
+      z dnia ${new Date(metadata.rulingDate).toLocaleDateString("pl-PL")},
+      spadek po spadkodawcy: ${metadata.deadName},
+      naby${metadata.otherHereditaries.length > 1
+        ? "li:"
+        : metadata.otherHereditaries[0].gender == 0
+        ? "ł"
+        : "ła"}
+      ${allNames}
+      <br />
+      <br />
+      Dowody: <br />
+      <ol>
+        ${tab}
+        <li>
+          skrócony akt zgonu spadkodawcy, ${metadata.deadName} nr
+          ${metadata.deadActNumber} z dnia
+          ${new Date(metadata.deadDate).toLocaleDateString("pl-PL")},
+          <br />
+        </li>
+        ${tab}
+        <li>
+          postanowienie wydane przez ${metadata.rulingCourtName} z dnia
+          ${new Date(metadata.rulingDate).toLocaleDateString("pl-PL")} sygn.
+          ${" " + metadata.rulingSignature}
+          ${metadata.rulingClosure == 1
+            ? `wraz z klauzulą prawomocności z
         dnia ${new Date(metadata.rulingClosureDate).toLocaleDateString(
           "pl-PL"
         )} (odpis notarialny), na okoliczność
         nabycia spadku na mocy testamentu przez osobę pozwaną.`
-              : "."}
-          </li>
-        </ol>
-        <br />
-        <br />
-        Powód jest spadkobiercą ustawowym
-        (${determineRelation(metadata.relation, metadata.gender)} spadkodawcy),
-        który w związku z dziedziczeniem testamentowym nie otrzymał należnej mu
-        części spadku po spadkodawcy: ${metadata.value}zł. <br />
-        <br />
-        Dowód: akt
-        ${metadata.actType == 0 || metadata.relation == 1
-          ? "małżeństwa"
-          : "urodzenia"}
-        powoda, z dnia
-        ${new Date(metadata.actDate).toLocaleDateString("pl-PL")}, z
-        ${metadata.actUscName}. <br />
-        <br />
-        ${metadata.immovables.length > 0 || metadata.movables.length > 0
-          ? html`II.Wg wiedzy powoda, w skład spadku wchodziły:
-              <ol>
-                ${getImmovables(metadata.immovables, metadata)}
-                ${getVehicles(metadata.immovables)}
-                ${getValuables(metadata.immovables)}
-              </ol>
-              <br />
-              <br />`
-          : ""}
-        ${metadata.grants.length > 0
-          ? `Na podstawie art. 993 kc do spadku należy dołączyć
+            : "."}
+        </li>
+      </ol>
+      <br />
+      <br />
+      Powód jest spadkobiercą ustawowym
+      (${determineRelation(metadata.relation, metadata.gender)} spadkodawcy),
+      który w związku z dziedziczeniem testamentowym nie otrzymał należnej mu
+      części spadku po spadkodawcy: ${metadata.value}zł. <br />
+      <br />
+      Dowód: akt
+      ${metadata.actType == 0 || metadata.relation == 1
+        ? "małżeństwa"
+        : "urodzenia"}
+      powoda, z dnia ${new Date(metadata.actDate).toLocaleDateString("pl-PL")},
+      z ${metadata.actUscName}. <br />
+      <br />
+      ${metadata.immovables.length > 0 || metadata.movables.length > 0
+        ? html`II.Wg wiedzy powoda, w skład spadku wchodziły:
+            <ol>
+              ${getImmovables(metadata.immovables, metadata)}
+              ${getVehicles(metadata.immovables)}
+              ${getValuables(metadata.immovables)}
+            </ol>
+            <br />
+            <br />`
+        : ""}
+      ${metadata.grants.length > 0
+        ? `Na podstawie art. 993 kc do spadku należy dołączyć
         ${metadata.grants.length == 1 ? "darowiznę" : "darowizny"} na rzecz
         ${suedNumber == 1 ? "pozwanego" : "pozwanych"}${
-              metadata.grants.length == 1 ? "" : ":"
-            }
+            metadata.grants.length == 1 ? "" : ":"
+          }
         ${
           metadata.grants.length > 1
             ? `<ol>
@@ -234,56 +231,53 @@ export const zachowekLawsuit_pl = (metadata: any) => {
             : getGrants(metadata.grants)
         }
 `
-          : ""}
+        : ""}
 
-        <br />
-        W przypadku zakwestionowania przez osobę pozwaną roszczenia o zachowek
-        co do wysokości, powód wnosi o: przeprowadzenie dowodu z opinii
-        rzeczoznawcy - biegłego sądowego, na okoliczność wartości w/w
-        nieruchomości (stosownych udziałów), wchodzących w skład majątku
-        spadkowego po spadkodawcy. <br />
-        <br />
-        ${metadata.mediation == 1
-          ? `Wniesienie niniejszego pozwu jest konieczne, gdyż
+      <br />
+      W przypadku zakwestionowania przez osobę pozwaną roszczenia o zachowek co
+      do wysokości, powód wnosi o: przeprowadzenie dowodu z opinii rzeczoznawcy
+      - biegłego sądowego, na okoliczność wartości w/w nieruchomości (stosownych
+      udziałów), wchodzących w skład majątku spadkowego po spadkodawcy. <br />
+      <br />
+      ${metadata.mediation == 1
+        ? `Wniesienie niniejszego pozwu jest konieczne, gdyż
         podjęta przez powoda, w trybie art.187 §1 pkt 3 kpc, próba mediacji z
         osobą pozwaną w danej sprawie nie przyniosła rezultatu w postaci zapłaty
         dochodzonej kwoty.`
-          : ""} <br />
+        : ""} <br />
+      <br />
+      ${metadata.invalid == 1
+        ? html`Roszczenie powoda z tytułu zachowku nie uległo przedawnieniu po
+            myśli art.1007 kc, bowiem powód, w toku postępowania o stwierdzenie
+            nabycia spadku, który pozostawił ${metadata.deadName} (sygn.
+            ${metadata.rulingSignature}) zgłosił zarzut nieważności testamentu
+            spadkodawcy, czym przerwał bieg terminu przedawnienia do żądania w
+            niniejszej sprawie. <br />
+            <br />
+            Dowód:
+            <br />
+            <ol>
+              <li>
+                odpis postanowienia wydanego przez ${metadata.rulingCourtName} z
+                dnia
+                ${new Date(metadata.rulingDate).toLocaleDateString("pl-PL")}
+                sygn. ${metadata.rulingSignature} wraz z pisemnym uzasadnieniem.
+              </li>
+            </ol>
+            <br /><br />
+            Mając powyższe na uwadze, uprzejmie wnoszę jak na wstępie, jako że
+            żądania powództwa są całkowicie konieczne i usprawiedliwione.
+            <br />`
+        : ""}<br />
+      Załączniki: <br />
+      <ol>
+        <li>odpis pozwu wraz z załącznikami,</li>
         <br />
-        ${metadata.invalid == 1
-          ? html`Roszczenie powoda z tytułu zachowku nie uległo przedawnieniu po
-              myśli art.1007 kc, bowiem powód, w toku postępowania o
-              stwierdzenie nabycia spadku, który pozostawił ${metadata.deadName}
-              (sygn. ${metadata.rulingSignature}) zgłosił zarzut nieważności
-              testamentu spadkodawcy, czym przerwał bieg terminu przedawnienia
-              do żądania w niniejszej sprawie. <br />
-              <br />
-              Dowód:
-              <br />
-              <ol>
-                <li>
-                  odpis postanowienia wydanego przez ${metadata.rulingCourtName}
-                  z dnia
-                  ${new Date(metadata.rulingDate).toLocaleDateString("pl-PL")}
-                  sygn. ${metadata.rulingSignature} wraz z pisemnym
-                  uzasadnieniem.
-                </li>
-              </ol>
-              <br /><br />
-              Mając powyższe na uwadze, uprzejmie wnoszę jak na wstępie, jako że
-              żądania powództwa są całkowicie konieczne i usprawiedliwione.
-              <br />`
-          : ""}<br />
-        Załączniki: <br />
-        <ol>
-          <li>odpis pozwu wraz z załącznikami,</li>
-          <br />
-          <li>dowody – dokumenty w pozwie wyszczególnione,</li>
-          <br />
-          <li>dowód uiszczenia opłaty sądowej od pozwu</li>
-        </ol>
-      </body>
-    </html>
+        <li>dowody – dokumenty w pozwie wyszczególnione,</li>
+        <br />
+        <li>dowód uiszczenia opłaty sądowej od pozwu</li>
+      </ol>
+    </di>
   `;
 };
 

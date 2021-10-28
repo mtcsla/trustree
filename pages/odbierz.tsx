@@ -1,8 +1,15 @@
 import { firestore } from "./api/lib/firebase-admin";
 
 import React from "react";
-import { Card } from "@blueprintjs/core";
 import dynamic from "next/dynamic";
+const Odbierz = dynamic(() => import("../components/Odbierz"), { ssr: false });
+
+function htmlToElement(html) {
+  var template = document.createElement("template");
+  html = html.trim(); // Never return a text node of whitespace as the result
+  template.innerHTML = html;
+  return template.content.firstChild;
+}
 
 export const getServerSideProps = async ({ query }) => {
   const { id, col } = query;
@@ -24,24 +31,12 @@ export const getServerSideProps = async ({ query }) => {
   };
 };
 
-const html2pdf: any = dynamic(() => import("html2pdf.js"), {
-  ssr: false,
-});
-
-export default function Odbierz({
+const OdbierzPage = ({
   html,
   filename,
 }: {
   html: string;
   filename: string;
-}) {
-  return (
-    <Card
-      id="document"
-      className="p-6"
-      dangerouslySetInnerHTML={{
-        __html: html,
-      }}
-    ></Card>
-  );
-}
+}) => <Odbierz {...{ html, filename }} />;
+
+export default dynamic(Promise.resolve(OdbierzPage), { ssr: false });

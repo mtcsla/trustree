@@ -121,6 +121,11 @@ span {
   --dark3: rgb(8, 30, 51);
   --medium-sea-green: #0f9960;
   --sea-green: #0e8352;
+  /*--medium-sea-green: slateblue;
+  --sea-green: mediumslateblue;
+  --medium-sea-green: rgb(0, 34, 66);
+  --sea-green: rgb(1, 29, 56);*/
+  --dark3: rgb(8, 30, 51);
   --white1: #f7e4ff;
   --newGrad1: linear-gradient(
     135deg,
@@ -158,7 +163,6 @@ body {
   min-height: 100vh;
   display: flex;
   overflow-y: visible;
-
   flex: 1;
 }
 

@@ -49,7 +49,7 @@ export default function index() {
             </p>
           </div>
         </HeaderText>
-        <Suited src="/suited.png" style={{ background: "var(--sea-green)" }} />
+        <Suited src="/people.png" style={{ background: "var(--sea-green)" }} />
       </div>
       <div className="w-full flex flex-col items-center p-10 pb-2 text-center">
         <h1 className="w-full">
@@ -430,7 +430,7 @@ const Suited = styled.img`
   height: 400px;
   min-height: 400px;
   align-self: end;
-
+  padding: 20px;
   @media (max-width: 600px) {
     display: none;
   }
