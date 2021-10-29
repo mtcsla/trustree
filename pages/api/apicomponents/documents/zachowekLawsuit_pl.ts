@@ -24,16 +24,17 @@ export const zachowekLawsuit_pl = (metadata: any) => {
   const isTestatorMale = metadata.deadGender == 0;
   const isHereditaryMale = metadata.gender == 0;
 
-  let suedNumber: number;
+  let suedNumber = 0;
   let suedList = "";
   let allNames = "";
   let allNamesRelationsAndShares = "";
   let allNamesAndRelations = "";
 
   for (const i of metadata.otherHereditaries) {
-    if (i.sued || true) {
+    if (i.sued == 1) {
       suedNumber++;
       suedList +=
+        tab +
         i.name +
         ` zamieszkał${i.gender == 0 ? "y" : "a"} pod adresem ${
           i.address
@@ -72,7 +73,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
   }
 
   return html`
-    <div style="margin: 3rem; font-family: 'Times New Roman', sans-serif;">
+    <div style=" font-family: 'Times New Roman', sans-serif; font-size: 12px;">
       <div style="width: 100%; ">
         <span style="width: 100%; text-align: right;">
           ${metadata.city}, ${date.getDate()} ${getMonth(date.getMonth())}
@@ -90,11 +91,12 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         <span style="width: 100%; text-align: left;">
           ${metadata.courtAddress}
         </span>
-        <br />
+        <br /><br />
         <span style="width: 100%; text-align: right;">
-          Powód: ${metadata.name}, nr. PESEL: ${metadata.pesel},
+          Powód:<br />
+          ${tab}${metadata.name}, nr. PESEL: ${metadata.pesel},
           zamieszkał${isHereditaryMale ? "y" : "a"} pod adresem
-          ${metadata.street}, ${metadata.postal} ${metadata.city} <br />
+          ${metadata.street}, ${metadata.postal} ${metadata.city} <br /><br />
           Pozwan${suedNumber == 1 ? "y" : "i"}:
           ${suedNumber > 1 ? "<br />" : ""} ${suedList} <br />
           Wartość przedmiotu sporu: ${metadata.value}zł
@@ -153,7 +155,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
       <h3 style="width: 100%; text-align: center;">Uzasadnienie</h3>
       I. Dnia ${new Date(metadata.deadDate).toLocaleDateString("pl-PL")} zmarł
       spadkodawca - ${getTestatorRelation(metadata.relation, isTestatorMale)}
-      powoda, ${metadata.name}, pozostawiając testament z dnia
+      powoda, ${metadata.deadName}, pozostawiając testament z dnia
       ${new Date(metadata.testamentDate).toLocaleDateString("pl-PL")}. Zgodnie z
       tym testamentem, do spadku zostali powołani: ${allNamesAndRelations} Na
       mocy prawomocnego postanowienia wydanego przez
@@ -209,8 +211,8 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         ? html`II.Wg wiedzy powoda, w skład spadku wchodziły:
             <ol>
               ${getImmovables(metadata.immovables, metadata)}
-              ${getVehicles(metadata.immovables)}
-              ${getValuables(metadata.immovables)}
+              ${getVehicles(metadata.movables)}
+              ${getValuables(metadata.movables)}
             </ol>
             <br />
             <br />`

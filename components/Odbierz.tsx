@@ -18,7 +18,7 @@ function htmlToElement(html) {
 function print(html: string) {
   const printWindow = window.open("", "", "");
   print;
-  printWindow.document.write(`<html><style>@page { size: auto;  margin: 0mm; }
+  printWindow.document.write(`<html><style> 
 </style>${html}</html>`);
   printWindow.document.close();
 

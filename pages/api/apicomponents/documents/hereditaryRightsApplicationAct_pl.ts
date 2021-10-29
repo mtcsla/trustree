@@ -63,9 +63,7 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
   const whichType = noRestraintsNames.length < inventoryNames.length;
 
   return html`
-    <div
-      style="font-family: 'Times New Roman', sans-serif !important; margin: 3rem"
-    >
+    <div style="font-family: 'Times New Roman', sans-serif !important; ">
       <div style="width: 50%; margin-left: 50%; text-align: right;">
         ${metadata.city}, ${date.getDate()} ${getMonth(date.getMonth())}
         ${date.getFullYear()}<br /><br />

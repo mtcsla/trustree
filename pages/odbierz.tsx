@@ -2,6 +2,7 @@ import { firestore } from "./api/lib/firebase-admin";
 
 import React from "react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/dist/client/router";
 const Odbierz = dynamic(() => import("../components/Odbierz"), { ssr: false });
 
 function htmlToElement(html) {
@@ -43,6 +44,21 @@ const OdbierzPage = ({
   filename: string;
   name: string;
   docId: number;
-}) => <Odbierz {...{ html, filename, name, docId }} />;
+}) => {
+  const router = useRouter();
+  React.useEffect(() => {
+    sessionStorage.setItem(
+      "document",
+      JSON.stringify({
+        html,
+        filename,
+        name,
+        docId,
+      })
+    );
+    router.push("/drukuj");
+  }, []);
+  return null;
+};
 
 export default dynamic(Promise.resolve(OdbierzPage), { ssr: false });
