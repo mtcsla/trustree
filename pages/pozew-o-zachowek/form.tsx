@@ -98,15 +98,11 @@ export default function WniosekTestament() {
   }, []);
   return (
     <>
-      <Toaster
-        position={Position.TOP_RIGHT}
-        ref={toaster}
-        className="z-50 mt-10"
-      />
+      <Toaster position={Position.TOP_RIGHT} ref={toaster} className="z-50" />
       <h1 className="text-4xl ">Wygeneruj pozew o zachowek</h1>
       <p>Podaj nam swoje dane, a my utworzymy za Ciebie pozew.</p>
       <Callout intent="primary" className="mt-6">
-        Wykonanie tego pisma kosztuje <b>300zł</b>.
+        Wykonanie tego pisma kosztuje <b>369,00zł</b>.
       </Callout>
       {loaded ? (
         <Formik
@@ -301,7 +297,7 @@ export default function WniosekTestament() {
                     </RowFormGroup>
                   </RowForm>
                   <RowForm className="">
-                    <Callout className="mb-2" intent="success">
+                    <Callout className="mb-2" intent="primary">
                       Jeśli odziedziczyłeś całość spadku, pozostaw pole z
                       udziałem puste. Możesz obliczyć swój udział w spadku i
                       zachowek w naszych kalkulatorach:
@@ -484,19 +480,7 @@ export default function WniosekTestament() {
                     </RowFormGroup>
                   </RowForm>
                 </CardForm>
-                <Callout className="mt-10" intent="primary">
-                  Wniosek o stwierdzenie nabycia spadku - to podstawowe pismo,
-                  które trzeba złożyć w sądzie w przypadku powołania do{" "}
-                  <a
-                    className="text-blue-600"
-                    href="https://sip.lex.pl/akty-prawne/dzu-dziennik-ustaw/kodeks-cywilny-16785996/art-931"
-                  >
-                    dziedziczenia na podstawie ustawy
-                  </a>
-                  , czyli w trybie tzw. dziedziczenia ustawowego lub na
-                  podstawie testamentu (sporządzonego w formie pisemnej lub
-                  ustnej).
-                </Callout>
+
                 <>
                   <div className="flex flex-col w-auto">
                     <h2 className="flex items-center mt-10 text-xl">
@@ -867,13 +851,6 @@ export default function WniosekTestament() {
                     </FormGroup>
                   </div>
                 </CardForm>
-                <Callout intent="primary" className="mt-8">
-                  Dzięki naszemu kalkulatorowi udziału w spadku oraz
-                  precyzyjnych pytań przygotowanych na mnogość danych sytuacji,
-                  utworzymy automatycznie dokument niezbędny, w razie gdybyś
-                  pragnął/pragnęła przyjąć spadek w formie prostej bądź z
-                  dobrodziejstwem inwentarza.
-                </Callout>
 
                 <CardForm>
                   <Formik
@@ -984,7 +961,7 @@ export default function WniosekTestament() {
                             </RowFormGroup>
                           </RowForm>
                           <RowForm>
-                            <Callout className="mb-2" intent="success">
+                            <Callout className="mb-2" intent="primary">
                               Jeśli spadkobierca odziedziczył całość spadku,
                               pozostaw pole z udziałem puste.
                             </Callout>
@@ -1639,7 +1616,7 @@ export default function WniosekTestament() {
                 <Button
                   rightIcon="caret-right"
                   className="mt-10 w-full"
-                  intent="success"
+                  intent="primary"
                   onClick={(e) => {
                     if (!countSued(values.otherHereditaries)) {
                       toaster.current.show({

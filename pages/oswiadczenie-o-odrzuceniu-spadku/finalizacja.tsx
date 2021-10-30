@@ -40,7 +40,7 @@ export default function Finalizacja({ data }) {
       </h1>
       <p className="text-sm">Oświadczenie o odrzuceniu spadku</p>
       <Callout intent="primary" className="mt-6">
-        Wykonanie tego pisma kosztuje <b>20zł</b>.
+        Wykonanie tego pisma kosztuje <b>24,60zł</b>.
       </Callout>
       <CardForm className="flex items-start " style={{ minHeight: 0 }}>
         <h2 className="flex items-center w-full font-bold text-2xl mb-0">
@@ -258,7 +258,7 @@ export default function Finalizacja({ data }) {
       <PaymentForm
         title="Wykonanie pisma"
         subtitle="Oświadczenie o odrzuceniu spadku"
-        price={20}
+        price={"24,60"}
         metadata={Object.assign({ docId: 0 }, data)}
       />
     </>

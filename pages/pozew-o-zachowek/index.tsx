@@ -17,23 +17,39 @@ export default function index() {
         }}
       >
         <HeaderText
-          className="flex flex-col p-0 text-left ml-4 mr-4 justify-between"
+          className="flex flex-col p-0 text-left ml-4 mr-4 justify-center"
           style={{
             background: "var(--sea-green)",
           }}
         >
-          <div className="flex flex-col">
-            <p className="text-white text-xs text-right">wykonaj pismo</p>
+          <div className="flex flex-col justify-center">
             <h1 className={`text-white mt-2  text-${width > 1000 ? 4 : 3}xl`}>
               Pozew o zachowek
             </h1>
-            <p className="text-white text-base mt-4">
-              zanim przejdziesz dalej...
-            </p>
+            <p className="text-white text-xs text-right">wykonaj pismo</p>
           </div>
         </HeaderText>
-        <img src="logo.svg" className="mr-4 ml-4" />
+        <img src="logo.svg" className="mr-4 ml-4" alt="Logo firmy Trustree." />
       </Header>
+      <div className=" w-full bg-gray-200 mt-6 rounded-lg p-6">
+        <h2 className="text-3xl">Dowiedz się więcej.</h2>
+        <p>
+          Jeżeli jako potomek (zstępny), małżonek lub rodzic spadkodawcy
+          zostałeś pominięty/zostałaś pominięta w testamencie, możesz się
+          ubiegać o zachowek, czyli o połowę lub dwie trzecie części spadku,
+          która by Ci przysługiwała na podstawie{" "}
+          <a
+            href="https://sip.lex.pl/akty-prawne/dzu-dziennik-ustaw/kodeks-cywilny-16785996/art-991"
+            className="text-blue-500"
+          >
+            dziedziczenia ustawowego
+          </a>
+          . W tym celu w oparciu o analizę różnych spraw z tytułu zachowku,
+          przygotujemy dla Ciebie szczegółowy pozew, wraz z dowodzeniem
+          elementów składających się na majątek spadkowy, który zabezpieczy
+          Twoje prawo do zachowku.
+        </p>
+      </div>
       <Card className="w-full mt-6 flex flex-wrap-reverse">
         <div className="flex flex-col m-3">
           <h1>Zanim przejdziesz dalej,</h1>
@@ -101,7 +117,6 @@ export default function index() {
           KONTYNUUJ
         </Button>
       </Link>
-      <div className="flex-1 w-full bg-gray-200 mt-6 rounded-lg"></div>
     </div>
   );
 }

@@ -96,10 +96,10 @@ export default function WniosekTestament() {
         Wykonanie tego pisma kosztuje:
         <ul className="list-disc list-inside">
           <li>
-            <b>50zł</b>, jeśli jesteś jedynym spadkobiercą
+            <b>61,50zł</b>, jeśli jesteś jedynym spadkobiercą
           </li>
           <li>
-            <b>100zł</b>, jeśli jest więcej spadkobierców
+            <b>123,00zł</b>, jeśli jest więcej spadkobierców
           </li>
         </ul>
       </Callout>
@@ -279,7 +279,7 @@ export default function WniosekTestament() {
                     </RowFormGroup>
                   </RowForm>
                   <RowForm className="">
-                    <Callout className="mb-2" intent="success">
+                    <Callout className="mb-2" intent="primary">
                       Jeśli odziedziczyłeś całość spadku, pozostaw pole z
                       udziałem puste.
                     </Callout>
@@ -392,19 +392,7 @@ export default function WniosekTestament() {
                     </RowFormGroup>
                   </RowForm>
                 </CardForm>
-                <Callout className="mt-10" intent="primary">
-                  Wniosek o stwierdzenie nabycia spadku - to podstawowe pismo,
-                  które trzeba złożyć w sądzie w przypadku powołania do{" "}
-                  <a
-                    className="text-blue-600"
-                    href="https://sip.lex.pl/akty-prawne/dzu-dziennik-ustaw/kodeks-cywilny-16785996/art-931"
-                  >
-                    dziedziczenia na podstawie ustawy
-                  </a>
-                  , czyli w trybie tzw. dziedziczenia ustawowego lub na
-                  podstawie testamentu (sporządzonego w formie pisemnej lub
-                  ustnej).
-                </Callout>
+
                 <>
                   <div className="flex flex-col w-auto">
                     <h2 className="flex items-center mt-10 text-xl">
@@ -787,13 +775,7 @@ export default function WniosekTestament() {
                     </FormGroup>
                   </div>
                 </CardForm>
-                <Callout intent="primary" className="mt-8">
-                  Dzięki naszemu kalkulatorowi udziału w spadku oraz
-                  precyzyjnych pytań przygotowanych na mnogość danych sytuacji,
-                  utworzymy automatycznie dokument niezbędny, w razie gdybyś
-                  pragnął/pragnęła przyjąć spadek w formie prostej bądź z
-                  dobrodziejstwem inwentarza.
-                </Callout>
+
                 {values.share ? (
                   <CardForm>
                     <Formik
@@ -1366,7 +1348,7 @@ export default function WniosekTestament() {
                 <Button
                   rightIcon="caret-right"
                   className="mt-10 w-full"
-                  intent="success"
+                  intent="primary"
                   onClick={(e) => handleSubmit(e)}
                 >
                   DALEJ

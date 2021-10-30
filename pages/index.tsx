@@ -34,22 +34,22 @@ export default function index() {
               Wygeneruj pisma niezbędne w swoim postępowaniu spadkowym
             </h1>
             <p className="text-white text-lg mt-4">
-              ...a także oblicz swój udział i zachowek
+              ...a także oblicz swój udział i zachowek.
             </p>
           </div>
           <div className="flex flex-col mt-4">
             <p
-              className={`text-${width > 1300 ? "base" : "xs"} text-white ${
-                width > 800 ? width < 900 && "hidden" : ""
-              } bg-white bg-opacity-20 p-2 rounded`}
+              className={`text-${
+                width > 1300 ? "base" : "xs"
+              } text-white  bg-white bg-opacity-20 p-2 rounded`}
             >
               Firma powstała w ramach programu akceleracyjnego TeenCrunch,
               dzięki warsztatowemu wsparciu Google for Start-ups, Microsoft
-              Polska oraz AppTension.
+              Polska oraz Apptension.
             </p>
           </div>
         </HeaderText>
-        <Suited src="/people.png" style={{ background: "var(--sea-green)" }} />
+        <Suited src="/man.png" style={{ background: "var(--sea-green)" }} />
       </div>
       <div className="w-full flex flex-col items-center p-10 pb-2 text-center">
         <h1 className="w-full">
@@ -91,6 +91,9 @@ export default function index() {
               Szybko wygeneruj dokładny pozew o zachowek i uratuj swoją
               należność po zmarłym.
             </p>
+            <span className="mt-1 mb-1 font-bold text-base">
+              w cenie 369,00zł
+            </span>
             <Link href="/pozew-o-zachowek" passHref>
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
@@ -114,6 +117,9 @@ export default function index() {
             <p className="text-sm">
               Natychmiastowo wygeneruj oświadczenie o przyjęciu spadku.
             </p>
+            <span className="mt-1 mb-1 font-bold text-base">
+              w cenie 24,60zł
+            </span>
             <Link href="/oswiadczenie-o-przyjeciu-spadku" passHref>
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
@@ -137,6 +143,9 @@ export default function index() {
             <p className="text-sm">
               Natychmiastowo wygeneruj oświadczenie o odrzuceniu spadku.
             </p>
+            <span className="mt-1 mb-1 font-bold text-base">
+              w cenie 24,60zł
+            </span>
             <Link href="/oswiadczenie-o-odrzuceniu-spadku" passHref>
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
@@ -165,6 +174,9 @@ export default function index() {
               Wygeneruj wniosek o stwierdzenie nabycia praw do spadku, jeśli
               twój spadkodawca nie zostawił testamentu.
             </p>
+            <span className="mt-1 mb-1 font-bold text-base">
+              już od 61,50zł
+            </span>
             <Link
               href="/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"
               passHref
@@ -197,6 +209,9 @@ export default function index() {
               Wygeneruj wniosek o stwierdzenie nabycia praw do spadku, jeśli
               twój spadkodawca zostawił testament.
             </p>
+            <span className="mt-1 mb-1 font-bold text-base">
+              już od 61,50zł
+            </span>
             <Link
               href="/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"
               passHref
@@ -371,13 +386,16 @@ export default function index() {
           </div>
         </div>
       </div>
-      <div className="w-full flex flex-col items-center text-center p-0">
+      <div
+        className="w-full flex flex-col items-center text-center text-white p-0"
+        style={{ background: "var(--medium-sea-green)" }}
+      >
         <h1 className="w-full"></h1>
-        <div
-          className="flex flex-wrap justify-center mb-10 text-left"
-          style={{ width: "85%", marginLeft: "auto", marginRight: "auto" }}
-        >
-          <Generation className="mt-8 p-4 mb-2 text-center rounded-lg text-white">
+        <div className="flex flex-wrap justify-center text-left w-full pl-10 pr-10">
+          {/*<Generation
+            className="mt-8 p-4 mb-2 text-center rounded-lg text-black"
+            style={{ background: "var(--layout-bg)" }}
+          >
             <Icon
               className="inline-block mr-2"
               icon={"people"}
@@ -385,7 +403,8 @@ export default function index() {
             />
             Nasi partnerzy
           </Generation>
-          <Div className="flex justify-between items-center">
+          */}
+          <Div className="flex justify-between items-center mb-4 mt-4">
             <Item2 className="flex-1 h-full" style={{ marginLeft: 0 }}>
               <div className="flex p-4 h-full flex-col  justify-center items-center">
                 <h1 className="w-full mb-1">Współpracujemy z prawnikami.</h1>
@@ -412,15 +431,18 @@ export default function index() {
         </div>
       </div>
 
-      <div className="w-full p-3 flex flex-col bg-white border-t">
-        <h4 className="w-full text-lg  text-center">
+      <div
+        className="w-full p-1 flex flex-col text-white"
+        style={{ background: "var(--sea-green)" }}
+      >
+        <p className="w-full text-sm  text-center">
           <Icon
             className="inline-block mr-2 ml-2"
             icon={"envelope"}
-            size={width > 800 ? 20 : 18}
+            size={width > 800 ? 18 : 15}
           />
           mail@trustree.pl
-        </h4>
+        </p>
       </div>
     </>
   );
@@ -430,7 +452,7 @@ const Suited = styled.img`
   height: 400px;
   min-height: 400px;
   align-self: end;
-  padding: 20px;
+  padding-top: 10px;
   @media (max-width: 600px) {
     display: none;
   }
@@ -445,16 +467,7 @@ const Mecenas = styled.img`
   }
 `;
 const Div = styled.div`
-  width: 85%;
-  @media (max-width: 1000px) {
-    width: 100%;
-  }
-  @media (max-width: 800px) {
-    width: 85%;
-  }
-  @media (max-width: 600px) {
-    width: 100%;
-  }
+  width: 100%;
 `;
 const Item = styled.div`
   display: flex;

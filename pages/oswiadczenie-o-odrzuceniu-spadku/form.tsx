@@ -46,7 +46,7 @@ export default function OswiadczenieOdrzuc() {
         </div>
       </div>
       <Callout intent="primary" className="mt-1 mb-6">
-        Wykonanie tego pisma kosztuje <b>20zł</b>.
+        Wykonanie tego pisma kosztuje <b>24,60zł</b>.
       </Callout>
       <p className="mt-2">
         Podaj nam swoje dane, a my wykonamy za Ciebie oświadczenie o odrzuceniu
@@ -849,7 +849,7 @@ export default function OswiadczenieOdrzuc() {
                 </CardForm>
                 <Button
                   className="mt-10"
-                  intent="success"
+                  intent="primary"
                   fill
                   onClick={() => {
                     handleSubmit();

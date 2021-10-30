@@ -29,10 +29,8 @@ export default async function handler(req, res) {
       const session = await stripe.checkout.sessions.create({
         line_items: [
           {
-            amount: determinePrice(req.body),
-            currency: "pln",
-            name: "Wykonanie dokumentu",
-            description: determineName(req.body),
+            price: determinePrice(req.body),
+
             quantity: 1,
           },
         ],
@@ -54,11 +52,11 @@ export default async function handler(req, res) {
 
       res.status(200).send({ url: session.url });
     } catch (err) {
+      console.log(err);
       res.status(err.statusCode || 500).json(err.message);
     }
   } else {
     res.setHeader("Allow", "POST");
-
     res.status(405).send();
   }
 }
@@ -68,20 +66,24 @@ export const determinePrice = ({ docId, otherHereditaries }) => {
 
   switch (docId) {
     case 0:
-      return 2000;
+      return "price_1JqOIiHh12lHWWSnRJ95ly9g";
     case 1:
-      return 2000;
+      return "price_1JqOEDHh12lHWWSnZzm3sCLt";
     case 2:
-      return 30000;
+      return "price_1JqOA8Hh12lHWWSnzed1zYOn";
     case 3:
-      return 30000;
+      throw new Error("Unknown.");
     case 4:
-      return otherHereditaries.length ? 10000 : 5000;
+      return otherHereditaries.length
+        ? "price_1JqOFSHh12lHWWSnQRH2MCfp"
+        : "price_1JqOFsHh12lHWWSnu4CuC6I9";
     case 5:
-      return otherHereditaries.length ? 10000 : 5000;
+      return otherHereditaries.length
+        ? "price_1JqOH2Hh12lHWWSnkcHsbSBP"
+        : "price_1JqOH2Hh12lHWWSnXPdyk7QZ";
 
     default:
-      return 100000;
+      throw new Error("Unknown.");
   }
 };
 export const determineName = ({ docId }) => {

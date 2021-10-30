@@ -81,7 +81,7 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
   return `
 
 
-      <div style="font-family: 'Times New Roman', sans-serif !important; ">
+      <div style=" margin: 3rem;">
         <div style="width: 50%; margin-left: 50%; text-align: right;">
           ${metadata.city}, ${date.getDate()} ${getMonth(date.getMonth())}
           ${date.getFullYear()}<br /><br />

@@ -65,7 +65,7 @@ export const FamilyImage = styled(Callout)`
   flex: 1;
 
   min-height: 250px;
-
+  background: var(--border-color) !important;
   margin-left: 10px;
   margin-right: 10px;
   @media (max-width: 800px) {

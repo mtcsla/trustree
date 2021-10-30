@@ -279,7 +279,7 @@ export default function KalkulatorZachowku() {
                 }
               }}
               rightIcon="caret-right"
-              intent="success"
+              intent="primary"
             >
               KONTYNUUJ
             </Button>

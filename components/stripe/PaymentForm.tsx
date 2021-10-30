@@ -50,11 +50,7 @@ export default function PaymentForm({ title, subtitle, metadata, price }) {
 
   return (
     <form>
-      <Toaster
-        position={Position.TOP_RIGHT}
-        ref={toaster}
-        className="z-50 mt-10"
-      />
+      <Toaster position={Position.TOP_RIGHT} ref={toaster} className="z-50" />
       <section className="rounded border">
         <div className="w-full h-full flex">
           <div className="h-full flex p-5 rounded-tl bg-gray-200">

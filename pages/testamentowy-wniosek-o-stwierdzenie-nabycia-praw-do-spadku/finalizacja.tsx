@@ -47,10 +47,10 @@ export default function Finalizacja({ data }) {
         Wykonanie tego pisma kosztuje:
         <ul className="list-disc list-inside">
           <li>
-            <b>50zł</b>, jeśli jesteś jedynym spadkobiercą
+            <b>61,50zł</b>, jeśli jesteś jedynym spadkobiercą
           </li>
           <li>
-            <b>100zł</b>, jeśli jest więcej spadkobierców
+            <b>123,00zł</b>, jeśli jest więcej spadkobierców
           </li>
         </ul>
       </Callout>
@@ -413,7 +413,7 @@ export default function Finalizacja({ data }) {
         metadata={Object.assign({ docId: 5 }, data)}
         title="Wykonanie pisma"
         subtitle="Wniosek o stwierdzenie nabycia praw do spadku"
-        price={data.otherHereditaries.length ? 100 : 50}
+        price={data.otherHereditaries.length ? "123,00" : "61,50"}
       />
     </>
   ) : null;

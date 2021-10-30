@@ -73,7 +73,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
   }
 
   return html`
-    <div style=" font-family: 'Times New Roman', sans-serif; font-size: 12px;">
+    <div style="  font-size: 12px;">
       <div style="width: 100%; ">
         <span style="width: 100%; text-align: right;">
           ${metadata.city}, ${date.getDate()} ${getMonth(date.getMonth())}

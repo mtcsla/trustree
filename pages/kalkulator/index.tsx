@@ -93,16 +93,12 @@ export default function Kalkulator() {
         <Button
           onClick={onSubmit}
           className="mt-10 h-15  w-full"
-          intent="success"
+          intent="primary"
           rightIcon="caret-right"
         >
           KONTYNUUJ
         </Button>
-        <Toaster
-          position={Position.TOP_RIGHT}
-          ref={toaster}
-          className="z-50 mt-10"
-        />
+        <Toaster position={Position.TOP_RIGHT} ref={toaster} className="z-50" />
       </calculatorContext.Provider>
     </>
   );

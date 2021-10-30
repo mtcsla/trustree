@@ -6,11 +6,14 @@ import dynamic from "next/dynamic";
 import { Button, Card } from "@blueprintjs/core";
 import ColorfulIcon from "./layout/ColorfulIcon";
 import { useWindowSize } from "../hooks/windowSize";
+import { html } from "../pages/api/payment-session-deliver";
 
 function htmlToElement(html) {
   var template = document.createElement("template");
   html = html.trim(); // Never return a text node of whitespace as the result
-  template.innerHTML = `<html><style>@page { size: auto;  margin: 0mm; }
+  template.innerHTML = `<html><style>
+
+  @page { size: auto;  margin: 0mm; }
 </style>${html}</html>`;
   return template.content.children[0];
 }
@@ -18,13 +21,21 @@ function htmlToElement(html) {
 function print(html: string) {
   const printWindow = window.open("", "", "");
   print;
-  printWindow.document.write(`<html><style> 
-</style>${html}</html>`);
+  printWindow.document.write(`<html>
+    <head>
+      <style>
+        @import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap");
+        * {
+          font-family: "EB Garamond", serif !important;
+        }
+      </style>
+    </head>
+    <body>
+      ${html}
+    </body>
+  </html>`);
   printWindow.document.close();
-
   printWindow.print();
-  printWindow.document.getElementsByTagName("html")[0].style.opacity = "0";
-
   printWindow.close();
 }
 
@@ -78,7 +89,7 @@ function Odbierz({
           </a>
         </div>
       </Card>
-      <Button onClick={() => print(html)} className="w-full" intent="success">
+      <Button onClick={() => print(html)} className="w-full" intent="primary">
         DRUKUJ
       </Button>
     </>

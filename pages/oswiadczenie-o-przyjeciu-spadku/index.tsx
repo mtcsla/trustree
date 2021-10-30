@@ -17,7 +17,7 @@ export default function index() {
         }}
       >
         <HeaderText
-          className="flex flex-col p-0 text-left ml-4 mr-4 justify-between"
+          className="flex flex-col p-0 text-left ml-4 mr-4 justify-center"
           style={{
             background: "var(--sea-green)",
           }}
@@ -27,13 +27,28 @@ export default function index() {
             <h1 className={`text-white mt-2  text-${width > 1000 ? 4 : 3}xl`}>
               Oświadczenie o przyjęciu spadku
             </h1>
-            <p className="text-white text-base mt-4">
-              zanim przejdziesz dalej...
-            </p>
           </div>
         </HeaderText>
-        <img src="logo.svg" className="mr-4 ml-4" />
+        <img src="logo.svg" alt="Logo firmy Trustree." className="mr-4 ml-4" />
       </Header>
+      <div className=" w-full bg-gray-200 mt-6 rounded-lg p-6">
+        <h2 className="text-3xl">Dowiedz się więcej.</h2>
+        <p>
+          Oświadczenie o przyjęciu spadku - według{" "}
+          <a
+            className="text-blue-500"
+            href="https://sip.lex.pl/akty-prawne/dzu-dziennik-ustaw/kodeks-cywilny-16785996/art-1015"
+          >
+            art. 1015 § 1 kc
+          </a>
+          , takie oświadczenie należy złożyć w ciągu 6 miesięcy od momentu, gdy
+          spadkobierca dowiedział się o powołaniu do spadku. Takie oświadczenie
+          można złożyć przed sądem rejonowym właściwym dla Twojego miejsca
+          zamieszkania, przed notariuszem lub w toku postępowania o nabycie
+          spadku. W przypadku niezłożenia oświadczenia w podanym terminie,
+          spadkobierca przyjmuje spadek z dobrodziejstwem inwentarza.
+        </p>
+      </div>
       <Card className="w-full mt-6 flex flex-wrap-reverse">
         <div className="flex flex-col m-3">
           <h1>Zanim przejdziesz dalej,</h1>
@@ -73,7 +88,6 @@ export default function index() {
           KONTYNUUJ
         </Button>
       </Link>
-      <div className="flex-1 w-full bg-gray-200 mt-6 rounded-lg"></div>
     </div>
   );
 }

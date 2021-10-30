@@ -46,7 +46,7 @@ export default function OswiadczeniePrzyjmij() {
         </div>
       </div>
       <Callout intent="primary" className="mt-1 mb-6">
-        Wykonanie tego pisma kosztuje <b>20zł</b>.
+        Wykonanie tego pisma kosztuje <b>24,60zł</b>.
       </Callout>
 
       <p className="mt-2">
@@ -845,7 +845,7 @@ export default function OswiadczeniePrzyjmij() {
                 </CardForm>
                 <Button
                   className="mt-10"
-                  intent="success"
+                  intent="primary"
                   fill
                   onClick={() => {
                     handleSubmit();

@@ -17,7 +17,7 @@ export default function index() {
         }}
       >
         <HeaderText
-          className="flex flex-col p-0 text-left ml-4 mr-4 justify-between"
+          className="flex flex-col p-0 text-left ml-4 mr-4 justify-center"
           style={{
             background: "var(--sea-green)",
           }}
@@ -32,8 +32,27 @@ export default function index() {
             </p>
           </div>
         </HeaderText>
-        <img src="logo.svg" className="mr-4 ml-4" />
+        <img src="logo.svg" className="mr-4 ml-4" alt="Logo firmy Trustree." />
       </Header>
+      <div className=" w-full bg-gray-200 mt-6 rounded-lg p-6">
+        <h2 className="text-3xl">Dowiedz się więcej.</h2>
+        <p>
+          Wniosek o stwierdzenie nabycia spadku - to podstawowe pismo, które
+          trzeba złożyć w sądzie w przypadku powołania do{" "}
+          <a
+            href="https://sip.lex.pl/akty-prawne/dzu-dziennik-ustaw/kodeks-cywilny-16785996/art-931"
+            className="text-blue-500"
+          >
+            dziedziczenia na podstawie ustawy
+          </a>
+          , czyli w trybie tzw. dziedziczenia ustawowego lub na podstawie
+          testamentu (sporządzonego w formie pisemnej lub ustnej). Dzięki
+          naszemu kalkulatorowi udziału w spadku oraz precyzyjnych pytań
+          przygotowanych na mnogość danych sytuacji, utworzymy automatycznie
+          dokument niezbędny, w razie gdybyś pragnął/pragnęła przyjąć spadek w
+          formie prostej bądź z dobrodziejstwem inwentarza.
+        </p>
+      </div>
       <Card className="w-full mt-6 flex flex-wrap-reverse">
         <div className="flex flex-col m-3">
           <h1>Zanim przejdziesz dalej,</h1>
@@ -98,7 +117,6 @@ export default function index() {
           KONTYNUUJ
         </Button>
       </Link>
-      <div className="flex-1 w-full bg-gray-200 mt-6 rounded-lg"></div>
     </div>
   );
 }

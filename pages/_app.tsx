@@ -5,7 +5,10 @@ import "@blueprintjs/datetime/lib/css/blueprint-datetime.css";
 import styled from "@emotion/styled";
 import { useRouter } from "next/dist/client/router";
 import React from "react";
-import { SocialIcon } from "react-social-icons";
+import {
+  AiFillInstagram as Instagram,
+  AiFillFacebook as Facebook,
+} from "react-icons/ai";
 import "tailwindcss/tailwind.css";
 import { AuthProvider } from "../components/firebase/firebaseAuth";
 import Header from "../components/layout/Header";
@@ -38,27 +41,12 @@ export default function App({ Component, pageProps }) {
         <Head>
           <title>Trustree | serwis z pismami sądowymi</title>
         </Head>
-        <Link href="/blog">
-          <TopHeader
-            className="fixed flex justify-center text-center p-2"
-            style={{
-              alignItems: "center",
-              zIndex: 100,
-              color: "white",
-              left: 0,
-              right: 0,
-              top: 0,
-            }}
-          >
-            <p style={{ fontSize: windowWidth > 800 ? 14 : 10 }}>
-              Potrzebujesz pomocy? Przeczytaj posty na naszym blogu!
-            </p>
-          </TopHeader>
-        </Link>
+
         <NavigationBar>
           <Icon icon="menu" size={30} onClick={() => setNavExtended(true)} />
           <div className="flex items-center ">
             <img
+              alt="Logo firmy Trustree."
               src="/logo-light.svg"
               style={{
                 height: 60,
@@ -68,45 +56,18 @@ export default function App({ Component, pageProps }) {
               }}
             />
             <div className="flex flex-col justify-center h-full">
-              <h1
-                className="text-4xl "
-                style={{ marginTop: 7, lineHeight: 0.8 }}
-              >
-                Trustree
-              </h1>
-              <a style={{ fontSize: 10 }} className="text-gray-500 text-xs">
-                Strona główna
-              </a>
+              <h1 className="text-4xl">Trustree</h1>
             </div>
           </div>
           <div className="flex flex-col justify-center">
-            <SocialIcon
-              network="facebook"
-              style={{
-                height: 30,
-                width: 30,
-                background: "var(--border-color)",
-                borderRadius: 5,
-                padding: 3,
-              }}
-              href="https://www.facebook.com/Trustree.fb"
-              bgColor="rgba(0, 0, 0, 0)"
-              fgColor="rgba(0, 0, 0, 1)"
-            />
-            <SocialIcon
-              network="instagram"
-              style={{
-                height: 30,
-                width: 30,
-                marginTop: 5,
-                background: "var(--border-color)",
-                borderRadius: 5,
-                padding: 3,
-              }}
-              href="https://www.facebook.com/Trustree.fb"
-              bgColor="rgba(0, 0, 0, 0)"
-              fgColor="rgba(0, 0, 0, 1)"
-            />
+            <div className="flex flex-col justify-center mt-1">
+              <a href="https://www.facebook.com/Trustree.fb">
+                <Facebook size={30} color="#666" />
+              </a>
+              <a href="https://www.instagram.com/trustree.ig/" className="flex">
+                <Instagram size={30} color="#666" />
+              </a>
+            </div>
           </div>
         </NavigationBar>
         <Wrapper className="flex h-full" style={{ overflowY: "visible" }}>
@@ -163,7 +124,7 @@ const Navigation = styled.div<Shown>`
 
   @media (max-width: 800px) {
     transition: width 200ms ease-in-out, padding-left 200ms ease-in-out;
-    top: 35px;
+    top: 0px;
     white-space: nowrap;
 
     min-width: 0px;
@@ -227,7 +188,7 @@ const NavigationBar = styled.div`
   padding-left: 30px;
   padding-right: 30px;
   position: fixed;
-  margin-top: 35px;
+
   left: 0;
   right: 0;
   display: flex;
@@ -247,9 +208,8 @@ const Body = styled.div<Pathname>`
 `;
 
 const Wrapper = styled.div`
-  margin-top: 40px;
   @media (max-width: 800px) {
-    margin-top: 115px;
+    margin-top: 80px;
   }
 `;
 

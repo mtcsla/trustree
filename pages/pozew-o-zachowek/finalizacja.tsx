@@ -50,7 +50,7 @@ export default function Finalizacja({ data }) {
         testamentowego
       </p>
       <Callout intent="primary" className="mt-6">
-        Wykonanie tego pisma kosztuje <b>300zł</b>.
+        Wykonanie tego pisma kosztuje <b>369,00zł</b>.
       </Callout>
       <CardForm>
         <h2 className="flex items-center w-full  text-2xl mb-0">
@@ -375,7 +375,7 @@ export default function Finalizacja({ data }) {
             readonly
           />
         ) : (
-          <h1>BRAK</h1>
+          <h1 className="w-full">BRAK</h1>
         )}
       </CardForm>
       <CardForm style={{ minHeight: 0 }}>
@@ -395,7 +395,7 @@ export default function Finalizacja({ data }) {
             readonly
           />
         ) : (
-          <h1>BRAK</h1>
+          <h1 className="w-full">BRAK</h1>
         )}
       </CardForm>
       <CardForm style={{ minHeight: 0 }}>
@@ -415,7 +415,7 @@ export default function Finalizacja({ data }) {
             readonly
           />
         ) : (
-          <h1>BRAK</h1>
+          <h1 className="w-full">BRAK</h1>
         )}
       </CardForm>
       <CardForm style={{ minHeight: 0 }}>
@@ -431,7 +431,7 @@ export default function Finalizacja({ data }) {
         {data.otherHereditaries.length ? (
           <GrantsRenderer grants={data.grants} setValue={() => {}} readonly />
         ) : (
-          <h1>BRAK</h1>
+          <h1 className="w-full">BRAK</h1>
         )}
       </CardForm>
 
@@ -495,7 +495,7 @@ export default function Finalizacja({ data }) {
         metadata={Object.assign({ docId: 2 }, data)}
         title="Wykonanie pisma"
         subtitle="Pozew o zachowek"
-        price={300}
+        price={"369,00"}
       />
     </>
   ) : null;

@@ -113,7 +113,7 @@ const Blog = () => {
   return (
     <BlogListDiv>
       {" "}
-      <Toaster position="top-right" ref={toaster} className="z-50 mt-10" />{" "}
+      <Toaster position="top-right" ref={toaster} className="z-50" />{" "}
       <div className="flex flex-col flex-1 h-full m-2">
         {" "}
         <div className="text-4xl mb-0 mt-0 w-auto text-right flex justify-start text-gray-700 items-center">
@@ -148,7 +148,7 @@ const Blog = () => {
                 <Button
                   rightIcon="edit"
                   className="w-full"
-                  intent="success"
+                  intent="primary"
                   onClick={() => {
                     setClicked(true);
                     if (name) createArticle(name);
@@ -262,7 +262,7 @@ export const BlogList = ({
                         <Button
                           outlined
                           className="w-full h-full"
-                          intent="success"
+                          intent="primary"
                           onClick={() => {
                             toggleVisibility(article, blogs, setBlogs, () => {
                               loadingDispatch({
@@ -289,7 +289,7 @@ export const BlogList = ({
                             Czy na pewno chcesz usunąć ten artykuł?
                             <div className="flex mt-1">
                               <Button
-                                intent="success"
+                                intent="primary"
                                 className={Classes.POPOVER2_DISMISS}
                                 style={{ flex: 1, marginRight: 10 }}
                                 onClick={() => {
