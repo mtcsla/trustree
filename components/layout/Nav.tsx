@@ -97,10 +97,7 @@ export const Nav = () => {
           Contents={BlogNavList}
         />
       </div>
-      <div
-        className="border-t border-b h-10 mt-2"
-        style={{ display: "none" }}
-      ></div>
+      <div className="p-2 flex flex-col mt-2"></div>
     </>
   );
 };

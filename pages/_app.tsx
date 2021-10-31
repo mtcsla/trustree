@@ -129,6 +129,7 @@ const Navigation = styled.div<Shown>`
 
   box-sizing: content-box;
   z-index: 10;
+  height: 100vh;
   bottom: 0px;
 
   @media (max-width: 800px) {

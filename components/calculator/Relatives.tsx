@@ -9,12 +9,11 @@ const RelativesForm = () => {
   return (
     <CardForm className="flex flex-col p-6">
       <h4 className=" text-xl w-full" style={{ marginBottom: 5 }}>
-        Ile wciąż żyjących bądź nieżyjących, lecz z żyjącym potomstwem dzieci
-        miał zmarły?
+        Ile wciąż żyjących dzieci miał zmarły?
       </h4>
       <p style={{ marginBottom: 20 }} className="w-full">
-        Jeśli dziecko zmarłego nie żyje, lecz pozostawiło swoje potomstwo
-        (dzieci, wnuki), które nadal żyje uwzględnij je.
+        Jeśli dziecko zmarłego nie żyje, lecz pozostawiło żyjące potomstwo (np.
+        swoje dzieci), dolicz to potomstwo w miejsce zmarłego dziecka.
       </p>
       <Slider
         initialValue={calculatorState.children}
@@ -31,12 +30,12 @@ const RelativesForm = () => {
       <Divider style={{ marginTop: 20, marginBottom: 20 }} />
 
       <h4 className=" text-xl w-full" style={{ marginBottom: 5 }}>
-        Ile wciąż żyjących bądź nieżyjących, lecz z żyjącym potomstwem braci lub
-        sióstr miał zmarły?
+        Ile wciąż żyjącego rodzeństwa miał zmarły?
       </h4>
       <p style={{ marginBottom: 20 }} className="w-full">
-        Jeśli brat lub siostra zmarłego nie żyje, lecz ma swoje potomstwo
-        (dzieci, wnuki), które nadal żyje uwzględnij je.
+        Jeśli któreś z rodzeństwa zmarłego nie żyje, lecz pozostawiło żyjące
+        potomstwo (np. swoje dzieci), dolicz to potomstwo w miejsce zmarłego
+        rodzeństwa spadkodawcy.
       </p>
       <Slider
         initialValue={calculatorState.kin}
