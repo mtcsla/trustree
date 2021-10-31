@@ -234,10 +234,12 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         : ""}
 
       <br />
-      W przypadku zakwestionowania przez osobę pozwaną roszczenia o zachowek co
+      ${metadata.immovables?.length
+        ? `W przypadku zakwestionowania przez osobę pozwaną roszczenia o zachowek co
       do wysokości, powód wnosi o: przeprowadzenie dowodu z opinii rzeczoznawcy
       - biegłego sądowego, na okoliczność wartości w/w nieruchomości (stosownych
-      udziałów), wchodzących w skład majątku spadkowego po spadkodawcy. <br />
+      udziałów), wchodzących w skład majątku spadkowego po spadkodawcy. <br />`
+        : ""}
       <br />
       ${metadata.mediation == 1
         ? `Wniesienie niniejszego pozwu jest konieczne, gdyż
@@ -320,31 +322,29 @@ const getVehicles = (movables) => {
     movablesString += html`${tab}
     ${i.type == 1
       ? html`<li>
-            ${i.vehicleType == 1
-              ? "samochód osobowy"
-              : i.vehicleType == 2
-              ? "samochód ciężarowy"
-              : "motocykl"}
-            marki ${i.vehicleBrand}, model ${i.vehicleModel}, o numerze
-            rejestracyjnym: ${i.vehicleRegistration}. Wartość przedmiotową tegoż
-            pojazdu powód ocenia na kwotę ${i.value}zł. <br />
-            <br />
-            <b>Dowody:</b> <br />
-            <ol>
-              <li>
-                kserokopia dowodu rejestracyjnego
-                ${i.vehicleType == 3
-                  ? "motocyklu"
-                  : `samochodu ${
-                      i.vehicleType == 1 ? "osobowego" : "ciężarowego"
-                    }`}
-                marki ${i.vehicleBrand}, nr rej. ${i.vehicleRegistration}, na
-                okoliczność wchodzenia w skład spadku po spadkodawcy.
-              </li>
-            </ol>
-          </li>
-
-          <li />`
+          ${i.vehicleType == 1
+            ? "samochód osobowy"
+            : i.vehicleType == 2
+            ? "samochód ciężarowy"
+            : "motocykl"}
+          marki ${i.vehicleBrand}, model ${i.vehicleModel}, o numerze
+          rejestracyjnym: ${i.vehicleRegistration}. Wartość przedmiotową tegoż
+          pojazdu powód ocenia na kwotę ${i.value}zł. <br />
+          <br />
+          <b>Dowody:</b> <br />
+          <ol>
+            <li>
+              kserokopia dowodu rejestracyjnego
+              ${i.vehicleType == 3
+                ? "motocyklu"
+                : `samochodu ${
+                    i.vehicleType == 1 ? "osobowego" : "ciężarowego"
+                  }`}
+              marki ${i.vehicleBrand}, nr rej. ${i.vehicleRegistration}, na
+              okoliczność wchodzenia w skład spadku po spadkodawcy.
+            </li>
+          </ol>
+        </li>`
       : ""}`;
   }
   return movablesString;

@@ -32,7 +32,7 @@ export default function WarunkiSwiadczeniaUslug() {
         </HeaderText>
         <img src="logo.svg" alt="Logo firmy Trustree." className="mr-4 ml-4" />
       </Header>
-      <Card className="mt-6">
+      <Card className="p-10 mt-6">
         <h1 className="font-bold mb-2 text-4xl w-full text-center mt-4">
           Warunki świadczenia usług na stronie internetowej: www.trustree.pl
         </h1>

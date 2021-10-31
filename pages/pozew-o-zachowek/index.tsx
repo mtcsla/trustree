@@ -35,9 +35,9 @@ export default function index() {
         <h2 className="text-3xl">Dowiedz się więcej.</h2>
         <p>
           Jeżeli jako potomek (zstępny), małżonek lub rodzic spadkodawcy
-          zostałeś pominięty/zostałaś pominięta w testamencie, możesz się
-          ubiegać o zachowek, czyli o połowę lub dwie trzecie części spadku,
-          która by Ci przysługiwała na podstawie{" "}
+          pominięto Cię w testamencie, możesz się ubiegać o zachowek, czyli o
+          połowę lub dwie trzecie części spadku, która by Ci przysługiwała na
+          podstawie{" "}
           <a
             href="https://sip.lex.pl/akty-prawne/dzu-dziennik-ustaw/kodeks-cywilny-16785996/art-991"
             className="text-blue-500"
@@ -50,6 +50,11 @@ export default function index() {
           Twoje prawo do zachowku.
         </p>
       </div>
+      <Link href="/kalkulator-zachowku" passHref>
+        <a>
+          <Button className="mt-6 w-full">OBLICZ ZACHOWEK</Button>
+        </a>
+      </Link>
       <Card className="w-full mt-6 flex flex-wrap-reverse">
         <div className="flex flex-col m-3">
           <h1>Zanim przejdziesz dalej,</h1>
