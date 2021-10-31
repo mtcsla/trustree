@@ -8,14 +8,15 @@ import { useRouter } from "next/dist/client/router";
 
 export const getServerSideProps = async ({ query }) => {
   try {
-    let { is18, workable, value, grantsValue, writeValue, share } = query;
+    let { is18, workable, value, grantsSum, writeSum, share } = query;
+    console.log(query);
 
     is18 = parseInt(is18);
     workable = parseInt(workable);
     value = parseInt(value);
 
-    if (grantsValue) grantsValue = parseInt(grantsValue);
-    if (writeValue) writeValue = parseInt(writeValue);
+    if (grantsSum) grantsSum = parseInt(grantsSum);
+    if (writeSum) writeSum = parseInt(writeSum);
 
     const [numerator, denominator] = share.split("/");
     share = parseInt(numerator) / parseInt(denominator);
@@ -24,8 +25,8 @@ export const getServerSideProps = async ({ query }) => {
       share = (2 * share) / 3;
     } else share = share / 2;
 
-    if (grantsValue) value = value + grantsValue;
-    if (writeValue) value = value - writeValue;
+    if (grantsSum) value = value + grantsSum;
+    if (writeSum) value = value - writeSum;
 
     return {
       props: {
@@ -57,11 +58,22 @@ export default function Rezultat({ result }) {
         <Content className="flex flex-col m-2">
           <h4 className="">Twój należny zachowek:</h4>
           <h1 className="text-4xl p-10 border font-thin m-auto w-full text-center">
-            {result ? `${result.toFixed(2)}zł` : <Spinner />}
+            {result ? (
+              `${result.toFixed(2)}zł`.replaceAll(".", ",")
+            ) : (
+              <Spinner />
+            )}
           </h1>
           <p className="text-center">
             Przysługuje Ci{" "}
-            {result ? `${result.toFixed(2)}zł` : <Spinner size={5} />} zachowku.
+            <b>
+              {result ? (
+                `${result.toFixed(2)}zł`.replaceAll(".", ",")
+              ) : (
+                <Spinner size={5} />
+              )}{" "}
+            </b>
+            zachowku.
           </p>
         </Content>
         <FamilyImage className="p-3 rounded-b">

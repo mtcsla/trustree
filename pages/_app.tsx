@@ -45,19 +45,27 @@ export default function App({ Component, pageProps }) {
         <NavigationBar>
           <Icon icon="menu" size={30} onClick={() => setNavExtended(true)} />
           <div className="flex items-center ">
-            <img
-              alt="Logo firmy Trustree."
-              src="/logo-light.svg"
-              style={{
-                height: 60,
-                paddingRight: 5,
-                marginLeft: "auto",
-                marginRight: "auto",
-              }}
-            />
-            <div className="flex flex-col justify-center h-full">
-              <h1 className="text-4xl">Trustree</h1>
-            </div>
+            <Link href="/" passHref>
+              <a>
+                <img
+                  alt="Logo firmy Trustree."
+                  src="/logo-light.svg"
+                  style={{
+                    height: 60,
+                    paddingRight: 5,
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                />
+              </a>
+            </Link>
+            <Link href="/" passHref>
+              <a style={{ textDecoration: "none" }}>
+                <div className="flex flex-col justify-center h-full">
+                  <h1 className="text-4xl">Trustree</h1>
+                </div>
+              </a>
+            </Link>
           </div>
           <div className="flex flex-col justify-center">
             <div className="flex flex-col justify-center mt-1">
@@ -121,6 +129,7 @@ const Navigation = styled.div<Shown>`
 
   box-sizing: content-box;
   z-index: 10;
+  bottom: 0px;
 
   @media (max-width: 800px) {
     transition: width 200ms ease-in-out, padding-left 200ms ease-in-out;

@@ -5,19 +5,31 @@ import {
   Spinner,
   Toaster,
   Position,
+  Checkbox,
 } from "@blueprintjs/core";
 
 import React from "react";
 import { useRouter } from "next/dist/client/router";
+import { useWindowSize } from "../../hooks/windowSize";
 
 export default function PaymentForm({ title, subtitle, metadata, price }) {
   const router = useRouter();
   const [submitting, setSubmitting] = React.useState(false);
   const [error, setError] = React.useState("");
+  const [accepted, setAccepted] = React.useState(0);
 
   const toaster = React.useRef<Toaster>();
+  const { width } = useWindowSize();
 
   const onSubmit = () => {
+    if (!accepted) {
+      toaster.current.show({
+        message:
+          "Musisz zaakceptować politykę prywatności oraz warunki świadczenia usług.",
+        intent: "danger",
+      });
+      return;
+    }
     setSubmitting(true);
     fetch("/api/buy-document-intent", {
       body: JSON.stringify(
@@ -52,9 +64,13 @@ export default function PaymentForm({ title, subtitle, metadata, price }) {
     <form>
       <Toaster position={Position.TOP_RIGHT} ref={toaster} className="z-50" />
       <section className="rounded border">
-        <div className="w-full h-full flex">
-          <div className="h-full flex p-5 rounded-tl bg-gray-200">
-            <Icon icon={"edit"} size={50} className="m-auto" />
+        <div className="w-full h-full flex items-stretch">
+          <div className=" flex p-5 rounded-tl bg-gray-200">
+            <Icon
+              icon={"edit"}
+              className="m-auto"
+              size={width > 360 ? 40 : 25}
+            />
           </div>
           <div className="w-full h-full p-3 flex flex-col">
             <h3>{title}</h3>
@@ -72,7 +88,7 @@ export default function PaymentForm({ title, subtitle, metadata, price }) {
           disabled={submitting}
           intent="primary"
         >
-          {submitting ? <Spinner size={16} /> : "ZAPŁAĆ"}
+          {submitting ? <Spinner size={16} /> : "KUP"}
         </Button>
       </section>
       {error ? <p className="text-red-500">{error}</p> : null}
@@ -93,6 +109,16 @@ export default function PaymentForm({ title, subtitle, metadata, price }) {
           }
         `}
       </style>
+      <Checkbox
+        className="mt-4 inline-block"
+        value={accepted}
+        disabled={submitting}
+        onChange={() => (accepted ? setAccepted(0) : setAccepted(1))}
+      >
+        <span className="text-red-500 font-bold">*</span>
+        Oświadczam, że zapoznałem się z polityką prywatności i warunkami
+        świadczenia usług serwisu Trustree.
+      </Checkbox>
     </form>
   );
 }

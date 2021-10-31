@@ -23,10 +23,10 @@ export default function index() {
           }}
         >
           <div className="flex flex-col">
-            <p className="text-white text-xs text-right">wykonaj pismo</p>
             <h1 className={`text-white mt-2  text-${width > 1000 ? 4 : 3}xl`}>
               Oświadczenie o przyjęciu spadku
             </h1>
+            <p className="text-white text-xs text-right">wykonaj pismo</p>
           </div>
         </HeaderText>
         <img src="logo.svg" alt="Logo firmy Trustree." className="mr-4 ml-4" />

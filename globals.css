@@ -70,12 +70,6 @@ h4 {
   color: var(--blue1);
 }
 
-@media (max-width: 800px) {
-  .text-6xl {
-    font-size: 42px;
-  }
-}
-
 strong {
   line-height: normal !important;
 }
@@ -195,9 +189,9 @@ body {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .text-6xl {
-    font-size: 45px !important;
+    font-size: 38px !important;
   }
   .text-lg {
     font-size: 14px !important;

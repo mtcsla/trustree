@@ -230,36 +230,6 @@ const PismaNavList = ({ active, color }) => {
           maxWidth: 150,
         }}
       >
-        <Link href={"/oswiadczenie-o-odrzuceniu-spadku"} passHref>
-          <a style={{ textDecoration: "none", color: "inherit" }}>
-            <ListItem>
-              <Label color={color}>Oświadczenie o odrzuceniu spadku</Label>
-            </ListItem>
-          </a>
-        </Link>
-        <Link href={"/oswiadczenie-o-przyjeciu-spadku"} passHref>
-          <a style={{ textDecoration: "none", color: "inherit" }}>
-            <ListItem>
-              <Label color={color}>Oświadczenie o przyjeciu spadku</Label>
-            </ListItem>
-          </a>
-        </Link>
-        <Link href={"/pozew-o-zachowek"} passHref>
-          <a style={{ textDecoration: "none", color: "inherit" }}>
-            <ListItem>
-              <Label color={color}>Pozew o zachowek</Label>
-            </ListItem>
-          </a>
-        </Link>
-
-        {/*<Link href={"/pozew-o-zachowek"} passHref>
-          <a style={{ textDecoration: "none", color: "inherit" }}> 
-            <ListItem>
-              <Label color={color}>Wniosek o ustalenie działu spadku</Label>
-            </ListItem>
-          </a>
-      </Link>*/}
-
         <Link
           href={"/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"}
           passHref
@@ -290,6 +260,35 @@ const PismaNavList = ({ active, color }) => {
             </ListItem>
           </a>
         </Link>
+        <Link href={"/pozew-o-zachowek"} passHref>
+          <a style={{ textDecoration: "none", color: "inherit" }}>
+            <ListItem>
+              <Label color={color}>Pozew o zachowek</Label>
+            </ListItem>
+          </a>
+        </Link>
+        <Link href={"/oswiadczenie-o-odrzuceniu-spadku"} passHref>
+          <a style={{ textDecoration: "none", color: "inherit" }}>
+            <ListItem>
+              <Label color={color}>Oświadczenie o odrzuceniu spadku</Label>
+            </ListItem>
+          </a>
+        </Link>
+        <Link href={"/oswiadczenie-o-przyjeciu-spadku"} passHref>
+          <a style={{ textDecoration: "none", color: "inherit" }}>
+            <ListItem>
+              <Label color={color}>Oświadczenie o przyjeciu spadku</Label>
+            </ListItem>
+          </a>
+        </Link>
+
+        {/*<Link href={"/pozew-o-zachowek"} passHref>
+          <a style={{ textDecoration: "none", color: "inherit" }}> 
+            <ListItem>
+              <Label color={color}>Wniosek o ustalenie działu spadku</Label>
+            </ListItem>
+          </a>
+      </Link>*/}
       </ul>
     </>
   );

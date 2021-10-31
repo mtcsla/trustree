@@ -79,6 +79,74 @@ export default function index() {
         </Generation>
         <Item>
           <Icon
+            icon="edit"
+            size={20}
+            style={{ padding: 7 }}
+            className="bg-green-400  rounded-md"
+            color={"white"}
+          />
+          <div className="ml-4 pr-4 flex flex-col">
+            <h3 className=" mb-1">
+              Wniosek o stwierdzenie nabycia praw do spadku
+            </h3>
+            <p className="text-xs text-gray-400">wg dziedziczenia ustawowego</p>
+            <p className="text-sm">
+              Wygeneruj wniosek o stwierdzenie nabycia praw do spadku, jeśli
+              twój spadkodawca nie zostawił testamentu.
+            </p>
+            <span className="mt-1 mb-1 font-bold text-base">
+              już od 61,50zł
+            </span>
+            <Link
+              href="/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"
+              passHref
+            >
+              <a className="flex justify-start">
+                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
+                  SPRAWDŹ 
+                  <Icon className="inline-block" icon="caret-right" />
+                </h4>
+              </a>
+            </Link>
+          </div>
+        </Item>
+        <Item>
+          <Icon
+            icon="align-center"
+            size={20}
+            style={{ padding: 7 }}
+            className="bg-yellow-400  rounded-md"
+            color={"white"}
+          />
+          <div className="ml-4 pr-4 flex flex-col">
+            <h3 className=" mb-1">
+              Wniosek o stwierdzenie nabycia praw do spadku
+            </h3>
+            <p className="text-xs text-gray-400">
+              wg dziedziczenia testamentowego
+            </p>
+            <p className="text-sm">
+              Wygeneruj wniosek o stwierdzenie nabycia praw do spadku, jeśli
+              twój spadkodawca zostawił testament.
+            </p>
+            <span className="mt-1 mb-1 font-bold text-base">
+              już od 61,50zł
+            </span>
+            <Link
+              href="/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"
+              passHref
+            >
+              <a className="flex justify-start">
+                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
+                  SPRAWDŹ 
+                  <Icon className="inline-block" icon="caret-right" />
+                </h4>
+              </a>
+            </Link>
+          </div>
+        </Item>
+        <Item>
+          <Icon
             icon="book"
             size={20}
             style={{ padding: 7 }}
@@ -147,75 +215,6 @@ export default function index() {
               w cenie 24,60zł
             </span>
             <Link href="/oswiadczenie-o-odrzuceniu-spadku" passHref>
-              <a className="flex justify-start">
-                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
-                  SPRAWDŹ 
-                  <Icon className="inline-block" icon="caret-right" />
-                </h4>
-              </a>
-            </Link>
-          </div>
-        </Item>
-
-        <Item>
-          <Icon
-            icon="edit"
-            size={20}
-            style={{ padding: 7 }}
-            className="bg-green-400  rounded-md"
-            color={"white"}
-          />
-          <div className="ml-4 pr-4 flex flex-col">
-            <h3 className=" mb-1">
-              Wniosek o stwierdzenie nabycia praw do spadku
-            </h3>
-            <p className="text-xs text-gray-400">wg dziedziczenia ustawowego</p>
-            <p className="text-sm">
-              Wygeneruj wniosek o stwierdzenie nabycia praw do spadku, jeśli
-              twój spadkodawca nie zostawił testamentu.
-            </p>
-            <span className="mt-1 mb-1 font-bold text-base">
-              już od 61,50zł
-            </span>
-            <Link
-              href="/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"
-              passHref
-            >
-              <a className="flex justify-start">
-                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
-                  SPRAWDŹ 
-                  <Icon className="inline-block" icon="caret-right" />
-                </h4>
-              </a>
-            </Link>
-          </div>
-        </Item>
-        <Item>
-          <Icon
-            icon="align-center"
-            size={20}
-            style={{ padding: 7 }}
-            className="bg-yellow-400  rounded-md"
-            color={"white"}
-          />
-          <div className="ml-4 pr-4 flex flex-col">
-            <h3 className=" mb-1">
-              Wniosek o stwierdzenie nabycia praw do spadku
-            </h3>
-            <p className="text-xs text-gray-400">
-              wg dziedziczenia testamentowego
-            </p>
-            <p className="text-sm">
-              Wygeneruj wniosek o stwierdzenie nabycia praw do spadku, jeśli
-              twój spadkodawca zostawił testament.
-            </p>
-            <span className="mt-1 mb-1 font-bold text-base">
-              już od 61,50zł
-            </span>
-            <Link
-              href="/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"
-              passHref
-            >
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
                   SPRAWDŹ 
@@ -423,9 +422,9 @@ export default function index() {
                   borderRadius: 10,
                 }}
               />
-              <p className="text-xs text-right italic mt-1">
+              <MecenasText className="text-xs text-right italic mt-1">
                 r.pr. Piotr Wojtowicz
-              </p>
+              </MecenasText>
             </Radca>
           </Div>
         </div>
@@ -464,6 +463,12 @@ const Mecenas = styled.img`
     width: 150px;
   }
   @media (max-width: 600px) {
+    width: 60px;
+  }
+`;
+const MecenasText = styled.p`
+  @media (max-width: 600px) {
+    font-size: 10px;
   }
 `;
 const Div = styled.div`
