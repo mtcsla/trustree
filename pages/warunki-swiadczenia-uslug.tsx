@@ -1,6 +1,7 @@
 import { Button, Card, UL } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import { useWindowSize } from "../hooks/windowSize";
+import Link from "next/link";
 
 export default function WarunkiSwiadczeniaUslug() {
   const { width } = useWindowSize();
@@ -337,6 +338,7 @@ export default function WarunkiSwiadczeniaUslug() {
             przeglądarkach.
           </li>
         </ul>
+        <br />
         <h2 className="text-3xl text-center">Prawa własności intelektualnej</h2>
         <br />
         <ul className="text-lg mb-4">
@@ -361,9 +363,13 @@ export default function WarunkiSwiadczeniaUslug() {
           </li>
         </ul>
       </Card>
-      <Button className="w-full mt-6" intent="primary" icon="caret-left">
-        STRONA GŁÓWNA
-      </Button>
+      <Link href="/" passHref>
+        <a>
+          <Button className="w-full mt-6" intent="primary" icon="caret-left">
+            STRONA GŁÓWNA
+          </Button>
+        </a>
+      </Link>
     </>
   );
 }
