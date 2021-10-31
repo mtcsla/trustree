@@ -11,6 +11,7 @@ import {
 import React from "react";
 import { useRouter } from "next/dist/client/router";
 import { useWindowSize } from "../../hooks/windowSize";
+import Link from "next/link";
 
 export default function PaymentForm({ title, subtitle, metadata, price }) {
   const router = useRouter();
@@ -116,8 +117,19 @@ export default function PaymentForm({ title, subtitle, metadata, price }) {
         onChange={() => (accepted ? setAccepted(0) : setAccepted(1))}
       >
         <span className="text-red-500 font-bold">*</span>
-        Oświadczam, że zapoznałem się z polityką prywatności i warunkami
-        świadczenia usług serwisu Trustree.
+        Oświadczam, że zapoznałem się z{" "}
+        <Link href="/polityka-prywatnosci">
+          <a style={{ textDecoration: "none" }} className="text-blue-500">
+            polityką prywatności
+          </a>
+        </Link>{" "}
+        oraz{" "}
+        <Link href="/warunki-swiadczenia-uslug">
+          <a style={{ textDecoration: "none" }} className="text-blue-500">
+            warunkami świadczenia usług
+          </a>
+        </Link>{" "}
+        serwisu Trustree.
       </Checkbox>
     </form>
   );

@@ -89,10 +89,10 @@ export default function App({ Component, pageProps }) {
             <Nav />
             <div
               className="flex justify-between items-center"
-              style={{ paddingBottom: 40 }}
+              style={{ paddingBottom: 10 }}
             >
-              <p className="flex text-xs items-center text-gray-600 m-6 ">
-                Trustree © 2021
+              <p className="flex text-xs items-center text-gray-600 ml-6 mt-1 ">
+                Trustree sp.j. © 2021
               </p>
             </div>
           </Navigation>

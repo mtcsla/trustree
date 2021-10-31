@@ -97,7 +97,31 @@ export const Nav = () => {
           Contents={BlogNavList}
         />
       </div>
-      <div className="p-2 flex flex-col mt-2"></div>
+      <div className="p-2 flex flex-col mt-2 ml-4 ">
+        <Link href="/warunki-swiadczenia-uslug" passHref>
+          <a
+            className="text-xs text-gray-400 uppercase"
+            style={{ fontSize: 9 }}
+          >
+            Warunki świadczenia usług
+          </a>
+        </Link>
+        <a
+          href="mailto: mail@trustree.pl"
+          className="text-xs text-gray-400"
+          style={{ fontSize: 9, textDecoration: "none" }}
+        >
+          KONTAKT
+        </a>
+        <Link href="/polityka-prywatnosci" passHref>
+          <a
+            className="text-xs text-gray-400 uppercase"
+            style={{ fontSize: 9 }}
+          >
+            Polityka prywatności
+          </a>
+        </Link>
+      </div>
     </>
   );
 };
