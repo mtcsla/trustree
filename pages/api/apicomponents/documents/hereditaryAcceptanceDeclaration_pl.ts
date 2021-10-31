@@ -47,16 +47,12 @@ export const hereditaryAcceptanceDeclaration_pl = (metadata: any) => {
           }
         </p>
         <br /><br />
-        <h3 style="text-align: center;">OŚWIADCZENIE O ${
-          metadata.forma == 0
-            ? "PRZYJĘCIU"
-            : "PRZYJĘCIU Z DOBRODZIEJSTWEM INWENTARZA"
-        } SPADKU</h3>
-        <p>
+        <h3 style="text-align: center;">OŚWIADCZENIE O PRZYJĘCIU SPADKU</h3>
+        <p> 
           <br />
           Niniejszym ${
             metadata.forma == 0
-              ? "przyjmuję"
+              ? "przyjmuję w sposób prosty"
               : "przyjmuję z dobrodziejstwem inwentarza"
           } spadek, który pozostawił${isTestatorMale ? "" : "a"} mi ${
     metadata.deadName

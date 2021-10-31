@@ -94,7 +94,7 @@ export const zachowekLawsuit_pl = (metadata: any) => {
         <br /><br />
         <span style="width: 100%; text-align: right;">
           Powód:<br />
-          ${tab}${metadata.name}, nr. PESEL: ${metadata.pesel},
+          ${tab}${metadata.name}, nr PESEL: ${metadata.pesel},
           zamieszkał${isHereditaryMale ? "y" : "a"} pod adresem
           ${metadata.street}, ${metadata.postal} ${metadata.city} <br /><br />
           Pozwan${suedNumber == 1 ? "y" : "i"}:
@@ -266,11 +266,12 @@ export const zachowekLawsuit_pl = (metadata: any) => {
                 sygn. ${metadata.rulingSignature} wraz z pisemnym uzasadnieniem.
               </li>
             </ol>
-            <br /><br />
-            Mając powyższe na uwadze, uprzejmie wnoszę jak na wstępie, jako że
-            żądania powództwa są całkowicie konieczne i usprawiedliwione.
-            <br />`
-        : ""}<br />
+            <br /><br />`
+        : ""}
+      Mając powyższe na uwadze, uprzejmie wnoszę jak na wstępie, jako że żądania
+      powództwa są całkowicie konieczne i usprawiedliwione. <br /><br /><br />
+      Podpis:
+      <br /><br /><br /><br /><br />
       Załączniki: <br />
       <ol>
         <li>odpis pozwu wraz z załącznikami,</li>

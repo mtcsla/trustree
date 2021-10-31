@@ -113,10 +113,18 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
         ${new Date(metadata.deadDate).toLocaleDateString("pl-PL")} w
         miejscowości ${metadata.deadCity}, ostatnio
         zamieszkał${isTestatorMale ? "y" : "a"} pod adresem
-        ${metadata.deadAddress}, na podstawie testamentu sporządzonego w
-        dniu ${new Date(metadata.testamentDate).toLocaleDateString("pl-PL")}
-        przez spadkodawc${isTestatorMale ? "ę" : "zynię"} w trybie art. 949 § 1
-        kc,
+        ${metadata.deadAddress}, na podstawie testamentu${
+    metadata.testamentNotarial == "true" ? " notarialnego" : ""
+  } sporządzonego w
+        dniu ${new Date(metadata.testamentDate).toLocaleDateString("pl-PL")}${
+    metadata.testamentNotarial == "true"
+      ? ` przed notariuszem: ${metadata.testamentNotarialName}, Rep.
+            ${metadata.testamentNotarialRepository} nr
+            ${metadata.testamentNotarialNumber},`
+      : ""
+  } przez spadkodawc${isTestatorMale ? "ę" : "zynię"} w trybie art. ${
+    metadata.testamentNotarial == "true" ? "950" : "949 § 1"
+  } kc,
         ${
           metadata.otherHereditaries.length == 0
             ? `nabył${isHereditaryMale ? "" : "a"} ${metadata.name},
