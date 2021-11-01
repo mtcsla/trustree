@@ -230,7 +230,9 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
             : `oświadczeń o przyjęciu spadku
             ${whichType ? `z dobrodziejstwem inwentarza ` : `bez ograniczeń`}
             od następujących osób:
-            ${getNamesString(whichType ? inventoryNames : noRestraintsNames)}${
+            ${getNamesString(
+              whichType ? inventoryNames : noRestraintsNames
+            ).replace(".", "")}${
                 (
                   whichType
                     ? noRestraintsNames.length > 0
@@ -253,16 +255,13 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
 
         Załączniki:<br /><br />
 
-        &nbsp;&nbsp;&nbsp;&nbsp;1. ${1 + metadata.otherHereditaries.length}
-        odpis${
-          metadata.otherHereditaries.length > 1 &&
-          metadata.otherHereditaries.length < 5
-            ? "y"
-            : metadata.otherHereditaries.length >= 5
-            ? "ów"
-            : ""
-        }
-        wniosku o stwierdzenie nabycia spadku,<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;1. ${
+          metadata.otherHereditaries.length == 0 ? "Jeden odpis" : "Odpisy"
+        } wniosku o stwierdzenie nabycia spadku${
+    metadata.otherHereditaries.length
+      ? ` w liczbie ${metadata.otherHereditaries.length + 1}`
+      : ""
+  },<br />
         &nbsp;&nbsp;&nbsp;&nbsp;2.
         ${
           metadata.testamentNotarial == "false"

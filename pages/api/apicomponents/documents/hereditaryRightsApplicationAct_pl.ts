@@ -163,7 +163,7 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
               : `bez ograniczeń`
           } od następujących osób: ${getNamesString(
             whichType ? inventoryNames : noRestraintsNames
-          )}${
+          ).replace(".", "")}${
             (
               whichType
                 ? noRestraintsNames.length > 0
@@ -184,14 +184,12 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
 
       Załączniki:<br /><br />
 
-      &nbsp;&nbsp;&nbsp;&nbsp;1. ${1 + metadata.otherHereditaries.length}
-      odpis${(metadata.otherHereditaries.length % 10) + 1 > 1 &&
-      (metadata.otherHereditaries.length % 10) + 1 < 5
-        ? "y"
-        : (metadata.otherHereditaries.length % 10) + 1 >= 5
-        ? "ów"
-        : ""}
-      wniosku o stwierdzenie nabycia spadku,<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;1.
+      ${metadata.otherHereditaries.length == 0 ? "Jeden odpis" : "Odpisy"}
+      wniosku o stwierdzenie nabycia
+      spadku${metadata.otherHereditaries.length
+        ? ` w liczbie ${metadata.otherHereditaries.length + 1}`
+        : ""},<br />
       &nbsp;&nbsp;&nbsp;&nbsp;2. Odpis skrócony aktu zgonu spadkodawcy, plus
       kserokopia, <br />
       &nbsp;&nbsp;&nbsp;&nbsp;3. Odpis skrócony aktu

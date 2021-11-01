@@ -14,7 +14,7 @@ export function getMailTemplate({ email, id, origin }: any) {
         >
           <tbody style="width: 100%">
             <tr>
-              <td style="width: 100%; height: 40px; background: #0f9960" />
+              <td style="width: 100%; height: 40px; background: #17344e" />
             </tr>
             <tr>
               <td
@@ -65,28 +65,34 @@ export function getMailTemplate({ email, id, origin }: any) {
                     href="${origin}/odbierz?id=${id}&col=${md5(email)}"
                     >tutaj</a
                   >
-                  aby przejść do strony, na której możesz pobrać swój dokument.
+                  aby przejść do strony, na której możesz pobrać lub wydrukować
+                  swój dokument.
                 </p>
                 <div
                   style="width: calc(100% - 40px); border-top: 1px solid #e6e6e6"
                 />
-                <h3
-                  style="
-                margin-bottom: 0;
-                text-align: center;
-                font-family: Verdana, sans-serif;
-              "
-                ></h3>
+              </td>
+            </tr>
+            <tr>
+              <td style="background: #f7fafd">
+                <p
+                  style="font-size: 12px; width: calc(100% - 40px); margin-bottom: 20px; text-align: center; font-family: 'Verdana', sans-serif;"
+                >
+                  Pamiętaj, aby nie udostępniać tego linka, ani nie przekazywać
+                  tego maila <b>NIKOMU</b>. Administracja serwisu Trustree nigdy
+                  nie poprosi Cię o żadną z tych rzeczy.
+                </p>
               </td>
             </tr>
             <tr>
               <td
                 style="
               width: 100%;
+              margin-top: 20px;
               padding: 5px;
               box-sizing: border-box;
               max-height: 25px;
-              background: #0f9960;
+              background:#17344e;
               color: white;
             "
               >
@@ -100,7 +106,7 @@ export function getMailTemplate({ email, id, origin }: any) {
                 font-size: 12px;
               "
                 >
-                  Trustree © 2021
+                  Trustree sp.j. © 2021
                 </p>
               </td>
             </tr>
