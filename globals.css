@@ -40,7 +40,7 @@ h4 {
 }
 
 #front-page p {
-  font-size: 17px;
+  font-size: 15px;
 }
 #front-page h3 {
   line-height: 98% !important;
@@ -96,7 +96,7 @@ strong {
 
 * {
   box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 h1,
