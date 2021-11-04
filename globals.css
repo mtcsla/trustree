@@ -39,6 +39,26 @@ h4 {
   font-size: 25px;
 }
 
+#front-page p {
+  font-size: 17px;
+}
+#front-page h3 {
+  line-height: 98% !important;
+  margin-bottom: 10px;
+  font-size: 26px;
+  font-weight: 500 !important;
+}
+@media (max-width: 800px) {
+  #front-page h3 {
+    font-size: 18px;
+  }
+}
+@media (max-width: 800px) {
+  #front-page p {
+    font-size: 13px;
+  }
+}
+
 #article p {
   font-size: 20px;
   margin-top: 20px;

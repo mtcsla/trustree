@@ -100,6 +100,7 @@ export default function App({ Component, pageProps }) {
           <Body
             pathname={router.pathname}
             className={router.pathname != "/" && "p-10"}
+            id={router.pathname == "/" ? "front-page" : ""}
             style={{
               height: "100%",
               overflowY: "visible",

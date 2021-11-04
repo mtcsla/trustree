@@ -74,9 +74,9 @@ export function getMailTemplate({ email, id, origin }: any) {
               </td>
             </tr>
             <tr>
-              <td style="background: #f7fafd">
+              <td style="background: #f7fafd; text-align: center;">
                 <p
-                  style="font-size: 12px; width: calc(100% - 40px); margin-bottom: 20px; text-align: center; font-family: 'Verdana', sans-serif;"
+                  style="display: inline-block; font-size: 12px; width: calc(100% - 40px); margin-bottom: 20px; text-align: center; font-family: 'Verdana', sans-serif;"
                 >
                   Pamiętaj, aby nie udostępniać tego linka, ani nie przekazywać
                   tego maila <b>NIKOMU</b>. Administracja serwisu Trustree nigdy

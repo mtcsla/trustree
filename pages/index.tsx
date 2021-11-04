@@ -66,7 +66,7 @@ export default function index() {
       </div>
       <div
         className="flex flex-wrap justify-center mb-4"
-        style={{ width: "85%", marginLeft: "auto", marginRight: "auto" }}
+        style={{ width: "90%", marginLeft: "auto", marginRight: "auto" }}
       >
         <Generation className="mt-4 p-4 mb-4 text-center rounded-lg text-white">
           <Icon
@@ -89,7 +89,9 @@ export default function index() {
             <h3 className=" mb-1">
               Wniosek o stwierdzenie nabycia praw do spadku
             </h3>
-            <p className="text-xs text-gray-400">wg dziedziczenia ustawowego</p>
+            <p className="text-xs text-gray-400 mb-2">
+              wg dziedziczenia ustawowego
+            </p>
             <p className="text-sm">
               Wygeneruj wniosek o stwierdzenie nabycia praw do spadku, jeśli
               twój spadkodawca nie zostawił testamentu.
@@ -122,7 +124,7 @@ export default function index() {
             <h3 className=" mb-1">
               Wniosek o stwierdzenie nabycia praw do spadku
             </h3>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-gray-400 mb-2">
               wg dziedziczenia testamentowego
             </p>
             <p className="text-sm">
@@ -251,7 +253,7 @@ export default function index() {
       </div>
       <div
         className="flex flex-wrap justify-center mb-4"
-        style={{ width: "85%", marginLeft: "auto", marginRight: "auto" }}
+        style={{ width: "90%", marginLeft: "auto", marginRight: "auto" }}
       >
         <div className="w-full flex justify-center flex-col items-center">
           <Generation className="mt-4 p-4 mb-2 text-center rounded-lg text-white">
