@@ -49,7 +49,7 @@ export default function index() {
             </p>
           </div>
         </HeaderText>
-        <Suited src="/man.png" style={{ background: "var(--sea-green)" }} />
+        <Suited src="/stock3.png" style={{ background: "var(--sea-green)" }} />
       </div>
       <div className="w-full flex flex-col items-center p-10 pb-2 text-center">
         <h1 className="w-full">
