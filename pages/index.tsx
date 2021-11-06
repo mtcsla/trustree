@@ -3,11 +3,16 @@ import { useNav } from "./_app";
 import { Callout, Card, Icon, Button, Toast } from "@blueprintjs/core";
 import ColorfulIcon from "../components/layout/ColorfulIcon";
 import React from "react";
-
 import styled from "@emotion/styled";
 import Link from "next/link";
 export default function index() {
   const { width } = useWindowSize();
+
+  const getFontSize = (width: number) => {
+    if (width <= 800) return 3;
+    if (width >= 1200) return 5;
+    if (width >= 1000) return 4;
+  };
 
   return (
     <>
@@ -26,11 +31,7 @@ export default function index() {
         >
           <Logo src="logo-light.svg"></Logo>
           <div className="flex flex-col">
-            <h1
-              className={`text-white mt-2  text-${
-                width < 800 ? 4 : width > 1000 ? (width > 1200 ? 5 : 4) : ""
-              }xl`}
-            >
+            <h1 className={`text-white mt-2  text-${getFontSize(width)}xl`}>
               Wygeneruj pisma niezbędne w swoim postępowaniu spadkowym
             </h1>
             <p className="text-white text-lg mt-4">
@@ -63,6 +64,77 @@ export default function index() {
         <p className="text-sm">
           Udzielamy zarówno płatnych, jak i bezpłatnych usług.
         </p>
+      </div>
+      <div
+        className="flex flex-wrap justify-center mb-4"
+        style={{ width: "90%", marginLeft: "auto", marginRight: "auto" }}
+      >
+        <div className="w-full flex justify-center flex-col items-center">
+          <Generation className="mt-4 p-4 mb-2 text-center rounded-lg text-white">
+            <Icon
+              className="inline-block mr-2"
+              icon={"calculator"}
+              size={width > 800 ? 35 : 30}
+              color={"white"}
+            />
+            KALKULATORY
+            <br />
+          </Generation>
+          <span
+            className="text-base mb-2"
+            style={{ color: "var(--sea-green)" }}
+          >
+            SKORZYSTAJ Z NASZYCH <b>BEZPŁATNYCH</b> KALKULATORÓW
+          </span>
+        </div>
+        <Item2>
+          <Icon
+            icon="many-to-many"
+            size={20}
+            style={{ padding: 7 }}
+            className="bg-yellow-400  rounded-md"
+            color={"white"}
+          />
+          <div className="ml-4 pr-4 flex flex-col">
+            <h3 className=" mb-1">Kalkulator zachowku</h3>
+            <p className="text-sm">
+              Dowiedz się, jaka kwota zachowku należy ci się, jeśli spadkodawca
+              pominął Cię w testamencie.
+            </p>
+            <Link href="/kalkulator-zachowku" passHref>
+              <a className="flex justify-start">
+                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
+                  SPRAWDŹ 
+                  <Icon className="inline-block" icon="caret-right" />
+                </h4>
+              </a>
+            </Link>
+          </div>
+        </Item2>
+        <Item2>
+          <Icon
+            icon="calculator"
+            size={20}
+            style={{ padding: 7 }}
+            className="bg-purple-400  rounded-md"
+            color={"white"}
+          />
+          <div className="ml-4 pr-4 flex flex-col">
+            <h3 className=" mb-1">Kalkulator udziału w spadku</h3>
+            <p className="text-sm">
+              Dowiedz się, jaka część spadku w ułamku zwykłym przypada Ci, jeśli
+              spadkodawca nie pozostawił testamentu.
+            </p>
+            <Link href="/kalkulator" passHref>
+              <a className="flex justify-start">
+                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
+                  SPRAWDŹ 
+                  <Icon className="inline-block" icon="caret-right" />
+                </h4>
+              </a>
+            </Link>
+          </div>
+        </Item2>
       </div>
       <div
         className="flex flex-wrap justify-center mb-4"
@@ -251,77 +323,7 @@ export default function index() {
           </div>
         </Item>
       </div>
-      <div
-        className="flex flex-wrap justify-center mb-4"
-        style={{ width: "90%", marginLeft: "auto", marginRight: "auto" }}
-      >
-        <div className="w-full flex justify-center flex-col items-center">
-          <Generation className="mt-4 p-4 mb-2 text-center rounded-lg text-white">
-            <Icon
-              className="inline-block mr-2"
-              icon={"calculator"}
-              size={width > 800 ? 35 : 30}
-              color={"white"}
-            />
-            KALKULATORY
-            <br />
-          </Generation>
-          <span
-            className="text-base mb-2"
-            style={{ color: "var(--sea-green)" }}
-          >
-            BEZPŁATNE
-          </span>
-        </div>
-        <Item2>
-          <Icon
-            icon="many-to-many"
-            size={20}
-            style={{ padding: 7 }}
-            className="bg-yellow-400  rounded-md"
-            color={"white"}
-          />
-          <div className="ml-4 pr-4 flex flex-col">
-            <h3 className=" mb-1">Kalkulator zachowku</h3>
-            <p className="text-sm">
-              Dowiedz się, jaka kwota zachowku należy ci się, jeśli spadkodawca
-              pominął Cię w testamencie.
-            </p>
-            <Link href="/kalkulator-zachowku" passHref>
-              <a className="flex justify-start">
-                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
-                  SPRAWDŹ 
-                  <Icon className="inline-block" icon="caret-right" />
-                </h4>
-              </a>
-            </Link>
-          </div>
-        </Item2>
-        <Item2>
-          <Icon
-            icon="calculator"
-            size={20}
-            style={{ padding: 7 }}
-            className="bg-purple-400  rounded-md"
-            color={"white"}
-          />
-          <div className="ml-4 pr-4 flex flex-col">
-            <h3 className=" mb-1">Kalkulator udziału w spadku</h3>
-            <p className="text-sm">
-              Dowiedz się, jaka część spadku w ułamku zwykłym przypada Ci, jeśli
-              spadkodawca nie pozostawił testamentu.
-            </p>
-            <Link href="/kalkulator" passHref>
-              <a className="flex justify-start">
-                <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
-                  SPRAWDŹ 
-                  <Icon className="inline-block" icon="caret-right" />
-                </h4>
-              </a>
-            </Link>
-          </div>
-        </Item2>
-      </div>
+
       <div className="w-full bg-white border-t border-b flex flex-col items-center p-10">
         <div className="w-full flex flex-col items-center  pb-2 text-center">
           <h1 className="w-full">
@@ -454,6 +456,9 @@ const Suited = styled.img`
   min-height: 400px;
   align-self: end;
   padding-top: 10px;
+  @media (min-width: 800px) and (max-width: 1100px) {
+    display: none;
+  }
   @media (max-width: 600px) {
     display: none;
   }
@@ -533,8 +538,14 @@ const Item3 = styled.div`
 `;
 const Logo = styled.img`
   height: 100px;
-  @media (min-width: 600px) {
+  @media (min-width: 1100px) {
     display: none;
+  }
+  @media (max-width: 800px) {
+    display: none;
+  }
+  @media (max-width: 600px) {
+    display: block;
   }
 `;
 const Generation = styled.h1`
