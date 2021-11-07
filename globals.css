@@ -194,6 +194,10 @@ body {
   align-items: stretch;
 }
 
+.text-5xl {
+  font-size: 47px;
+}
+
 @media (max-width: 800px) {
   .text-5xl {
     font-size: 30px !important;
