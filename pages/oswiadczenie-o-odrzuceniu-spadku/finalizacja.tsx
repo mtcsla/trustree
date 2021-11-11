@@ -39,9 +39,6 @@ export default function Finalizacja({ data }) {
         Upewnij się, że wprowadzone dane są poprawne.
       </h1>
       <p className="text-sm">Oświadczenie o odrzuceniu spadku</p>
-      <Callout intent="primary" className="mt-6">
-        Wykonanie tego pisma kosztuje <b>24,60zł</b>.
-      </Callout>
       <CardForm className="flex items-start " style={{ minHeight: 0 }}>
         <h2 className="flex items-center w-full font-bold text-2xl mb-0">
           <ColorfulIcon
@@ -89,12 +86,10 @@ export default function Finalizacja({ data }) {
           </div>
         </div>
       </CardForm>
-
       <Callout intent="warning" className="mt-8">
         Jeśli wypełniłeś formularz wadliwymi danymi i zakupisz pismo, nie będzie
         możliwości jego edycji!
       </Callout>
-
       <CardForm>
         <h2 className="flex items-center w-full font-bold text-2xl mb-0">
           <ColorfulIcon
@@ -254,7 +249,10 @@ export default function Finalizacja({ data }) {
           </p>
           <span>{data.courtNumber}</span>
         </div>
-      </CardForm>
+      </CardForm>{" "}
+      <Callout intent="primary" className="mt-6">
+        Wykonanie tego pisma kosztuje <b>24,60zł</b>.
+      </Callout>
       <PaymentForm
         title="Wykonanie pisma"
         subtitle="Oświadczenie o odrzuceniu spadku"

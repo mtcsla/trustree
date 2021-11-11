@@ -1,6 +1,10 @@
 import { useWindowSize } from "../hooks/windowSize";
 import { useNav } from "./_app";
 import { Callout, Card, Icon, Button, Toast } from "@blueprintjs/core";
+import {
+  AiFillInstagram as Instagram,
+  AiFillFacebook as Facebook,
+} from "react-icons/ai";
 import ColorfulIcon from "../components/layout/ColorfulIcon";
 import React from "react";
 import styled from "@emotion/styled";
@@ -31,11 +35,15 @@ export default function index() {
         >
           <Logo src="logo-light.svg"></Logo>
           <div className="flex flex-col">
-            <h1 className={`text-white mt-2  text-${getFontSize(width)}xl`}>
-              Wygeneruj pisma niezbędne w swoim postępowaniu spadkowym
+            <h1
+              className={`text-white mt-2  text-${getFontSize(width)}xl`}
+              style={{ lineHeight: 0.8 }}
+            >
+              Rozwiąż swoją sprawę spadkową w pół godziny.
             </h1>
             <p className="text-white text-lg mt-4">
-              ...a także oblicz swój udział i zachowek.
+              Wygeneruj pismo dla swojego postępowania spadkowego, bądź oblicz,
+              ile Ci się należy.
             </p>
           </div>
           <div className="flex flex-col mt-4">
@@ -57,12 +65,12 @@ export default function index() {
           <Icon
             className="inline-block mr-2"
             icon={"applications"}
-            size={width > 800 ? 35 : 30}
+            size={width > 800 ? 37 : 32}
           />
           Co oferujemy?
         </h1>
-        <p className="text-sm">
-          Udzielamy zarówno płatnych, jak i bezpłatnych usług.
+        <p className="text-center">
+          Zapoznaj się z naszym szerokim asortymentem usług.
         </p>
       </div>
       <div
@@ -70,18 +78,17 @@ export default function index() {
         style={{ width: "90%", marginLeft: "auto", marginRight: "auto" }}
       >
         <div className="w-full flex justify-center flex-col items-center">
-          <Generation className="mt-4 p-4 mb-2 text-center rounded-lg text-white">
+          <Generation className="mt-4 p-4 mb-2 text-center rounded-lg">
             <Icon
-              className="inline-block mr-2"
+              className="inline-block mr-2 align-middle"
               icon={"calculator"}
               size={width > 800 ? 35 : 30}
-              color={"white"}
             />
             KALKULATORY
             <br />
           </Generation>
           <span
-            className="text-base mb-2"
+            className="text-base mb-2 text-center"
             style={{ color: "var(--sea-green)" }}
           >
             SKORZYSTAJ Z NASZYCH <b>BEZPŁATNYCH</b> KALKULATORÓW
@@ -140,12 +147,18 @@ export default function index() {
         className="flex flex-wrap justify-center mb-4"
         style={{ width: "90%", marginLeft: "auto", marginRight: "auto" }}
       >
-        <Generation className="mt-4 p-4 mb-4 text-center rounded-lg text-white">
+        <span
+          className="text-base mb-2 uppercase text-center"
+          style={{ color: "var(--sea-green)", maxWidth: "85%" }}
+        >
+          Sprawdziłeś, ile należy Ci się w spadku? Skorzystaj z naszych{" "}
+          <b>tanich</b> usług i wykonaj swoje pismo w pół godziny
+        </span>
+        <Generation className="mt-4 p-4 mb-4 text-center rounded-lg">
           <Icon
             className="inline-block mr-2"
             icon={"edit"}
-            size={width > 800 ? 35 : 30}
-            color={"white"}
+            size={width > 800 ? 38 : 33}
           />
           GENERACJA PISM
         </Generation>
@@ -166,10 +179,10 @@ export default function index() {
             </p>
             <p className="text-sm">
               Wygeneruj wniosek o stwierdzenie nabycia praw do spadku, jeśli
-              twój spadkodawca nie zostawił testamentu.
+              Twój spadkodawca nie zostawił testamentu.
             </p>
-            <span className="mt-1 mb-1 font-bold text-base">
-              już od 61,50zł
+            <span className="mt-1 mb-1 text-base" style={{ fontWeight: 500 }}>
+              już od <b>61,50zł</b>
             </span>
             <Link
               href="/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"
@@ -201,10 +214,10 @@ export default function index() {
             </p>
             <p className="text-sm">
               Wygeneruj wniosek o stwierdzenie nabycia praw do spadku, jeśli
-              twój spadkodawca zostawił testament.
+              Twój spadkodawca zostawił testament.
             </p>
-            <span className="mt-1 mb-1 font-bold text-base">
-              już od 61,50zł
+            <span className="mt-1 mb-1 text-base" style={{ fontWeight: 500 }}>
+              już od <b>61,50zł</b>
             </span>
             <Link
               href="/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku"
@@ -233,8 +246,8 @@ export default function index() {
               Szybko wygeneruj dokładny pozew o zachowek i uratuj swoją
               należność po zmarłym.
             </p>
-            <span className="mt-1 mb-1 font-bold text-base">
-              w cenie 369,00zł
+            <span className="mt-1 mb-1 text-base" style={{ fontWeight: 500 }}>
+              w cenie <b>369,00zł</b>
             </span>
             <Link href="/pozew-o-zachowek" passHref>
               <a className="flex justify-start">
@@ -259,8 +272,8 @@ export default function index() {
             <p className="text-sm">
               Natychmiastowo wygeneruj oświadczenie o przyjęciu spadku.
             </p>
-            <span className="mt-1 mb-1 font-bold text-base">
-              w cenie 24,60zł
+            <span className="mt-1 mb-1 text-base" style={{ fontWeight: 500 }}>
+              w cenie <b>24,60zł</b>
             </span>
             <Link href="/oswiadczenie-o-przyjeciu-spadku" passHref>
               <a className="flex justify-start">
@@ -285,8 +298,8 @@ export default function index() {
             <p className="text-sm">
               Natychmiastowo wygeneruj oświadczenie o odrzuceniu spadku.
             </p>
-            <span className="mt-1 mb-1 font-bold text-base">
-              w cenie 24,60zł
+            <span className="mt-1 mb-1 text-base" style={{ fontWeight: 500 }}>
+              w cenie <b>24,60zł</b>
             </span>
             <Link href="/oswiadczenie-o-odrzuceniu-spadku" passHref>
               <a className="flex justify-start">
@@ -298,7 +311,6 @@ export default function index() {
             </Link>
           </div>
         </Item>
-
         <Item>
           <Icon
             icon="widget-button"
@@ -341,22 +353,6 @@ export default function index() {
           >
             <Item3>
               <Icon
-                icon="fast-forward"
-                size={20}
-                style={{ padding: 7 }}
-                className="bg-red-400  rounded-md"
-                color={"white"}
-              />
-              <div className="ml-4 pr-4 flex flex-col">
-                <h3 className=" mb-1">Szybkość</h3>
-                <p className="text-sm">
-                  Wszystkie nasze usługi są natychmiastowe. Nie musisz się
-                  martwić o to, kiedy otrzymasz pismo.
-                </p>
-              </div>
-            </Item3>
-            <Item3>
-              <Icon
                 icon="dollar"
                 size={20}
                 style={{ padding: 7 }}
@@ -366,8 +362,27 @@ export default function index() {
               <div className="ml-4 pr-4 flex flex-col">
                 <h3 className=" mb-1">Niska cena</h3>
                 <p className="text-sm">
-                  Nasze usługi są o wiele tańsze od wizyty u prawnika, a czasem
-                  nawet darmowe.
+                  Zaoszczędź swoje pieniądze: nasze usługi są parokrotnie tańsze
+                  od wizyt w kancelarii. Możesz za darmo wygenerować swój udział
+                  w spadku, i za niewielką cenę natychmiastowo wygenerować
+                  niezbędną umowę.
+                </p>
+              </div>
+            </Item3>
+            <Item3>
+              <Icon
+                icon="fast-forward"
+                size={20}
+                style={{ padding: 7 }}
+                className="bg-red-400  rounded-md"
+                color={"white"}
+              />
+              <div className="ml-4 pr-4 flex flex-col">
+                <h3 className=" mb-1">Szybkość</h3>
+                <p className="text-sm">
+                  Zaoszczędź swój czas: wygeneruj niezbędne pismo w 5 minut.
+                  Przystępnie wypełnij niezbędne dane i otrzymaj swoje pismo
+                  natychmiastowo.
                 </p>
               </div>
             </Item3>
@@ -382,7 +397,9 @@ export default function index() {
               <div className="ml-4 pr-4 flex flex-col">
                 <h3 className=" mb-1">Zdalność</h3>
                 <p className="text-sm">
-                  Wygeneruj pisma w dowolnym momencie bez wychodzenia z domu.
+                  Zaoszczędź sobie trudu: nasza usługa dostępna jest z dowolnego
+                  miejsca na świecie. Przygotuj tylko dokumenty, które akurat są
+                  potrzebne; utworzeniem pisma zajmiemy się my.
                 </p>
               </div>
             </Item3>
@@ -408,14 +425,16 @@ export default function index() {
           </Generation>
           */}
           <Div className="flex justify-between items-center mb-4 mt-4">
-            <Item2 className="flex-1 h-full" style={{ marginLeft: 0 }}>
-              <div className="flex p-4 h-full flex-col  justify-center items-center">
-                <h1 className="w-full mb-1">Współpracujemy z prawnikami.</h1>
+            <Item2 className="flex-1 h-full w-full" style={{ marginLeft: 0 }}>
+              <div className="flex pr-4 h-full flex-col flex-1 justify-center items-center">
+                <h1 className="w-full mb-1">
+                  Oferujemy Ci usługi najwyższej jakości.
+                </h1>
                 <p className="text-sm">
                   Wszystkie nasze wzory pism oraz usługi są weryfikowane przez
                   prawników przed udostępnieniem ich naszym klientom.
-                  Współpracujemy z{" "}
-                  <b>kancelarią radcy prawnego Piotr Wojtowicz w Gdyni.</b>
+                  Współpracujemy już z dwoma kancelariami prawnymi, które
+                  zapewnią najwyższą jakość Twojego pisma.
                 </p>
               </div>
             </Item2>
@@ -426,34 +445,65 @@ export default function index() {
                   borderRadius: 10,
                 }}
               />
-              <MecenasText className="text-xs text-right italic mt-1">
+              <MecenasText className="text-xs text-right italic mt-1 w-full">
                 r.pr. Piotr Wojtowicz
               </MecenasText>
             </Radca>
           </Div>
+          <div className="flex flex-col mb-8">
+            <p
+              className={`text-${
+                width > 1300 ? "base" : "xs"
+              } text-white  bg-white bg-opacity-20 p-2 rounded`}
+            >
+              Firma powstała w ramach programu akceleracyjnego TeenCrunch,
+              dzięki warsztatowemu wsparciu Google for Start-ups, Microsoft
+              Polska oraz Apptension.
+            </p>
+          </div>
         </div>
       </div>
 
       <div
-        className="w-full p-1 flex flex-col text-white"
+        className="w-full p-1 flex justify-center items-center flex-wrap text-white"
         style={{ background: "var(--sea-green)" }}
       >
-        <p className="w-full text-sm  text-center">
+        <a
+          className="text-sm  text-center ml-2 mr-2"
+          href="https://facebook.com/Trustree.fb"
+        >
+          <Facebook
+            className="inline-block mr-1 ml-1"
+            size={width > 800 ? 18 : 15}
+          />
+          Facebook
+        </a>
+        <p className="text-sm  text-center ml-2 mr-2">
           <Icon
-            className="inline-block mr-2 ml-2"
+            className="inline-block mr-1 ml-1"
             icon={"envelope"}
             size={width > 800 ? 18 : 15}
           />
           mail@trustree.pl
         </p>
+        <a
+          href="https://www.instagram.com/trustree.ig/"
+          className="text-sm  text-center ml-2 mr-2"
+        >
+          <Instagram
+            className="inline-block mr-1 ml-1"
+            size={width > 800 ? 18 : 15}
+          />
+          Instagram
+        </a>
       </div>
     </>
   );
 }
 const HeaderText = styled.div``;
 const Suited = styled.img`
-  height: 400px;
-  min-height: 400px;
+  height: 340px;
+  min-height: 340px;
   align-self: end;
   padding-top: 10px;
   @media (min-width: 800px) and (max-width: 1100px) {
@@ -550,7 +600,8 @@ const Logo = styled.img`
 `;
 const Generation = styled.h1`
   width: 85%;
-  background: var(--medium-sea-green);
+  color: white !important;
+  background: var(--medium-sea-green-opacity);
   @media (max-width: 1000px) {
     width: 100%;
   }

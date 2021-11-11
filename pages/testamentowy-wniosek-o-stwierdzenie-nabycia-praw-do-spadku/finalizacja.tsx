@@ -43,17 +43,7 @@ export default function Finalizacja({ data }) {
         Wniosek o stwierdzenie nabycia praw do spadku wg dziedziczenia
         testamentowego
       </p>
-      <Callout intent="primary" className="mt-6">
-        Wykonanie tego pisma kosztuje:
-        <ul className="list-disc list-inside">
-          <li>
-            <b>61,50zł</b>, jeśli jesteś jedynym spadkobiercą
-          </li>
-          <li>
-            <b>123,00zł</b>, jeśli jest więcej spadkobierców
-          </li>
-        </ul>
-      </Callout>
+
       <CardForm>
         <h2 className="flex items-center w-full  text-2xl mb-0">
           <ColorfulIcon
@@ -409,6 +399,17 @@ export default function Finalizacja({ data }) {
           </>
         ) : null}
       </CardForm>
+      <Callout intent="primary" className="mt-6">
+        Wykonanie tego pisma kosztuje:
+        <ul className="list-disc list-inside">
+          <li>
+            <b>61,50zł</b>, jeśli jesteś jedynym spadkobiercą
+          </li>
+          <li>
+            <b>123,00zł</b>, jeśli jest więcej spadkobierców
+          </li>
+        </ul>
+      </Callout>
       <PaymentForm
         metadata={Object.assign({ docId: 5 }, data)}
         title="Wykonanie pisma"

@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }) {
     <navContext.Provider value={navContextValue}>
       <AuthProvider>
         <Head>
-          <title>Trustree | serwis z pismami sądowymi</title>
+          <title>Trustree | szybkie i tanie usługi spadkowe</title>
         </Head>
 
         <NavigationBar>

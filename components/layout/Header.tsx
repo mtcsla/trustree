@@ -37,21 +37,13 @@ const Header = ({ noX }: { noX?: boolean }) => {
       <Link href="/">
         <div className="flex flex-col text-left justify-center p-2 cursor-pointer">
           <LogoText
-            className={windowWidth > 800 ? "text-4xl" : "text-6xl"}
-            style={{ letterSpacing: 0.5 }}
+            className={windowWidth > 800 ? "text-5xl" : "text-7xl"}
+            style={{ letterSpacing: 1 }}
           >
             Trustree
           </LogoText>
         </div>
       </Link>{" "}
-      <SocialMedia className="flex flex-col justify-center mt-1">
-        <a href="https://www.facebook.com/Trustree.fb" className="mb-2">
-          <Facebook size={20} color="#666" />
-        </a>
-        <a href="https://www.instagram.com/trustree.ig/" className="flex">
-          <Instagram size={20} color="#666" />
-        </a>
-      </SocialMedia>
     </HeaderDiv>
   );
 };

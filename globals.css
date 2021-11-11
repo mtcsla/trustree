@@ -111,7 +111,7 @@ h5 {
 
 span {
   white-space: normal;
-  font-weight: normal !important;
+  font-weight: normal;
   font-family: "Titillium Web", sans-serif;
 }
 
@@ -138,7 +138,9 @@ span {
   --dark3: rgb(8, 30, 51);
   --medium-sea-green: #0f9960;
   --medium-sea-green: #173d5c;
+  --medium-sea-green-opacity: #173d5cdc;
   --sea-green: #17344e;
+  --sea-green-opacity: #17344edc;
   /*--medium-sea-green: slateblue;
   --sea-green: mediumslateblue;
   --medium-sea-green: rgb(0, 34, 66);
@@ -195,6 +197,9 @@ body {
 }
 
 .text-5xl {
+  font-size: 43px;
+}
+.text-7xl {
   font-size: 43px;
 }
 

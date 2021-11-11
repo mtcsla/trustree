@@ -3,6 +3,20 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 import React from "react";
 import { useWindowSize } from "../../hooks/windowSize";
+import { Classes } from "@blueprintjs/popover2";
+
+function Stepper({
+  stepsNum,
+  steps,
+  style,
+}: {
+  stepsNum: number;
+  steps: string[];
+  style?: React.CSSProperties;
+  className?: string;
+}) {
+  return <div>dupa</div>;
+}
 
 export default function index() {
   const { width } = useWindowSize();

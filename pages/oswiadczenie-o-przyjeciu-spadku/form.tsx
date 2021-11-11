@@ -45,9 +45,6 @@ export default function OswiadczeniePrzyjmij() {
           <h1 className="text-4xl">PRZYJMIJ SPADEK</h1>
         </div>
       </div>
-      <Callout intent="primary" className="mt-1 mb-6">
-        Wykonanie tego pisma kosztuje <b>24,60zł</b>.
-      </Callout>
 
       <p className="mt-2">
         Podaj nam swoje dane, a my wykonamy za Ciebie oświadczenie o przyjęciu

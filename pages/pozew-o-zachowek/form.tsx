@@ -101,9 +101,7 @@ export default function WniosekTestament() {
       <Toaster position={Position.TOP_RIGHT} ref={toaster} className="z-50" />
       <h1 className="text-4xl ">Wygeneruj pozew o zachowek</h1>
       <p>Podaj nam swoje dane, a my utworzymy za Ciebie pozew.</p>
-      <Callout intent="primary" className="mt-6">
-        Wykonanie tego pisma kosztuje <b>369,00zł</b>.
-      </Callout>
+
       {loaded ? (
         <Formik
           onSubmit={(values) => {

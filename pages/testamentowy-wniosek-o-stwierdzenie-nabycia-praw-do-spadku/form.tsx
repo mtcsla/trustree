@@ -99,17 +99,7 @@ export default function WniosekTestament() {
         </div>
       </h1>
       <p>Podaj nam swoje dane, a my utworzymy za Ciebie wniosek.</p>
-      <Callout intent="primary" className="mt-6">
-        Wykonanie tego pisma kosztuje:
-        <ul className="list-disc list-inside">
-          <li>
-            <b>61,50zł</b>, jeśli jesteś jedynym spadkobiercą
-          </li>
-          <li>
-            <b>123,00zł</b>, jeśli jest więcej spadkobierców
-          </li>
-        </ul>
-      </Callout>
+
       {loaded ? (
         <Formik
           onSubmit={(values) => {
