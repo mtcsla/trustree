@@ -6,6 +6,7 @@ import Cookie from "universal-cookie";
 import FamilyForm from "../../components/calculator/Family";
 import RelationForm from "../../components/calculator/Relation";
 import RelativesForm from "../../components/calculator/Relatives";
+import { Stepper } from "../testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku";
 
 const calculatorContext = React.createContext<any>({});
 const cookies = new Cookie();
@@ -81,11 +82,16 @@ export default function Kalkulator() {
 
   return (
     <>
+      <p className="w-full text-center">
+        <b>TA USŁUGA JEST DARMOWA</b>
+      </p>
+      <Stepper nOfSteps={2} currentStep={1} message={"wypełnij formularz"} />
+
       <calculatorContext.Provider value={contextValue}>
         <h1 className=" text-4xl">Kalkulator ustawowego udziału w spadku</h1>
         <p>
-          Oblicz, jaka część spadku Ci się należy, jeśli spadkodawca nie
-          pozostawił testamentu.
+          <b>Za darmo</b> oblicz, jaka część spadku Ci się należy, jeśli
+          spadkodawca nie pozostawił testamentu.
         </p>
         <RelationForm />
         <FamilyForm />

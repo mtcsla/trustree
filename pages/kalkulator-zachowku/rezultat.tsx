@@ -5,6 +5,7 @@ import { FamilyImage } from "../../components/calculator/Relation";
 import { CardForm } from "../kalkulator/index";
 import Link from "next/link";
 import { useRouter } from "next/dist/client/router";
+import { Stepper } from "../testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku";
 
 export const getServerSideProps = async ({ query }) => {
   try {
@@ -50,6 +51,8 @@ export default function Rezultat({ result }) {
 
   return (
     <>
+      <Stepper nOfSteps={2} currentStep={2} message={"sprawdź rezultat"} />
+
       <h1 className="text-4xl ">
         Obliczyliśmy kwotę zachowku, o który możesz się ubiegać
       </h1>

@@ -15,6 +15,7 @@ import { FamilyImage } from "../../components/calculator/Relation";
 import { CardForm } from "../kalkulator/index";
 import { useRouter } from "next/dist/client/router";
 import Cookie from "universal-cookie";
+import { Stepper } from "../testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku";
 
 export default function KalkulatorZachowku() {
   const toaster = React.useRef<Toaster>();
@@ -78,10 +79,19 @@ export default function KalkulatorZachowku() {
 
         return (
           <>
+            <p className="w-full text-center">
+              <b>TA USŁUGA JEST DARMOWA</b>
+            </p>
+            <Stepper
+              nOfSteps={2}
+              currentStep={1}
+              message={"wypełnij formularz"}
+            />
+
             <h1 className="text-4xl ">Kalkulator zachowku</h1>
             <p>
-              Dowiedz się, ile możesz odzyskać, jeśli pominięto Cię w
-              testamencie.
+              <b>Za darmo</b> dowiedz się, ile możesz odzyskać, jeśli pominięto
+              Cię w testamencie.
             </p>
             <CardForm style={{ marginTop: 30 }} className="flex flex-wrap">
               <Forms

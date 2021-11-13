@@ -9,6 +9,7 @@ import React from "react";
 import Cookie from "universal-cookie";
 import { CardForm } from ".";
 import { FamilyImage } from "../../components/calculator/Relation";
+import { Stepper } from "../testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku";
 
 const cookies = new Cookie();
 
@@ -144,6 +145,8 @@ export default function Rezultat({ rezultat, relation }) {
 
   return (
     <>
+      <Stepper nOfSteps={2} currentStep={2} message={"sprawdź rezultat"} />
+
       <h1 className="text-4xl ">
         Obliczyliśmy udziały twoje oraz innych krewnych zmarłego.
       </h1>
