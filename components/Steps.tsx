@@ -4,15 +4,18 @@ import Link from "next/link";
 export default function Steps({ href }) {
   return (
     <>
-      <div className="flex flex-col mt-4">
-        <h3
+      <div className="flex flex-col mt-4 mb-2">
+        <div
+          className="flex flex-col text-white  p-4 rounded-lg mb-2"
           style={{ background: "var(--medium-sea-green)" }}
-          className="text-white p-3 mb-2 rounded-lg"
         >
-          WYKONAJ PISMO W TRZECH KROKACH
-        </h3>
+          <h3 className="text-white rounded-lg">
+            Wykonaj pismo w trzech prostych krokach.
+          </h3>
+          <p>oto one</p>
+        </div>
         <div className="flex items-stretch flex-wrap">
-          <ol className=" ml-6 list-decimal">
+          <ol className=" ml-6 m-3 list-decimal">
             <li className="mt-1 mb-1">
               <b>Wypełnij formularz.</b>
             </li>
@@ -26,7 +29,7 @@ export default function Steps({ href }) {
           <Link passHref href="/oswiadczenie-o-przyjeciu-spadku/form">
             <a className="flex flex-1">
               <Button
-                className="flex-1 ml-3 mt-1 mb-1"
+                className="flex-1 p-4 h-full"
                 style={{ minWidth: 230 }}
                 intent="primary"
                 rightIcon="caret-right"
