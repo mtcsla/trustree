@@ -1,4 +1,3 @@
-import { url } from "inspector";
 import Stripe from "stripe";
 import md5 from "md5";
 import { firestore } from "./lib/firebase-admin";
@@ -40,7 +39,9 @@ export default async function handler(req, res) {
         expires_at: Math.floor(today.getTime() / 1000),
         payment_method_types: ["card", "p24"],
         mode: "payment",
-        success_url: `${req.headers.origin}/?success=true`,
+        success_url: encodeURI(
+          `${req.headers.origin}/zaplacono/?id=${req.body.docId}`
+        ),
         cancel_url:
           req.headers.origin + req.body.returnUrl + "?" + cancelUrlParams,
       });
@@ -91,16 +92,16 @@ export const determineName = ({ docId }) => {
 
   switch (docId) {
     case 0:
-      return "Oświadczenie o odrzuceniu spadku";
+      return "oświadczenie o odrzuceniu spadku";
     case 1:
-      return "Oświadczenie o przyjęciu spadku";
+      return "oświadczenie o przyjęciu spadku";
     case 2:
-      return "Pozew o zachowek";
+      return "pozew o zachowek";
     case 3:
-      return "Wniosek o ustalenie działu spadku";
+      return "wniosek o ustalenie działu spadku";
     case 4:
-      return "Wniosek o stwierdzenie nabycia praw do spadku wg dziedziczenia ustawowego";
+      return "wniosek o stwierdzenie nabycia praw do spadku wg dziedziczenia ustawowego";
     case 5:
-      return "Wniosek o stwierdzenie nabycia praw do spadku wg dziedziczenia testamentowego";
+      return "wniosek o stwierdzenie nabycia praw do spadku wg dziedziczenia testamentowego";
   }
 };

@@ -24,6 +24,7 @@ import {
   OtherHereditariesRenderer,
 } from "../../components/oswiadczenie/OtherHereditariesRenderer";
 import { useRouter } from "next/dist/client/router";
+import { Stepper } from "../testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku";
 
 export default function OswiadczenieOdrzuc() {
   const [loaded, setLoaded] = React.useState(false);
@@ -33,6 +34,7 @@ export default function OswiadczenieOdrzuc() {
   }, []);
   return (
     <>
+      <Stepper nOfSteps={3} currentStep={2} message={"wypełnij formularz"} />
       <div className="text-4xl mb-0 mt-0 w-auto text-right flex justify-start text-gray-700 items-center">
         <div
           className=" rounded flex items-center p-3 w-full"
@@ -845,8 +847,10 @@ export default function OswiadczenieOdrzuc() {
                     </FormGroup>
                   </div>
                 </CardForm>
+                <p className="w-full text-center mt-4 mb-4">
+                  PRZEJDŹ DO SPRAWDZENIA WPROWADZONYCH DANYCH
+                </p>
                 <Button
-                  className="mt-10"
                   intent="primary"
                   fill
                   onClick={() => {

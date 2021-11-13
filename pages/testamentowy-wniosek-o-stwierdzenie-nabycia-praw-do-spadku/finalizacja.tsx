@@ -8,6 +8,7 @@ import { CardForm } from "../kalkulator";
 import { useRouter } from "next/dist/client/router";
 import ColorfulIcon from "../../components/layout/ColorfulIcon";
 import PaymentForm from "../../components/stripe/PaymentForm";
+import { Stepper } from "./index";
 
 export async function getServerSideProps({ query }) {
   try {
@@ -36,6 +37,11 @@ export default function Finalizacja({ data }) {
   }, []);
   return data ? (
     <>
+      <Stepper
+        nOfSteps={3}
+        currentStep={3}
+        message={"zweryfikuj dane i kup pismo"}
+      />
       <h1 className="text-3xl ">
         Upewnij się, że wprowadzone dane są poprawne.
       </h1>

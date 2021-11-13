@@ -13,6 +13,7 @@ import Link from "next/link";
 import React from "react";
 import Select from "react-select";
 import * as yup from "yup";
+import { Stepper } from "./index";
 import { FamilyImage } from "../../components/calculator/Relation";
 import ColorfulIcon from "../../components/layout/ColorfulIcon";
 import {
@@ -61,7 +62,7 @@ const yupSchema = yup.object().shape({
   deadActNumber: yup.string().required("To pole jest wymagane."),
 
   //court
-  courtName: yup.string().required("To pole jest wymagane."),
+  courtName: yup.string().required("To pole jest wymagane.").nullable(),
   courtAddress: yup.string().required("To pole jest wymagane."),
   courtNumber: yup.string().required("To pole jest wymagane.").nullable(),
   //testament
@@ -83,6 +84,7 @@ export default function WniosekTestament() {
   }, []);
   return (
     <>
+      <Stepper nOfSteps={3} currentStep={2} message={"wypełnij formularz"} />
       <h1 className="text-4xl ">
         Wygeneruj wniosek o stwierdzenie nabycia praw do spadku
         <br />
@@ -139,7 +141,7 @@ export default function WniosekTestament() {
               deadGender: null,
               deadActUscName: "",
               deadActNumber: "",
-              courtName: "",
+              courtName: null,
               courtAddress: "",
               courtNumber: null,
               otherHereditaries: [],
@@ -1471,7 +1473,7 @@ export default function WniosekTestament() {
                           setFieldValue("courtNumber", value)
                         }
                         value={
-                          values.courtName == null
+                          values.courtName == null || !values.courtNumber
                             ? null
                             : {
                                 value: values.courtNumber,
@@ -1527,9 +1529,12 @@ export default function WniosekTestament() {
                     </FormGroup>
                   </div>
                 </CardForm>
+                <p className="w-full text-center mt-4 mb-4">
+                  PRZEJDŹ DO SPRAWDZENIA WPROWADZONYCH DANYCH
+                </p>
                 <Button
                   rightIcon="caret-right"
-                  className="mt-10 w-full"
+                  className="w-full"
                   intent="primary"
                   onClick={(e) => handleSubmit(e)}
                 >

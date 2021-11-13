@@ -1,28 +1,38 @@
-import { Button, Card } from "@blueprintjs/core";
+import { Button, Card, ProgressBar } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import Link from "next/link";
 import React from "react";
 import { useWindowSize } from "../../hooks/windowSize";
 import { Classes } from "@blueprintjs/popover2";
 
-function Stepper({
-  stepsNum,
-  steps,
-  style,
-}: {
-  stepsNum: number;
-  steps: string[];
-  style?: React.CSSProperties;
-  className?: string;
-}) {
-  return <div>dupa</div>;
-}
+export const Stepper = ({ nOfSteps, currentStep, message }) => {
+  return (
+    <>
+      <ProgressBar
+        value={currentStep / nOfSteps}
+        className="mb-2 h-4"
+        intent="primary"
+        animate={false}
+        stripes={false}
+      />
+      <h1 className="w-full text-center">
+        KROK {currentStep} z {nOfSteps}
+      </h1>
+      <p className="w-full text-center mb-4">{message}</p>
+    </>
+  );
+};
 
 export default function index() {
   const { width } = useWindowSize();
 
   return (
     <div className="flex flex-col w-full h-full">
+      <Stepper
+        nOfSteps={3}
+        currentStep={1}
+        message={"zdobądź niezbędne informacje"}
+      />
       <Header
         className="w-full flex text-left flex-wrap-reverse justify-center rounded-lg"
         style={{

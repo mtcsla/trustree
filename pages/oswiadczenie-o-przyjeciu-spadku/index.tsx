@@ -3,12 +3,18 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 import React from "react";
 import { useWindowSize } from "../../hooks/windowSize";
+import { Stepper } from "../testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku";
 
 export default function index() {
   const { width } = useWindowSize();
 
   return (
     <div className="flex flex-col w-full h-full">
+      <Stepper
+        nOfSteps={3}
+        currentStep={1}
+        message={"zdobądź niezbędne informacje"}
+      />
       <Header
         className="w-full flex text-left flex-wrap-reverse justify-center rounded-lg"
         style={{

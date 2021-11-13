@@ -35,10 +35,7 @@ export default function index() {
         >
           <Logo src="logo-light.svg"></Logo>
           <div className="flex flex-col">
-            <h1
-              className={`text-white mt-2  text-${getFontSize(width)}xl`}
-              style={{ lineHeight: 0.8 }}
-            >
+            <h1 className={`text-white mt-2  text-${getFontSize(width)}xl`}>
               Rozwiąż swoją sprawę spadkową w pół godziny.
             </h1>
             <p className="text-white text-lg mt-4">

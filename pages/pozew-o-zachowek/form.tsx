@@ -28,6 +28,7 @@ import Grants from "../../components/pozew-o-zachowek/Grants";
 import { ImmovablesRenderer } from "../../components/pozew-o-zachowek/ImmovablesRenderer";
 import { MovablesRenderer } from "../../components/pozew-o-zachowek/MovablesRenderer";
 import { GrantsRenderer } from "../../components/pozew-o-zachowek/GrantsRenderer";
+import { Stepper } from "../testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku";
 
 const yupSchema = yup.object().shape({
   email: yup
@@ -99,6 +100,7 @@ export default function WniosekTestament() {
   return (
     <>
       <Toaster position={Position.TOP_RIGHT} ref={toaster} className="z-50" />
+      <Stepper nOfSteps={3} currentStep={2} message={"wypełnij formularz"} />
       <h1 className="text-4xl ">Wygeneruj pozew o zachowek</h1>
       <p>Podaj nam swoje dane, a my utworzymy za Ciebie pozew.</p>
 
@@ -1611,9 +1613,12 @@ export default function WniosekTestament() {
                     </FormGroup>
                   </div>
                 </CardForm>
+                <p className="w-full text-center mt-4 mb-4">
+                  PRZEJDŹ DO SPRAWDZENIA WPROWADZONYCH DANYCH
+                </p>
                 <Button
                   rightIcon="caret-right"
-                  className="mt-10 w-full"
+                  className="w-full"
                   intent="primary"
                   onClick={(e) => {
                     if (!countSued(values.otherHereditaries)) {

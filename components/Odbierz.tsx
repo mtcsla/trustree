@@ -8,16 +8,6 @@ import ColorfulIcon from "./layout/ColorfulIcon";
 import { useWindowSize } from "../hooks/windowSize";
 import { html } from "../pages/api/payment-session-deliver";
 
-function htmlToElement(html) {
-  var template = document.createElement("template");
-  html = html.trim(); // Never return a text node of whitespace as the result
-  template.innerHTML = `<html><style>
-
-  @page { size: auto;  margin: 0mm; }
-</style>${html}</html>`;
-  return template.content.children[0];
-}
-
 function print(html: string) {
   const printWindow = window.open("", "", "");
   print;

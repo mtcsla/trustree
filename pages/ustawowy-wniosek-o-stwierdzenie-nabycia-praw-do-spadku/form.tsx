@@ -20,6 +20,7 @@ import {
   OtherHereditariesRenderer,
 } from "../../components/wniosek/OtherHereditariesRenderer";
 import { CardForm } from "../kalkulator";
+import { Stepper } from "../testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku/index";
 
 const yupSchema = yup.object().shape({
   email: yup
@@ -76,6 +77,7 @@ export default function WniosekTestament() {
   }, []);
   return (
     <>
+      <Stepper nOfSteps={3} currentStep={2} message={"wypełnij formularz"} />
       <h1 className="text-4xl ">
         Wygeneruj wniosek o stwierdzenie nabycia praw do spadku
         <br />{" "}
@@ -1335,9 +1337,12 @@ export default function WniosekTestament() {
                     </FormGroup>
                   </div>
                 </CardForm>
+                <p className="w-full text-center mt-4 mb-4">
+                  PRZEJDŹ DO SPRAWDZENIA WPROWADZONYCH DANYCH
+                </p>
                 <Button
                   rightIcon="caret-right"
-                  className="mt-10 w-full"
+                  className="w-full"
                   intent="primary"
                   onClick={(e) => handleSubmit(e)}
                 >
