@@ -79,7 +79,7 @@ export default function KalkulatorZachowku() {
 
         return (
           <>
-            <p className="w-full text-center">
+            <p className="w-full mt-0 text-center">
               <b>TA USŁUGA JEST DARMOWA</b>
             </p>
             <Stepper
@@ -291,7 +291,7 @@ export default function KalkulatorZachowku() {
               rightIcon="caret-right"
               intent="primary"
             >
-              KONTYNUUJ
+              OBLICZ
             </Button>
             <Toaster ref={toaster} className="mt-10" position="top-right" />
           </>

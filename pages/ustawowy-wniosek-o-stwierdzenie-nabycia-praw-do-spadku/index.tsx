@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { useWindowSize } from "../../hooks/windowSize";
 import { Stepper } from "../testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku/index";
+import Steps from "../../components/Steps";
 
 export default function index() {
   const { width } = useWindowSize();
@@ -111,18 +112,7 @@ export default function index() {
           </a>
         </div>
       </Card>
-      <Link
-        passHref
-        href="/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku/form"
-      >
-        <Button
-          rightIcon="caret-right"
-          intent="primary"
-          className="w-full mt-6"
-        >
-          KONTYNUUJ
-        </Button>
-      </Link>
+      <Steps href="/ustawowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku/form" />
     </div>
   );
 }

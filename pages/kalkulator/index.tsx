@@ -82,7 +82,7 @@ export default function Kalkulator() {
 
   return (
     <>
-      <p className="w-full text-center">
+      <p className="w-full mt-0 text-center">
         <b>TA USŁUGA JEST DARMOWA</b>
       </p>
       <Stepper nOfSteps={2} currentStep={1} message={"wypełnij formularz"} />
@@ -102,7 +102,7 @@ export default function Kalkulator() {
           intent="primary"
           rightIcon="caret-right"
         >
-          KONTYNUUJ
+          OBLICZ
         </Button>
         <Toaster position={Position.TOP_RIGHT} ref={toaster} className="z-50" />
       </calculatorContext.Provider>

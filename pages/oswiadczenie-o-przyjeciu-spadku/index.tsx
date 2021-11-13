@@ -2,6 +2,7 @@ import { Button, Card } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import Link from "next/link";
 import React from "react";
+import Steps from "../../components/Steps";
 import { useWindowSize } from "../../hooks/windowSize";
 import { Stepper } from "../testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku";
 
@@ -85,15 +86,7 @@ export default function index() {
           </a>
         </div>
       </Card>
-      <Link passHref href="/oswiadczenie-o-przyjeciu-spadku/form">
-        <Button
-          rightIcon="caret-right"
-          intent="primary"
-          className="w-full mt-6"
-        >
-          KONTYNUUJ
-        </Button>
-      </Link>
+      <Steps href="/oswiadczenie-o-przyjeciu-spadku/form" />
     </div>
   );
 }

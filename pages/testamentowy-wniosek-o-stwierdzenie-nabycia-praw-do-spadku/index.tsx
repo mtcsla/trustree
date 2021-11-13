@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { useWindowSize } from "../../hooks/windowSize";
 import { Classes } from "@blueprintjs/popover2";
+import Steps from "../../components/Steps";
 
 export const Stepper = ({ nOfSteps, currentStep, message }) => {
   return (
@@ -129,18 +130,7 @@ export default function index() {
           </a>
         </div>
       </Card>
-      <Link
-        passHref
-        href="/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku/form"
-      >
-        <Button
-          rightIcon="caret-right"
-          intent="primary"
-          className="w-full mt-6"
-        >
-          KONTYNUUJ
-        </Button>
-      </Link>
+      <Steps href="/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku/form" />
     </div>
   );
 }

@@ -109,7 +109,8 @@ h5 {
   font-weight: 400 !important;
 }
 
-span {
+span,
+button {
   white-space: normal;
   font-weight: normal;
   font-family: "Titillium Web", sans-serif;
