@@ -81,6 +81,7 @@ export default function App({ Component, pageProps }) {
         <Wrapper className="flex h-full" style={{ overflowY: "visible" }}>
           <Navigation
             ref={navRef}
+            id="scroll"
             shown={navExtended}
             className="flex flex-col justify-start h-full fixed select-none"
           >
@@ -125,7 +126,7 @@ const Navigation = styled.div<Shown>`
   width: 300px;
   min-width: 300px;
   padding-left: 5%;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 
   box-sizing: content-box;

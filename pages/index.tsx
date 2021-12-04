@@ -45,7 +45,8 @@ export default function index() {
                 width
               )}xl`}
             >
-              Rozwiąż swoją sprawę spadkową w <br />
+              Rozwiąż swoją sprawę spadkową w
+              <br />
               <b className="gradtext">pół godziny</b>.
             </h1>
             <p className="text-white text-lg mt-4 mb-8">

@@ -67,7 +67,7 @@ export const Nav = () => {
 
       <div
         className="flex w-full flex-col items-stretch"
-        style={{ marginLeft: 15 }}
+        style={{ paddingLeft: 15 }}
       >
         <NavSegment
           onClick={() => setActive(active !== 0 ? 0 : -1)}

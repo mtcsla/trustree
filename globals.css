@@ -98,6 +98,17 @@ strong {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
 }
+body {
+  overflow-x: hidden;
+}
+
+#scroll {
+  direction: rtl;
+}
+
+#scroll * {
+  direction: ltr;
+}
 
 .gradtext {
   /*font-size: 150%;*/
