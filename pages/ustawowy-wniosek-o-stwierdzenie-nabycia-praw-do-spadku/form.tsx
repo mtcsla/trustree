@@ -5,6 +5,8 @@ import {
   FormGroup,
   Icon,
   InputGroup,
+  Position,
+  Toaster,
 } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import { ErrorMessage, Field, Formik } from "formik";
@@ -75,9 +77,10 @@ export default function WniosekTestament() {
   React.useEffect(() => {
     setLoaded(true);
   }, []);
+  const toaster = React.useRef<Toaster>();
   return (
     <>
-      <Stepper nOfSteps={3} currentStep={2} message={"wypełnij formularz"} />
+      <Toaster position={Position.TOP_RIGHT} ref={toaster} className="z-50" />
       <h1 className="text-4xl ">
         Wygeneruj wniosek o stwierdzenie nabycia praw do spadku
         <br />{" "}
@@ -1344,7 +1347,17 @@ export default function WniosekTestament() {
                   rightIcon="caret-right"
                   className="w-full"
                   intent="primary"
-                  onClick={(e) => handleSubmit(e)}
+                  onClick={() => {
+                    handleSubmit();
+
+                    if (Object.keys(errors).length) {
+                      toaster.current.show({
+                        message:
+                          "Sprawdź, czy nie popełniłeś błędów w formularzu, albo czy nie pominąłeś jakichś pól!",
+                        intent: "danger",
+                      });
+                    }
+                  }}
                 >
                   DALEJ
                 </Button>

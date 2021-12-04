@@ -1,7 +1,7 @@
 import { Divider, Icon } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import React from "react";
 import RichMarkdownEditor from "rich-markdown-editor";
 import { db } from "../../components/firebase/firebase";
@@ -15,7 +15,8 @@ export const getServerSideProps = async (context) => {
 
   const doc = await firestore.collection("blog").doc(article).get();
 
-  const blogpost = doc.data();
+  const blogpost = { ...doc.data(), id: doc.id };
+
   blogpost.date = blogpost.date.toDate().toLocaleDateString("pl-PL");
 
   return {
@@ -25,12 +26,18 @@ export const getServerSideProps = async (context) => {
 
 export const fetchNrandomBlogArticles = async (setState, n, article) => {
   const collectionRef = collection(db, "/blog/");
-  const q = query(collectionRef /*, where("visible", "==", true)*/);
+  const q = query(collectionRef, where("visible", "==", true));
 
   let docsData = [];
   const docs = await getDocs(q);
 
   docs.forEach((doc) => docsData.push({ ...doc.data(), id: doc.id }));
+
+  for (const doc of docsData) {
+    if (doc.id === article.id) {
+      docsData.splice(docsData.indexOf(doc), 1);
+    }
+  }
 
   docsData = docsData.sort(() => 0.5 - Math.random());
   docsData = docsData.slice(0, n);
@@ -42,7 +49,6 @@ const Article = ({ article }) => {
   const windowWidth = useWindowSize().width;
   const { title, author, coverUri, contents, date } = article;
   const [blogs, setBlogs] = React.useState([]);
-
   React.useEffect(() => {
     fetchNrandomBlogArticles(setBlogs, 4, article);
   }, [article]);

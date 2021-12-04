@@ -5,6 +5,7 @@ import {
   FormGroup,
   Icon,
   InputGroup,
+  Position,
 } from "@blueprintjs/core";
 import { ErrorMessage, Field, Formik } from "formik";
 import React from "react";
@@ -17,6 +18,7 @@ import {
   RowFormGroup,
 } from "../testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku/form";
 import Select from "react-select";
+import { Toaster } from "@blueprintjs/core";
 import ColorfulIcon from "../../components/layout/ColorfulIcon";
 import { FamilyImage } from "../../components/calculator/Relation";
 import {
@@ -32,8 +34,10 @@ export default function OswiadczeniePrzyjmij() {
   React.useEffect(() => {
     setLoaded(true);
   }, []);
+  const toaster = React.useRef<Toaster>();
   return (
     <>
+      <Toaster position={Position.TOP_RIGHT} ref={toaster} className="z-50" />
       <Stepper nOfSteps={3} currentStep={2} message={"wypełnij formularz"} />
       <div className="text-4xl mb-0 mt-0 w-auto text-right flex justify-start text-gray-700 items-center">
         <div
@@ -197,18 +201,19 @@ export default function OswiadczeniePrzyjmij() {
                           display: "flex",
                           justifyContent: "flex-end",
                           alignItems: "flex-end",
-                          backgroundImage: "url(/people2.svg)",
+                          backgroundImage: "url(/book.jpg)",
                           height: "100%",
-                          backgroundSize: "cover",
-                          backgroundPosition: "50% 40%",
+                          backgroundSize: "contain",
+                          backgroundRepeat: "no-repeat",
+                          backgroundPosition: "center",
                         }}
                       >
                         <a
-                          className="text-xs text-white"
-                          style={{ fontSize: 8 }}
-                          href="https://www.vecteezy.com/free-vector/people"
+                          className="text-xs "
+                          style={{ fontSize: 8, color: "whitesmoke" }}
+                          href="https://www.vecteezy.com/free-vector/book"
                         >
-                          People Vectors by Vecteezy
+                          Book Vectors by Vecteezy
                         </a>
                       </div>
                     </FamilyImage>
@@ -850,6 +855,14 @@ export default function OswiadczeniePrzyjmij() {
                   fill
                   onClick={() => {
                     handleSubmit();
+
+                    if (Object.keys(errors).length) {
+                      toaster.current.show({
+                        message:
+                          "Sprawdź, czy nie popełniłeś błędów w formularzu, albo czy nie pominąłeś jakichś pól!",
+                        intent: "danger",
+                      });
+                    }
                   }}
                   rightIcon="caret-right"
                 >

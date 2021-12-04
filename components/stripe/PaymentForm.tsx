@@ -64,9 +64,9 @@ export default function PaymentForm({ title, subtitle, metadata, price }) {
   return (
     <form>
       <Toaster position={Position.TOP_RIGHT} ref={toaster} className="z-50" />
-      <section className="rounded border">
+      <section className="border">
         <div className="w-full h-full flex items-stretch">
-          <div className=" flex p-5 rounded-tl bg-gray-200">
+          <div className=" flex p-5  bg-gray-200">
             <Icon
               icon={"edit"}
               className="m-auto"
@@ -102,7 +102,7 @@ export default function PaymentForm({ title, subtitle, metadata, price }) {
             flex-direction: column;
             width: 100%;
             min-height: 112px;
-            border-radius: 6px;
+
             justify-content: space-between;
           }
           button:hover {

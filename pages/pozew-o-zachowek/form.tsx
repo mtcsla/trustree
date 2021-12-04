@@ -1630,7 +1630,14 @@ export default function WniosekTestament() {
                     } else {
                       handleSubmit(e);
                     }
-                    console.log(errors);
+
+                    if (Object.keys(errors).length) {
+                      toaster.current.show({
+                        message:
+                          "Sprawdź, czy nie popełniłeś błędów w formularzu, albo czy nie pominąłeś jakichś pól!",
+                        intent: "danger",
+                      });
+                    }
                   }}
                 >
                   DALEJ

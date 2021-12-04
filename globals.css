@@ -99,6 +99,13 @@ strong {
   font-family: "Montserrat", sans-serif;
 }
 
+.gradtext {
+  /*font-size: 150%;*/
+  background: var(--newGrad1);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 h1,
 h2,
 h3,
@@ -137,11 +144,11 @@ button {
   --dark: rgb(0, 21, 41);
   --dark2: rgb(0, 18, 34);
   --dark3: rgb(8, 30, 51);
-  --medium-sea-green: #0f9960;
-  --medium-sea-green: #173d5c;
-  --medium-sea-green-opacity: #173d5cdc;
-  --sea-green: #17344e;
-  --sea-green-opacity: #17344edc;
+  --medium-sea-green: #111314;
+  --medium-sea-green: var(--dark2);
+  --medium-sea-green-opacity: var(--dark2);
+  --sea-green: var(--dark);
+  --sea-green-opacity: var(--dark);
   /*--medium-sea-green: slateblue;
   --sea-green: mediumslateblue;
   --medium-sea-green: rgb(0, 34, 66);

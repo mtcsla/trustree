@@ -13,9 +13,10 @@ export default function index() {
   const { width } = useWindowSize();
 
   const getFontSize = (width: number) => {
-    if (width <= 800) return 3;
-    if (width >= 1200) return 5;
-    if (width >= 1000) return 4;
+    if (width < 600) {
+      return 4;
+    }
+    return 5;
   };
 
   return (
@@ -28,34 +29,39 @@ export default function index() {
         }}
       >
         <HeaderText
-          className="flex flex-col p-10 text-left justify-between"
+          className="flex flex-col p-10 pb-0 w-full text-left justify-center items-center"
           style={{
             background: "var(--sea-green)",
+            border: "none",
           }}
         >
           <Logo src="logo-light.svg"></Logo>
-          <div className="flex flex-col">
-            <h1 className={`text-white mt-2  text-${getFontSize(width)}xl`}>
-              Rozwiąż swoją sprawę spadkową w pół godziny.
+          <div
+            className="flex flex-col items-center"
+            style={{ width: "85%", border: "none" }}
+          >
+            <h1
+              className={`text-white mt-2 text-center text-${getFontSize(
+                width
+              )}xl`}
+            >
+              Rozwiąż swoją sprawę spadkową w <br />
+              <b className="gradtext">pół godziny</b>.
             </h1>
-            <p className="text-white text-lg mt-4">
+            <p className="text-white text-lg mt-4 mb-8">
               Wygeneruj pismo dla swojego postępowania spadkowego, bądź oblicz,
               ile Ci się należy.
             </p>
-          </div>
-          <div className="flex flex-col mt-4">
-            <p
-              className={`text-${
-                width > 1300 ? "base" : "xs"
-              } text-white  bg-white bg-opacity-20 p-2 rounded`}
-            >
-              Firma powstała w ramach programu akceleracyjnego TeenCrunch,
-              dzięki warsztatowemu wsparciu Google for Start-ups, Microsoft
-              Polska oraz Apptension.
-            </p>
+            <Video
+              src="easy.mp4"
+              autoPlay
+              loop
+              style={{ width: "85%" }}
+              className="rounded-t-lg"
+            ></Video>
           </div>
         </HeaderText>
-        <Suited src="/stock3.png" style={{ background: "var(--sea-green)" }} />
+        {/*<Suited src="/stock3.png" style={{ background: "var(--sea-green)" }} />*/}
       </div>
       <div className="w-full flex flex-col items-center p-10 pb-2 text-center">
         <h1 className="w-full">
@@ -408,7 +414,7 @@ export default function index() {
         style={{ background: "var(--medium-sea-green)" }}
       >
         <h1 className="w-full"></h1>
-        <div className="flex flex-wrap justify-center text-left w-full pl-10 pr-10">
+        <div className="flex flex-wrap justify-center text-left w-full pl-10 pr-10 pt-10">
           {/*<Generation
             className="mt-8 p-4 mb-2 text-center rounded-lg text-black"
             style={{ background: "var(--layout-bg)" }}
@@ -421,13 +427,21 @@ export default function index() {
             Nasi partnerzy
           </Generation>
           */}
+          {width < 1000 ? (
+            <h1 className="w-full mb-1 text-4xl">
+              Oferujemy Ci usługi najwyższej jakości.
+            </h1>
+          ) : null}
+
           <Div className="flex justify-between items-center mb-4 mt-4">
             <Item2 className="flex-1 h-full w-full" style={{ marginLeft: 0 }}>
               <div className="flex pr-4 h-full flex-col flex-1 justify-center items-center">
-                <h1 className="w-full mb-1">
-                  Oferujemy Ci usługi najwyższej jakości.
-                </h1>
-                <p className="text-sm">
+                {width >= 1000 ? (
+                  <h1 className="w-full mb-1 text-4xl">
+                    Oferujemy Ci usługi najwyższej jakości.
+                  </h1>
+                ) : null}
+                <p className={"text-sm"}>
                   Wszystkie nasze wzory pism oraz usługi są weryfikowane przez
                   prawników przed udostępnieniem ich naszym klientom.
                   Współpracujemy już z dwoma kancelariami prawnymi, które
@@ -447,11 +461,12 @@ export default function index() {
               </MecenasText>
             </Radca>
           </Div>
-          <div className="flex flex-col mb-8">
+
+          <div className="flex flex-col w-full">
             <p
               className={`text-${
                 width > 1300 ? "base" : "xs"
-              } text-white  bg-white bg-opacity-20 p-2 rounded`}
+              } text-white  w-full bg-white bg-opacity-20 p-4 rounded-t`}
             >
               Firma powstała w ramach programu akceleracyjnego TeenCrunch,
               dzięki warsztatowemu wsparciu Google for Start-ups, Microsoft
@@ -461,8 +476,8 @@ export default function index() {
         </div>
       </div>
 
-      <div
-        className="w-full p-1 flex justify-center items-center flex-wrap text-white"
+      {/*<div
+      className="w-full p-1 flex justify-around items-center flex-wrap text-white"
         style={{ background: "var(--sea-green)" }}
       >
         <a
@@ -493,14 +508,14 @@ export default function index() {
           />
           Instagram
         </a>
-      </div>
+          </div>*/}
     </>
   );
 }
 const HeaderText = styled.div``;
 const Suited = styled.img`
-  height: 340px;
-  min-height: 340px;
+  height: 320px;
+  min-height: 320px;
   align-self: end;
   padding-top: 10px;
   @media (min-width: 800px) and (max-width: 1100px) {
@@ -550,6 +565,13 @@ const Item = styled.div`
 
   margin: 2%;
 `;
+
+const Video = styled.video`
+  @media (max-width: 1200px) {
+    width: 100% !important;
+  }
+  border: none;
+`;
 const Item2 = styled.div`
   display: flex;
   flex-direction: row;
@@ -584,16 +606,11 @@ const Item3 = styled.div`
   margin: 2%;
 `;
 const Logo = styled.img`
-  height: 100px;
-  @media (min-width: 1100px) {
-    display: none;
-  }
+  height: 150px;
   @media (max-width: 800px) {
-    display: none;
+    height: 100px;
   }
-  @media (max-width: 600px) {
-    display: block;
-  }
+}
 `;
 const Generation = styled.h1`
   width: 85%;

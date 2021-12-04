@@ -12,7 +12,7 @@ export default function Steps({ href }) {
           <h3 className="text-white rounded-lg">
             Wykonaj pismo w trzech prostych krokach.
           </h3>
-          <p>oto one</p>
+          <p>oto one:</p>
         </div>
         <div className="flex items-stretch flex-wrap">
           <ol className=" ml-6 m-3 list-decimal">
