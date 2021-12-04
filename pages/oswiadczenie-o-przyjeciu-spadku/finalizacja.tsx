@@ -221,7 +221,7 @@ export default function Finalizacja({ data }) {
           </div>
         ) : null}
       </CardForm>
-      <CardForm>
+      <CardForm style={{ minHeight: 0 }}>
         <h2 className="flex items-center w-full  text-2xl mb-0">
           <ColorfulIcon
             size={18}
@@ -231,11 +231,15 @@ export default function Finalizacja({ data }) {
           />{" "}
           Inni spadkobiercy
         </h2>
-        <OtherHereditariesRenderer
-          otherHereditaries={data.otherHereditaries}
-          setValue={() => {}}
-          readonly
-        />
+        {data.otherHereditaries.length ? (
+          <OtherHereditariesRenderer
+            otherHereditaries={data.otherHereditaries}
+            setValue={() => {}}
+            readonly
+          />
+        ) : (
+          <h1 className="w-full">BRAK</h1>
+        )}
       </CardForm>
       <CardForm className="mb-10">
         <h2 className="flex items-center w-full  text-2xl mb-0">

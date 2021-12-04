@@ -26,7 +26,7 @@ export default function Steps({ href }) {
               <b>Otrzymaj pismo na adres e-mail.</b>
             </li>
           </ol>
-          <Link passHref href="/oswiadczenie-o-przyjeciu-spadku/form">
+          <Link passHref href={href}>
             <a className="flex flex-1">
               <Button
                 className="flex-1 p-4 h-full"
