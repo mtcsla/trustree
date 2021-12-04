@@ -110,6 +110,11 @@ body {
   direction: ltr;
 }
 
+img {
+  transform: translate3D(0px, 0px, 0px);
+  transform: unset !important;
+}
+
 .gradtext {
   /*font-size: 150%;*/
   background: var(--newGrad1);

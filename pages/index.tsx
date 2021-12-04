@@ -571,6 +571,7 @@ const Video = styled.video`
   @media (max-width: 1200px) {
     width: 100% !important;
   }
+  transform: translateY(1px);
   border: none;
 `;
 const Item2 = styled.div`
