@@ -53,11 +53,11 @@ const RelativesForm = () => {
       {[5, 6].includes(calculatorState.relation) ? (
         <>
           <Divider style={{ marginTop: 20, marginBottom: 20 }} />
-          <h4 className=" text-xl" style={{ marginBottom: 5 }}>
+          <h4 className=" text-xl w-full" style={{ marginBottom: 5 }}>
             Ile wciąż żyjących bądź nieżyjących, lecz z żyjącym potomstwem braci
             lub sióstr masz Ty?
           </h4>
-          <p style={{ marginBottom: 20 }}>
+          <p className="w-full" style={{ marginBottom: 20 }}>
             Jeśli brat lub siostra nie żyje, lecz ma swoje potomstwo (dzieci,
             wnuki), które nadal żyje uwzględnij je.
           </p>

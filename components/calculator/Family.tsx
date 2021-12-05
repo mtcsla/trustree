@@ -29,7 +29,7 @@ const FamilyForm = () => {
         <>
           <Divider className="mt-7" style={{ marginLeft: -5 }} />
           <h4 style={{ marginBottom: 10, marginTop: 20 }}>
-            Czy małżonek zmarłego wciąż żyje?
+            Czy zmarły miał małżonka, który wciąż żyje?
           </h4>
 
           <RadioGroup
@@ -51,7 +51,9 @@ const FamilyForm = () => {
         <>
           <Divider className="mt-7" style={{ marginLeft: -5 }} />
           <h4 style={{ marginBottom: 10, marginTop: 20 }}>
-            Czy Twój rodzic, będący dzieckiem zmarłego wciąż żyje?
+            Czy Twój rodzic, będący{" "}
+            {calculatorState.relation == 5 ? "dzieckiem" : "rodzeństwem"}{" "}
+            zmarłego wciąż żyje?
           </h4>
 
           <RadioGroup
