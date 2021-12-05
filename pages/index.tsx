@@ -410,6 +410,31 @@ export default function index() {
           </div>
         </div>
       </div>
+      <div className="p-10 flex justify-between flex-wrap-reverse items-center">
+        <iframe
+          width={width < 800 ? "240" : "400"}
+          height={width < 800 ? "150" : "250"}
+          className="m-auto"
+          src="https://www.youtube.com/embed/5OJmKjyA6tE"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+        <div
+          className="flex flex-col pl-10 pr-10 flex-1"
+          style={{ minWidth: 240 }}
+        >
+          <h1 className="text-center text-5xl mb-4 mt-6">
+            Bardzo <b className="gradtext">prosty</b> proces
+          </h1>
+          <p className="mb-6">
+            Wykonanie pisma w Trustree nie wymaga żadnej znajomości prawa. Po
+            prostu wypełnij formularz, który ci udostępniamy, a my wykonamy za
+            Ciebie pismo. Obejrzyj film, aby dowiedzieć się więcej.
+          </p>
+        </div>
+      </div>
       <div
         className="w-full flex flex-col items-center text-center text-white p-0"
         style={{ background: "var(--medium-sea-green)" }}

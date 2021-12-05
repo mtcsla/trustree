@@ -72,6 +72,7 @@ export default function OswiadczeniePrzyjmij() {
             JSON.parse(localStorage.getItem("oswiadczeniePrzyjmijValues")) || {
               email: "",
               name: "",
+              gender: null,
               testament: null,
               testamentDate: null,
               street: "",
@@ -97,9 +98,10 @@ export default function OswiadczeniePrzyjmij() {
               .email("Wprowadź poprawny adres e-mail.")
               .required("To pole jest wymagane."),
             name: yup.string().required("To pole jest wymagane."),
+            gender: yup.number().required("To pole jest wymagane.").nullable(),
             street: yup.string().required("To pole jest wymagane."),
             city: yup.string().required("To pole jest wymagane."),
-            forma: yup.number().required("To pole jest wymagane."),
+            forma: yup.number().required("To pole jest wymagane.").nullable(),
             postal: yup
               .string()
               .required("To pole jest wymagane.")
@@ -190,6 +192,43 @@ export default function OswiadczeniePrzyjmij() {
                           }
                         />
                         <ErrorMessage name="name">
+                          {RenderErrorMessage}
+                        </ErrorMessage>
+                      </FormGroup>
+                      <FormGroup label="płeć:">
+                        <Field
+                          className="w-full"
+                          as={Select}
+                          menuPortalTarget={document.body}
+                          isSearchable={false}
+                          name="gender"
+                          intent={
+                            errors.gender && touched.gender ? "danger" : "none"
+                          }
+                          placeholder="wybierz..."
+                          onChange={({ value }) => {
+                            setFieldValue("gender", value);
+                          }}
+                          value={
+                            values.gender == null
+                              ? null
+                              : {
+                                  value: values.gender,
+                                  label: !values.gender
+                                    ? "mężczyzna"
+                                    : "kobieta",
+                                }
+                          }
+                          options={[
+                            {
+                              value: 0,
+                              label: "mężczyzna",
+                            },
+                            { value: 1, label: "kobieta" },
+                          ]}
+                        />
+
+                        <ErrorMessage name="gender">
                           {RenderErrorMessage}
                         </ErrorMessage>
                       </FormGroup>
@@ -339,6 +378,7 @@ export default function OswiadczeniePrzyjmij() {
                         {RenderErrorMessage}
                       </ErrorMessage>
                     </FormGroup>
+
                     <FormGroup label="ostatni adres zamieszkania:">
                       <Field
                         as={InputGroup}

@@ -11,6 +11,7 @@ export const hereditaryAcceptanceDeclaration_pl = (metadata: any) => {
   const date = new Date();
 
   const isTestatorMale = metadata.deadGender == 0;
+  const isHereditaryMale = metadata.gender == 0;
 
   return html`
       <div
@@ -23,8 +24,10 @@ export const hereditaryAcceptanceDeclaration_pl = (metadata: any) => {
           ${metadata.courtNumber} Wydział Cywilny<br />
           ${metadata.courtAddress}<br /><br />
           Wnioskodawca: <br/>${metadata.name},<br />
-          zamieszkały pod adresem ${metadata.street}, ${metadata.postal}
-           ${metadata.city}<br /><br />
+          zamieszkał${isHereditaryMale ? "y" : "a"} pod adresem ${
+    metadata.street
+  }, ${metadata.postal} ${metadata.city}<br /><br />
+
           ${
             metadata?.otherHereditaries.length
               ? "Uczestnicy postępowania:<br>"
@@ -37,7 +40,9 @@ export const hereditaryAcceptanceDeclaration_pl = (metadata: any) => {
                   metadata.otherHereditaries.map((hereditary) => {
                     otherHereditaries +=
                       hereditary.name +
-                      ",<br>zamieszkały pod adresem " +
+                      `,<br>zamieszkał${
+                        hereditary.gender == 0 ? "y" : "a"
+                      } pod adresem ` +
                       hereditary.address +
                       "<br>";
                   });

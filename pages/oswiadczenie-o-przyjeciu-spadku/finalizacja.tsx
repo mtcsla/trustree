@@ -66,7 +66,7 @@ export default function Finalizacja({ data }) {
 
           <div className="flex flex-col pl-2">
             <div className="w-full uppercase text-xs flex items-center text-right justify-end">
-              Imię i nazwisko <Icon icon="person" className="ml-2" size={12} />
+              Imię i nazwisko: <Icon icon="person" className="ml-2" size={12} />
             </div>
             <span className="w-full text-base text-right">{data.name}</span>
           </div>
@@ -102,6 +102,14 @@ export default function Finalizacja({ data }) {
               {data.forma == 1
                 ? "przyjęcie z dobrodziejstwem inwentarza"
                 : "przyjęcie proste"}
+            </span>
+          </div>
+          <div>
+            <div className="w-full uppercase text-xs text-right flex flex-row-reverse items-center">
+              <Icon icon="one-to-many" className="ml-2" size={12} /> płeć:{" "}
+            </div>
+            <span className="w-full text-base">
+              {data.deadGender == 0 ? "mężczyzna" : "kobieta"}
             </span>
           </div>
         </div>

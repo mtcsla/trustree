@@ -91,6 +91,19 @@ export default function Finalizacja({ data }) {
             </span>
           </div>
         </div>
+        <Divider className="w-full mt-4 mb-4" />
+        <div className="flex w-full justify-between">
+          <div className="flex flex-col">
+            <div>
+              <div className="w-full uppercase text-xs flex items-center">
+                <Icon icon="one-to-many" className="mr-2" size={12} /> płeć:{" "}
+              </div>
+              <span className="w-full text-base">
+                {data.deadGender == 0 ? "mężczyzna" : "kobieta"}
+              </span>
+            </div>
+          </div>
+        </div>
       </CardForm>
       <Callout intent="warning" className="mt-8">
         Jeśli wypełniłeś formularz wadliwymi danymi i zakupisz pismo, nie będzie
