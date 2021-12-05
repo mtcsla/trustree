@@ -414,13 +414,12 @@ export default function index() {
         <iframe
           width={width < 800 ? "240" : "400"}
           height={width < 800 ? "150" : "250"}
-          className="m-auto"
-          src="https://www.youtube.com/embed/5OJmKjyA6tE"
+          src="https://www.youtube.com/embed/SsiAoF-VYy4"
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-        />
+        ></iframe>
         <div
           className="flex flex-col pl-10 pr-10 flex-1"
           style={{ minWidth: 240 }}
