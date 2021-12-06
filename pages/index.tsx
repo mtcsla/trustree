@@ -412,6 +412,7 @@ export default function index() {
       </div>
       <div className="p-10 flex justify-between flex-wrap-reverse items-center">
         <iframe
+          className="ml-auto mr-auto"
           width={width < 800 ? "240" : "400"}
           height={width < 800 ? "150" : "250"}
           src="https://www.youtube.com/embed/SsiAoF-VYy4"

@@ -58,8 +58,9 @@ export default function WarunkiSwiadczeniaUslug() {
           także ustawie z dnia 16 lipca 2004 r. - Prawie telekomunikacyjnym
           (Dz.U.2019.2460 t.j.).
         </p>
-        <br /> 1. Cele przyjętej polityki prywatności i wykorzystywania plików
-        cookies w serwisie internetowym. 1.1. Niniejsza Polityka prywatności i
+        <br />
+        1. Cele przyjętej polityki prywatności i wykorzystywania plików cookies
+        w serwisie internetowym. 1.1. Niniejsza Polityka prywatności i
         wykorzystywania plików cookies reguluje zasady przetwarzania danych
         osobowych zbierania i wykorzystywania informacji o użytkownikach w
         serwisie internetowym w domenie WWW.TRUSTREE.PL; (zwanych dalej:
