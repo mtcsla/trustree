@@ -3,7 +3,7 @@ import md5 from "md5";
 import { firestore } from "./lib/firebase-admin";
 
 const stripe = new Stripe(
-  "sk_test_51J8MtAHh12lHWWSnO5ONNOVxIOzYWsVN1hLD3kAf3Q7FGtN7iNNAspJB3x2HMCnlafkBrCYofrIhQcmozG7NoYsf00E5j84e85",
+  "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", //"sk_test_51J8MtAHh12lHWWSnO5ONNOVxIOzYWsVN1hLD3kAf3Q7FGtN7iNNAspJB3x2HMCnlafkBrCYofrIhQcmozG7NoYsf00E5j84e85",
   { apiVersion: "2020-08-27" }
 );
 
@@ -67,21 +67,21 @@ export const determinePrice = ({ docId, otherHereditaries }) => {
 
   switch (docId) {
     case 0:
-      return "price_1JqOIiHh12lHWWSnRJ95ly9g";
+      return "price_1K46MvHh12lHWWSnjWHvPGHr"; //"price_1JqOEDHh12lHWWSnZzm3sCLt";
     case 1:
-      return "price_1JqOEDHh12lHWWSnZzm3sCLt";
+      return "price_1K46N8Hh12lHWWSnJZMmByoA"; //"price_1JqOIiHh12lHWWSnRJ95ly9g";
     case 2:
-      return "price_1JqOA8Hh12lHWWSnzed1zYOn";
+      return "price_1K46NCHh12lHWWSnIbXbhxJg"; //"price_1JqOA8Hh12lHWWSnzed1zYOn";
     case 3:
       throw new Error("Unknown.");
     case 4:
       return otherHereditaries.length
-        ? "price_1JqOFSHh12lHWWSnQRH2MCfp"
-        : "price_1JqOFsHh12lHWWSnu4CuC6I9";
+        ? "price_1K46N4Hh12lHWWSn1Bt0oElX" //"price_1JqOFSHh12lHWWSnQRH2MCfp"
+        : "price_1K46N4Hh12lHWWSnPLYVMq0d"; //"price_1JqOFsHh12lHWWSnu4CuC6I9";
     case 5:
       return otherHereditaries.length
-        ? "price_1JqOH2Hh12lHWWSnXPdyk7QZ"
-        : "price_1JqOH2Hh12lHWWSnkcHsbSBP";
+        ? "price_1K46N0Hh12lHWWSnZuFHpXLf" //"price_1JqOH2Hh12lHWWSnXPdyk7QZ"
+        : "price_1K46N0Hh12lHWWSnvwTyga6B"; //"price_1JqOH2Hh12lHWWSnkcHsbSBP";
 
     default:
       throw new Error("Unknown.");
