@@ -84,12 +84,12 @@ export default function WarunkiSwiadczeniaUslug() {
         <br />
         <ul>
           <li className="text-lg">
-            <b>1.1.</b> Niniejszy dokument jest umową zawartą pomiędzy Trustree
-            Wojtowicz Cieśla Nowak spółka jawna (adres ul. Dworcowa 54, 14-400
-            Pasłęk, e-mail: mail@trustree.pl) (zwaną dalej „WWW.TRUSTREE.PL“),
-            która jest prawomocnym właścicielem strony internetowej
-            www.trustree.pl, a Użytkownikiem dotyczącą zasad korzystania ze
-            Strony Internetowej.
+            <b>1.1.</b> Niniejszy dokument jest umową zawartą pomiędzy
+            Kancelarią Radcy Prawnego Piotr Wojtowicz (adres ul. Świętojańska
+            34/7, 81-372 Gdynia, e-mail: mail@trustree.pl) (zwaną dalej
+            „WWW.TRUSTREE.PL“), która jest prawomocnym właścicielem strony
+            internetowej www.trustree.pl, a Użytkownikiem dotyczącą zasad
+            korzystania ze Strony Internetowej.
           </li>
           <br />
           <li className="text-lg">
@@ -112,8 +112,8 @@ export default function WarunkiSwiadczeniaUslug() {
             wszystkich wymagań określonych w niniejszym Regulaminie. W
             przypadku, gdy Użytkownik nie zgadza się na wypełnienie wszystkich
             obowiązków określonych w niniejszym Regulaminie, ale korzysta z
-            systemu i usług WWW.TRUSTREE.PL, Trustree Wojtowicz Cieśla Nowak
-            spółka jawna nie ponosi odpowiedzialności za jakiekolwiek szkody
+            systemu i usług WWW.TRUSTREE.PL, Kancelaria Radcy Prawnego Piotr
+            Wojtowicz nie ponosi odpowiedzialności za jakiekolwiek szkody
             wyrządzone Użytkownikowi jego własnym działaniem. Użytkownik, który
             nie akceptuje niniejszych Warunków, nie jest uprawniony do
             korzystania z jakichkolwiek Usług na Stronie Internetowej.
@@ -343,7 +343,7 @@ export default function WarunkiSwiadczeniaUslug() {
         <br />
         <ul className="text-lg mb-4">
           <li>
-            <b>8.1.</b> Trustree Wojtowicz Cieśla Nowak spółka jawna jest
+            <b>8.1.</b> Kancelaria Radcy Prawnego Piotr Wojtowicz jest
             właścicielem wszystkich praw do treści WWW.TRUSTREE.PL i ma wyłączne
             prawo do korzystania z nich. Wszystkie znaki towarowe, design,
             nazwy, logo itp. usługi zamieszczane na Stronie Internetowej są

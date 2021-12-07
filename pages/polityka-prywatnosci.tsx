@@ -1,4 +1,4 @@
-import { Button, Card, UL } from "@blueprintjs/core";
+import { Button, Card, UL, HTMLTable } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import { useWindowSize } from "../hooks/windowSize";
 import Link from "next/link";
@@ -212,13 +212,35 @@ export default function WarunkiSwiadczeniaUslug() {
           <br />
           <li className="text-lg">
             <b>3.3.</b> Rodzaje plików cookies: W Serwisie używamy następujących
-            rodzajów plików cookies: Celem wyjaśnienia funkcji stosowanych
-            plików, informujemy, iż: ⎯ pliki sesyjne to pliki tymczasowe, które
-            przechowywane są w Twoim urządzeniu do czasu wylogowania się z
-            Serwisu, wyjścia z Serwisu, w tym poprzez całkowite zamknięcie
-            przeglądarki. ⎯
-            ..................................................(należy wpisać
-            inne rodzaje używane w serwisie)
+            rodzajów plików cookies:
+            <br />
+            <br />
+            <HTMLTable className="bp3-html-table bp3-html-table-bordered bp3-html-table-condensed bp3-html-table-striped border w-full">
+              <tbody>
+                <tr>
+                  <td>nazwa pliku Cookie</td>
+                  <td>rodzaj</td>
+                  <td>cel zapisywania</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>_stripe_mid</b>
+                  </td>
+                  <td>
+                    <b>stałe</b>
+                  </td>
+                  <td>
+                    <b>służy utrzymaniu bezpieczeństwa płatności</b>
+                  </td>
+                </tr>
+              </tbody>
+            </HTMLTable>
+            <br />
+            Celem wyjaśnienia funkcji stosowanych plików, informujemy, iż pliki
+            stałe przechowywane są przez zdefiniowany czas, który określany jest
+            przez parametr zawarty w pliku Cookie. Użytkownik dysponuje również
+            możliwością ręcznego usunięcia wszystkich lub wybranych plików
+            Cookies.
           </li>
           <br />
           <li className="text-lg">
@@ -227,12 +249,25 @@ export default function WarunkiSwiadczeniaUslug() {
             cookies. Jeżeli Użytkownik nie wyraża zgody na zapisywanie tych
             plików na urządzeniu końcowym, Użytkownik powinien zmienić
             ustawienia przeglądarki internetowej, z której korzysta.
-            Uniemożliwienie zapisywania plików cookies może polegać na: ⎯
-            niezapisywaniu plików cookies na urządzeniu końcowym; ⎯ każdorazowym
-            informowaniu użytkownika o zapisaniu danego pliku cookie na
-            urządzeniu; ⎯ usuwaniu plików po skorzystaniu z Serwisu. Aby
-            skorzystać z odpowiedniej dla Użytkownika opcji, należy zapoznać się
-            z informacjami o zarządzaniu plikami cookies, które znajdują się
+            Uniemożliwienie zapisywania plików cookies może polegać na:
+            <ol className="ml-4">
+              <br />
+              <li>
+                <b>⎯</b> niezapisywaniu plików cookies na urządzeniu końcowym;
+              </li>
+              <br />
+              <li>
+                <b>⎯</b> każdorazowym informowaniu użytkownika o zapisaniu
+                danego pliku cookie na urządzeniu;
+              </li>
+              <br />
+              <li>
+                <b>⎯</b> usuwaniu plików po skorzystaniu z Serwisu.
+              </li>
+              <br />
+            </ol>
+            Aby skorzystać z odpowiedniej dla Użytkownika opcji, należy zapoznać
+            się z informacjami o zarządzaniu plikami cookies, które znajdują się
             najczęściej w „Ustawieniach” przeglądarki lub w zakładce „Pomoc". Za
             każdym razem Użytkownik może też skontaktować się z Serwisem
             wysyłając na adres mailowy mail@trustree.pl wszelkie pytania i
