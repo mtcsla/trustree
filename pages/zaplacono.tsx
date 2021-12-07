@@ -1,6 +1,7 @@
 import { Button, Card } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import Link from "next/link";
+import React from "react";
 import { useWindowSize } from "../hooks/windowSize";
 
 export const getServerSideProps = ({ query }) => {
@@ -8,6 +9,11 @@ export const getServerSideProps = ({ query }) => {
 };
 export default function Zaplacono(props) {
   const { width } = useWindowSize();
+
+  React.useEffect(
+    () => localStorage.removeItem(determineStorage(props.id)),
+    []
+  );
   return (
     <>
       <Header
@@ -74,5 +80,23 @@ export const determineName = ({ docId }) => {
       return "wniosek o stwierdzenie nabycia praw do spadku wg dziedziczenia ustawowego";
     case 5:
       return "wniosek o stwierdzenie nabycia praw do spadku wg dziedziczenia testamentowego";
+  }
+};
+export const determineStorage = (docId) => {
+  if (typeof docId == "string") docId = parseInt(docId);
+
+  switch (docId) {
+    case 0:
+      return "oswiadczenieOdrzucValues";
+    case 1:
+      return "oswiadczeniePrzyjmijValues";
+    case 2:
+      return "pozewOZachowek";
+    case 3:
+      return "";
+    case 4:
+      return "wniosekUstawowyValues";
+    case 5:
+      return "wniosekTestamentowyValues";
   }
 };
