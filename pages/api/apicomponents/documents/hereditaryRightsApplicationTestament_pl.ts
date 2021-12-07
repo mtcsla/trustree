@@ -97,8 +97,20 @@ export const hereditaryRightsApplicationTestament_pl = (metadata: any) => {
   }<br />
           ${
             metadata.otherHereditaries.length > 0
-              ? `Uczestnicy postępowania: <br />
-                ${namesAndAddresses} <br />`
+              ? `<br/>Uczestnicy postępowania: <br />
+                ${(() => {
+                  let otherHereditaries = "";
+                  metadata.otherHereditaries.map((hereditary) => {
+                    otherHereditaries +=
+                      hereditary.name +
+                      `,<br>zamieszkał${
+                        hereditary.gender == 0 ? "y" : "a"
+                      } pod adresem ` +
+                      hereditary.address +
+                      "<br>";
+                  });
+                  return otherHereditaries;
+                })()} <br />`
               : ""
           }<br />
         </div>

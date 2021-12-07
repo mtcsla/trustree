@@ -80,8 +80,8 @@ export const determinePrice = ({ docId, otherHereditaries }) => {
         : "price_1JqOFsHh12lHWWSnu4CuC6I9";
     case 5:
       return otherHereditaries.length
-        ? "price_1JqOH2Hh12lHWWSnkcHsbSBP"
-        : "price_1JqOH2Hh12lHWWSnXPdyk7QZ";
+        ? "price_1JqOH2Hh12lHWWSnXPdyk7QZ"
+        : "price_1JqOH2Hh12lHWWSnkcHsbSBP";
 
     default:
       throw new Error("Unknown.");

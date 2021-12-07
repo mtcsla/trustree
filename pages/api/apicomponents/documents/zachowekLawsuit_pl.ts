@@ -100,25 +100,6 @@ export const zachowekLawsuit_pl = (metadata: any) => {
           Pozwan${suedNumber == 1 ? "y" : "i"}:
           ${suedNumber > 1 ? "<br />" : ""} ${suedList} <br />
           Wartość przedmiotu sporu: ${metadata.value}zł
-          <br /><br />
-          ${metadata?.otherHereditaries.length
-            ? "Uczestnicy postępowania:<br>"
-            : ""}
-          ${metadata?.otherHereditaries.length
-            ? `${(() => {
-                let otherHereditaries = "";
-                metadata.otherHereditaries.map((hereditary) => {
-                  otherHereditaries +=
-                    hereditary.name +
-                    `,<br>zamieszkał${
-                      hereditary.gender == 0 ? "y" : "a"
-                    } pod adresem ` +
-                    hereditary.address +
-                    "<br>";
-                });
-                return otherHereditaries;
-              })()}`
-            : ""}
         </span>
         <br /><br />
       </div>

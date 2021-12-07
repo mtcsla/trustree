@@ -75,9 +75,21 @@ export const hereditaryRightsApplicationAct_pl = (metadata: any) => {
         Wnioskodawc${isHereditaryMale ? "a" : "zyni"}: ${metadata.name}, nr.
         PESEL: ${metadata.pesel}, zamieszkał${isHereditaryMale ? "y" : "a"} pod
         adresem ${metadata.street}, ${metadata.postal} ${metadata.city}<br />
-        ${metadata.otherHereditariesLength > 0
-          ? `Uczestnicy postępowania: <br>
-    ${namesAndAddresses} <br>`
+        ${metadata.otherHereditaries.length > 0
+          ? `<br/>Uczestnicy postępowania: <br />
+                ${(() => {
+                  let otherHereditaries = "";
+                  metadata.otherHereditaries.map((hereditary) => {
+                    otherHereditaries +=
+                      hereditary.name +
+                      `,<br>zamieszkał${
+                        hereditary.gender == 0 ? "y" : "a"
+                      } pod adresem ` +
+                      hereditary.address +
+                      "<br>";
+                  });
+                  return otherHereditaries;
+                })()} <br />`
           : ""}<br />
       </div>
 
