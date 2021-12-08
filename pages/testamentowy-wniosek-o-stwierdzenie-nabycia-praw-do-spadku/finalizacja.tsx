@@ -9,6 +9,7 @@ import { useRouter } from "next/dist/client/router";
 import ColorfulIcon from "../../components/layout/ColorfulIcon";
 import PaymentForm from "../../components/stripe/PaymentForm";
 import { Stepper } from "./index";
+import YoullGetMail from "../../components/YoullGetMail";
 
 export async function getServerSideProps({ query }) {
   try {
@@ -42,6 +43,8 @@ export default function Finalizacja({ data }) {
         currentStep={3}
         message={"zweryfikuj dane i kup pismo"}
       />
+      <YoullGetMail />
+
       <h1 className="text-3xl ">
         Upewnij się, że wprowadzone dane są poprawne.
       </h1>
@@ -187,8 +190,7 @@ export default function Finalizacja({ data }) {
       </CardForm>
 
       <Callout intent="warning" className="mt-8">
-        Jeśli wypełniłeś formularz wadliwymi danymi i zakupisz pismo, nie będzie
-        możliwości jego edycji!
+        Po zakupieniu pisma, nie będziesz mieć opcji zmiany danych w formularzu.
       </Callout>
       <CardForm>
         <h2 className="flex items-center w-full  text-2xl mb-0">

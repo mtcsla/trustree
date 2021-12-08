@@ -14,7 +14,7 @@ export function getMailTemplate({ email, id, origin }: any) {
         >
           <tbody style="width: 100%">
             <tr>
-              <td style="width: 100%; height: 40px; background: #17344e" />
+              <td style="width: 100%; height: 40px; background: #001529" />
             </tr>
             <tr>
               <td
@@ -92,7 +92,7 @@ export function getMailTemplate({ email, id, origin }: any) {
               padding: 5px;
               box-sizing: border-box;
               max-height: 25px;
-              background:#17344e;
+              background:	#001529;
               color: white;
             "
               >
@@ -106,7 +106,7 @@ export function getMailTemplate({ email, id, origin }: any) {
                 font-size: 12px;
               "
                 >
-                  Trustree sp.j. © 2021
+                  Trustree © 2021
                 </p>
               </td>
             </tr>

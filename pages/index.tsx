@@ -384,7 +384,7 @@ export default function index() {
               <div className="ml-4 pr-4 flex flex-col">
                 <h3 className=" mb-1">Szybkość</h3>
                 <p className="text-sm">
-                  Zaoszczędź swój czas: wygeneruj niezbędne pismo w 5 minut.
+                  Zaoszczędź swój czas: wygeneruj niezbędne pismo w pół godziny.
                   Przystępnie wypełnij niezbędne dane i otrzymaj swoje pismo
                   natychmiastowo.
                 </p>

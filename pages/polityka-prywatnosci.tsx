@@ -70,9 +70,9 @@ export default function WarunkiSwiadczeniaUslug() {
             cookies reguluje zasady przetwarzania danych osobowych zbierania i
             wykorzystywania informacji o użytkownikach w serwisie internetowym w
             domenie WWW.TRUSTREE.PL; (zwanych dalej: „Serwisem”). Została
-            stworzona i przyjęta przez Trustree Wojtowicz Cieśla Nowak spółka
-            jawna (adres ul. Dworcowa 54,14-400 Pasłęk). Administratorem danych
-            osobowych jest Trustree Wojtowicz Cieśla Nowak spółka jawna (dalej:
+            stworzona i przyjęta przez Kancelarię Radcy Prawnego Piotr Wojtowicz
+            (adres ul. Świętojańska 34/7, 81-372 Gdynia). Administratorem danych
+            osobowych jest Kancelaria Radcy Prawnego Piotr Wojtowicz (dalej:
             Administrator).
           </li>
           <br />

@@ -3,7 +3,7 @@ import { toCanvas } from "html-to-image";
 
 import jsPDF from "jspdf";
 import dynamic from "next/dynamic";
-import { Button, Card } from "@blueprintjs/core";
+import { Button, Card, Callout } from "@blueprintjs/core";
 import ColorfulIcon from "./layout/ColorfulIcon";
 import { useWindowSize } from "../hooks/windowSize";
 import { html } from "../pages/api/payment-session-deliver";
@@ -82,6 +82,10 @@ function Odbierz({
           </a>
         </div>
       </Card>
+      <Callout intent="success">
+        Składając pismo, dołącz do niego wymienione w nim załączniki. Pamiętaj,
+        aby podpisać się w wyznaczonym miejscu!
+      </Callout>
       <Button onClick={() => print(html)} className="w-full" intent="primary">
         DRUKUJ
       </Button>

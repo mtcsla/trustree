@@ -47,7 +47,7 @@ export default function WarunkiSwiadczeniaUslug() {
           </b>{" "}
           (zwane dalej <b>„Regulaminem“</b>). Przed przystąpieniem do
           korzystania z systemu <b>www.trustree.pl</b> i usług świadczonych
-          przez Spółkę Użytkownik musi uważnie przeczytać i zrozumieć treść
+          przez Kancelarię Użytkownik musi uważnie przeczytać i zrozumieć treść
           niniejszych Warunków.
         </p>{" "}
         <br />
@@ -72,7 +72,7 @@ export default function WarunkiSwiadczeniaUslug() {
         </p>
         <br />
         <p className="text-lg">
-          Należy pamiętać, że Spółka jest uprawniona do jednostronnej zmiany
+          Należy pamiętać, że Kancelaria jest uprawniona do jednostronnej zmiany
           niniejszego Regulaminu bez zachowania okresu uprzedniego
           powiadomienia. Dlatego zalecamy Użytkownikowi okresowe sprawdzanie
           niniejszego Regulaminu.
