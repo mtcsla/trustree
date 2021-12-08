@@ -40,6 +40,12 @@ export default function App({ Component, pageProps }) {
       <AuthProvider>
         <Head>
           <title>Trustree | szybkie i tanie usługi spadkowe</title>
+          <meta
+            name="description"
+            content="Jesteśmy platformą umożliwiającą łatwe i
+             tanie rozwiązanie sprawy spadkowej dzięki pełnej automatyzacji dokumentów 
+             zweryfikowanej przez prawników."
+          />
         </Head>
 
         <NavigationBar>
