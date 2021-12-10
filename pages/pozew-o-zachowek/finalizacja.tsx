@@ -413,7 +413,7 @@ export default function Finalizacja({ data }) {
           />{" "}
           Ruchomości spadkodawcy
         </h2>
-        {data.otherHereditaries.length ? (
+        {data.movables.length ? (
           <MovablesRenderer
             movables={data.movables}
             setValue={() => {}}
@@ -431,9 +431,9 @@ export default function Finalizacja({ data }) {
             icon={"bank-account"}
             style={{ marginRight: 7 }}
           />{" "}
-          Darowizny, darowane pozwanym przez spadkodawcę
+          Darowizny darowane pozwanym przez spadkodawcę
         </h2>
-        {data.otherHereditaries.length ? (
+        {data.grants.length ? (
           <GrantsRenderer grants={data.grants} setValue={() => {}} readonly />
         ) : (
           <h1 className="w-full">BRAK</h1>
