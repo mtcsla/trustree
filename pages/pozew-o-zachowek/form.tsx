@@ -1460,42 +1460,7 @@ export default function WniosekTestament() {
                     setValue={(value) => setFieldValue("grants", value)}
                   />
                 </CardForm>
-                <CardForm
-                  className="items-stretch"
-                  style={{
-                    minHeight: 0,
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <h4 className="flex items-center text-2xl  w-full">
-                    <ColorfulIcon
-                      size={18}
-                      style={{ marginRight: 7 }}
-                      color="200, 170, 75"
-                      icon="rotate-document"
-                    />
-                    Testament, który spisał spadkodawca
-                  </h4>
-                  <Divider className="w-full mt-4 mb-4" />
-                  <FormGroup label="data spisania testamentu:">
-                    <Field
-                      as={InputGroup}
-                      name="testamentDate"
-                      type="date"
-                      leftIcon="calendar"
-                      placeholder="np. Sąd Okręgowy w Elblągu"
-                      intent={
-                        errors.testamentDate && touched.testamentDate
-                          ? "danger"
-                          : "none"
-                      }
-                    />
-                    <ErrorMessage name="testamentDate">
-                      {RenderErrorMessage}
-                    </ErrorMessage>
-                  </FormGroup>
-                </CardForm>
+               
                 <CardForm className="items-start">
                   <div className="w-full flex flex-col">
                     <h4 className="flex items-center text-2xl  w-full">
