@@ -62,6 +62,7 @@ export default function App({ Component, pageProps }) {
             `
         }
         } />
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-403721190" />
         <Script strategy="afterInteractive" dangerouslySetInnerHTML={{
           __html: ` 
             window.dataLayer = window.dataLayer || [];
