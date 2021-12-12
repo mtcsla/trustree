@@ -53,19 +53,28 @@ export default function App({ Component, pageProps }) {
         </Head>
 
         <Script strategy="afterInteractive" dangerouslySetInnerHTML={{
-            __html: `
+          __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-W54J8X5');
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-W54J8X5');
             `
         }
         } />
-        
+        <Script strategy="afterInteractive" dangerouslySetInnerHTML={{
+          __html: ` 
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-403721190');
+          `
+        }
+        } />
+
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W54J8X5"
           height="0" width="0" style={{ display: "none", visibility: "hidden" }}></iframe></noscript>
-        
+
         <NavigationBar>
           <Icon icon="menu" size={30} onClick={() => setNavExtended(true)} />
           <div className="flex items-center ">
@@ -165,12 +174,12 @@ const Navigation = styled.div<Shown>`
 
     min-width: 0px;
     ${(props) =>
-      !props.shown
-        ? `
+    !props.shown
+      ? `
     border: none;
     width: 0px;
     padding-left: 0;`
-        : `
+      : `
         width: 300px;
       `}
   }
