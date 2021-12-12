@@ -1,23 +1,25 @@
 import { Icon } from "@blueprintjs/core";
 import "@blueprintjs/core/lib/css/blueprint.css";
-import "@blueprintjs/table/lib/css/table.css";
 import "@blueprintjs/datetime/lib/css/blueprint-datetime.css";
+import "@blueprintjs/table/lib/css/table.css";
 import styled from "@emotion/styled";
 import { useRouter } from "next/dist/client/router";
+import Head from "next/head";
+import Link from "next/link";
 import React from "react";
 import {
-  AiFillInstagram as Instagram,
-  AiFillFacebook as Facebook,
+  AiFillFacebook as Facebook, AiFillInstagram as Instagram
 } from "react-icons/ai";
 import "tailwindcss/tailwind.css";
+import Script from "next/script";
 import { AuthProvider } from "../components/firebase/firebaseAuth";
 import Header from "../components/layout/Header";
 import { Nav } from "../components/layout/Nav";
 import "../globals.css";
-import Head from "next/head";
 import { useOnClickOutside } from "../hooks/onClickOutside";
 import { useWindowSize } from "../hooks/windowSize";
-import Link from "next/link";
+
+
 
 const navContext = React.createContext<any>({});
 export const useNav = () => React.useContext(navContext);
@@ -35,6 +37,8 @@ export default function App({ Component, pageProps }) {
   React.useEffect(() => setNavExtended(false), [windowWidth]);
   React.useEffect(() => setNavExtended(false), [router.pathname]);
 
+
+
   return (
     <navContext.Provider value={navContextValue}>
       <AuthProvider>
@@ -48,6 +52,20 @@ export default function App({ Component, pageProps }) {
           />
         </Head>
 
+        <Script strategy="afterInteractive" dangerouslySetInnerHTML={{
+            __html: `
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W54J8X5');
+            `
+        }
+        } />
+        
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W54J8X5"
+          height="0" width="0" style={{ display: "none", visibility: "hidden" }}></iframe></noscript>
+        
         <NavigationBar>
           <Icon icon="menu" size={30} onClick={() => setNavExtended(true)} />
           <div className="flex items-center ">

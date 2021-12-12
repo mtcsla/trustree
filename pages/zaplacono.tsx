@@ -11,9 +11,13 @@ export default function Zaplacono(props) {
   const { width } = useWindowSize();
 
   React.useEffect(
-    () => localStorage.removeItem(determineStorage(props.id)),
+    () => localStorage.removeItem(
+      determineStorage(props.id)
+    ),
     []
   );
+
+
   return (
     <>
       <Header

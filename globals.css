@@ -99,6 +99,7 @@ strong {
   font-family: "Montserrat", sans-serif;
 }
 body {
+  position: absolute;
   overflow-x: hidden;
 }
 

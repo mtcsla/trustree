@@ -1,14 +1,8 @@
-import { useWindowSize } from "../hooks/windowSize";
-import { useNav } from "./_app";
-import { Callout, Card, Icon, Button, Toast } from "@blueprintjs/core";
-import {
-  AiFillInstagram as Instagram,
-  AiFillFacebook as Facebook,
-} from "react-icons/ai";
-import ColorfulIcon from "../components/layout/ColorfulIcon";
-import React from "react";
+import { Icon } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import Link from "next/link";
+import React from "react";
+import { useWindowSize } from "../hooks/windowSize";
 export default function index() {
   const { width } = useWindowSize();
 
@@ -494,7 +488,7 @@ export default function index() {
                 width > 1300 ? "base" : "xs"
               } text-white  w-full bg-white bg-opacity-20 p-4 rounded-t`}
             >
-              Firma powstała w ramach programu akceleracyjnego TeenCrunch,
+              Usługa powstała w ramach programu akceleracyjnego TeenCrunch,
               dzięki warsztatowemu wsparciu Google for Start-ups, Microsoft
               Polska oraz Apptension.
             </p>
@@ -539,18 +533,7 @@ export default function index() {
   );
 }
 const HeaderText = styled.div``;
-const Suited = styled.img`
-  height: 320px;
-  min-height: 320px;
-  align-self: end;
-  padding-top: 10px;
-  @media (min-width: 800px) and (max-width: 1100px) {
-    display: none;
-  }
-  @media (max-width: 600px) {
-    display: none;
-  }
-`;
+
 const Mecenas = styled.img`
   width: 200px;
 
