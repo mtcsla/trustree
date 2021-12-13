@@ -72,7 +72,7 @@ export default function App({ Component, pageProps }) {
         </Dialog>
 
         <Portal>
-          {width > 600 ? <Card elevation={4} className="fixed bottom-0 m-4 right-0 flex items-center bg-white p-3 rounded-lg">
+          {width > 600 ? <Card onClick={() => setHelpOpen(true)} elevation={4} className="cursor-pointer fixed bottom-0 m-4 right-0 flex items-center bg-white p-3 rounded-lg">
             <div className="flex flex-col justify-center mr-4">
               <h5>Masz problem lub nie wiesz, co zrobić?</h5>
               <p className="text-xs text-right">Zadaj nam pytanie!</p>
@@ -80,12 +80,13 @@ export default function App({ Component, pageProps }) {
             </div>
             <Question {...{ setHelpOpen, helpOpen, size: 30 }} />
           </Card>
-            : <div className="fixed bottom-0 m-4 right-0 flex flex-col items-end ">
-              <span className="mt-1 p-2 bg-white border rounded-md flex items-center">
+            : <div className="cursor-pointer fixed bottom-0 m-4 right-0 flex flex-col items-end ">
+              <Card onClick={() => setHelpOpen(true)} elevation={4} className="mt-1 p-2 bg-white rounded-md flex items-center">
                 <h5 className="mr-2 font-semibold uppercase">Zadaj nam pytanie</h5>
 
+
                 <Question {...{ setHelpOpen, size: 20, helpOpen }} />
-              </span>
+              </Card>
             </div>
           }
         </Portal>
