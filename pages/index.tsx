@@ -47,13 +47,7 @@ export default function index() {
               Wygeneruj pismo dla swojego postępowania spadkowego, bądź oblicz,
               ile Ci się należy.
             </p>
-            <Video
-              src="easy.mp4"
-              autoPlay
-              loop
-              style={{ width: "85%" }}
-              className="rounded-t-lg"
-            ></Video>
+            <img src="wniosek.png" style={{ width: "60%", backgroundColor: "white", padding: 40 }} />
           </div>
         </HeaderText>
         {/*<Suited src="/stock3.png" style={{ background: "var(--sea-green)" }} />*/}
