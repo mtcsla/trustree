@@ -5,6 +5,7 @@ import React from "react";
 import { useWindowSize } from "../../hooks/windowSize";
 import { Classes } from "@blueprintjs/popover2";
 import Steps from "../../components/Steps";
+import YouTube from "../../components/YouTube";
 
 export const Stepper = ({ nOfSteps, currentStep, message }) => {
   return (
@@ -78,7 +79,7 @@ export default function index() {
           formie prostej bądź z dobrodziejstwem inwentarza.
         </p>
       </div>
-      <Card className="w-full mt-6 flex flex-wrap-reverse">
+      <Card className={`w-full mt-6 flex justify-between items-center ${width < 1000 ? "flex-wrap-reverse" : ""} `}>
         <div className="flex flex-col m-3">
           <h1>Zanim przejdziesz dalej,</h1>
           <p>przygotuj:</p>
@@ -110,25 +111,11 @@ export default function index() {
             </li>
           </ol>
         </div>
-        <div
-          className="w-full flex-1 flex flex-col-reverse"
-          style={{
-            backgroundImage: "url(people2.svg)",
-            minHeight: 250,
-            minWidth: 100,
-            padding: 0,
-            margin: 0,
-            backgroundPosition: "50% 30%",
-            backgroundSize: "cover",
-          }}
-        >
-          <a
-            href="https://www.vecteezy.com/free-vector/family"
-            className="text-white self-end text-xs"
-          >
-            Family Vectors by Vecteezy
-          </a>
-        </div>
+        <YouTube url="https://www.youtube.com/embed/SsiAoF-VYy4" style={{
+          width: width >= 1200 ? "40%" : "100%",
+          height: 250,
+
+        }} />
       </Card>
       <Steps href="/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku/form" />
     </div>

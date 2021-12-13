@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 
+
 import { doc, getDoc } from "@firebase/firestore";
 
 const AuthContext = React.createContext<any>({});
@@ -21,6 +22,13 @@ export const AuthProvider = ({ children }: any) => {
     });
     return unsubscribe;
   }, []);
+
+  const getMailPwd = async () => {
+    const passwordDoc = doc(db, "admin-pwds/mailsend");
+    const password = await getDoc(passwordDoc);
+
+    return password.data().pwd;
+  }
 
   const signUp = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -40,6 +48,7 @@ export const AuthProvider = ({ children }: any) => {
   const value = {
     currentUser,
     signUp,
+    getMailPwd,
     signIn,
     signOut,
     getUserRole,

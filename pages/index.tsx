@@ -109,7 +109,7 @@ export default function index() {
             <Link href="/kalkulator-zachowku" passHref>
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
-                  SPRAWDŹ 
+                  SPRAWDŹ
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
               </a>
@@ -133,7 +133,7 @@ export default function index() {
             <Link href="/kalkulator" passHref>
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
-                  SPRAWDŹ 
+                  SPRAWDŹ
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
               </a>
@@ -188,7 +188,7 @@ export default function index() {
             >
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
-                  SPRAWDŹ 
+                  SPRAWDŹ
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
               </a>
@@ -223,7 +223,7 @@ export default function index() {
             >
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
-                  SPRAWDŹ 
+                  SPRAWDŹ
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
               </a>
@@ -250,7 +250,7 @@ export default function index() {
             <Link href="/pozew-o-zachowek" passHref>
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
-                  SPRAWDŹ 
+                  SPRAWDŹ
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
               </a>
@@ -276,7 +276,7 @@ export default function index() {
             <Link href="/oswiadczenie-o-przyjeciu-spadku" passHref>
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
-                  SPRAWDŹ 
+                  SPRAWDŹ
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
               </a>
@@ -302,7 +302,7 @@ export default function index() {
             <Link href="/oswiadczenie-o-odrzuceniu-spadku" passHref>
               <a className="flex justify-start">
                 <h4 className="bg-blue-100 p-1 rounded flex items-center text-sm mt-2 text-blue-500 cursor-pointer">
-                  SPRAWDŹ 
+                  SPRAWDŹ
                   <Icon className="inline-block" icon="caret-right" />
                 </h4>
               </a>
@@ -484,9 +484,8 @@ export default function index() {
 
           <div className="flex flex-col w-full">
             <p
-              className={`text-${
-                width > 1300 ? "base" : "xs"
-              } text-white  w-full bg-white bg-opacity-20 p-4 rounded-t`}
+              className={`text-${width > 1300 ? "base" : "xs"
+                } text-white  w-full bg-white bg-opacity-20 p-4 rounded-t`}
             >
               Usługa powstała w ramach programu akceleracyjnego TeenCrunch,
               dzięki warsztatowemu wsparciu Google for Start-ups, Microsoft

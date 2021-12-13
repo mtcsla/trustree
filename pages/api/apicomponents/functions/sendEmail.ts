@@ -13,8 +13,18 @@ interface MaildataProps {
   attachments?: any[];
 }
 
+export async function sendMail({ email, message }) {
+  const msg = {
+    to: email, // Change to your recipient
+    from: 'noreply@trustree.pl', // Change to your verified sender
+    subject: 'Odpowiedź na Twoje pytanie',
+    text: message,
+  }
+  await sgMail.send(msg);
+}
+
 /** * @param maildata - { to: recipient of the email, from?: email to send from,  subject: subject of the email, html: email body } **/
-export default async function sendEmail(maildata: MaildataProps) {
+export default async function sendDocumentEmail(maildata: MaildataProps) {
   let error;
 
   if (!maildata.from) maildata.from = "noreply@trustree.pl";

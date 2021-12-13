@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 import React from "react";
 import Steps from "../../components/Steps";
+import YouTube from "../../components/YouTube";
 import { useWindowSize } from "../../hooks/windowSize";
 import { Stepper } from "../testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku";
 
@@ -62,8 +63,8 @@ export default function index() {
           <Button className="mt-6 w-full">OBLICZ ZACHOWEK</Button>
         </a>
       </Link>
-      <Card className="w-full mt-6 flex flex-wrap-reverse">
-        <div className="flex flex-col m-3">
+      <Card className={`w-full mt-6 flex justify-between ${width < 1000 ? "flex-wrap-reverse" : ""} `}>
+        <div className="flex flex-col m-3 min-w-0">
           <h1>Zanim przejdziesz dalej,</h1>
           <p>przygotuj:</p>
           <ol className="list-disc ml-3">
@@ -100,25 +101,11 @@ export default function index() {
             </li>
           </ol>
         </div>
-        <div
-          className="w-full flex-1 flex justify-end"
-          style={{
-            backgroundImage: "url(court.jpg)",
-            minHeight: 250,
-            minWidth: 100,
-            padding: 0,
-            margin: 0,
-            backgroundPosition: "50% 30%",
-            backgroundSize: "cover",
-          }}
-        >
-          <a
-            href="https://www.vecteezy.com/free-vector/court"
-            className="text-white self-end text-xs"
-          >
-            Court Vectors by Vecteezy
-          </a>
-        </div>
+        <YouTube url="https://www.youtube.com/embed/SsiAoF-VYy4" style={{
+          width: width >= 1200 ? "40%" : "100%",
+          height: width >= 1200 ? "100%" : 250,
+          marginBottom: 40,
+        }} />
       </Card>
       <Steps href="/pozew-o-zachowek/form" />
     </div>

@@ -1,23 +1,29 @@
-import { Icon } from "@blueprintjs/core";
+import { Button, Card, Dialog, FormGroup, Icon, InputGroup, Portal, Spinner, TextArea, Callout } from '@blueprintjs/core';
 import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/datetime/lib/css/blueprint-datetime.css";
 import "@blueprintjs/table/lib/css/table.css";
 import styled from "@emotion/styled";
+import { addDoc, collection } from "firebase/firestore";
+import { ErrorMessage, Field, Formik } from "formik";
 import { useRouter } from "next/dist/client/router";
 import Head from "next/head";
 import Link from "next/link";
+import Script from "next/script";
 import React from "react";
 import {
   AiFillFacebook as Facebook, AiFillInstagram as Instagram
 } from "react-icons/ai";
 import "tailwindcss/tailwind.css";
-import Script from "next/script";
+import * as yup from 'yup';
+import { db } from "../components/firebase/firebase";
 import { AuthProvider } from "../components/firebase/firebaseAuth";
 import Header from "../components/layout/Header";
 import { Nav } from "../components/layout/Nav";
 import "../globals.css";
-import { useOnClickOutside } from "../hooks/onClickOutside";
+import { useOnClickOutside } from '../hooks/onClickOutside';
 import { useWindowSize } from "../hooks/windowSize";
+import useEffect from 'react';
+
 
 
 
@@ -25,12 +31,20 @@ const navContext = React.createContext<any>({});
 export const useNav = () => React.useContext(navContext);
 
 export default function App({ Component, pageProps }) {
+  const [helpOpen, setHelpOpen] = React.useState(false);
   const [navExtended, setNavExtended] = React.useState(false);
+  const [sent, setSent] = React.useState(false);
+
+
   const navContextValue = { navExtended, setNavExtended };
   const navRef = React.useRef<HTMLDivElement>(null);
   const windowWidth = useWindowSize().width;
-
   const router = useRouter();
+
+
+  const { width } = useWindowSize();
+
+
 
   useOnClickOutside(navRef, () => setNavExtended(false));
 
@@ -51,6 +65,30 @@ export default function App({ Component, pageProps }) {
              zweryfikowanej przez prawników."
           />
         </Head>
+        <Dialog isOpen={helpOpen} className="pb-0 m-2 z-50">
+          <div className="w-full h-full p-4">
+            <Ask {...{ setHelpOpen, sent, setSent }} />
+          </div>
+        </Dialog>
+
+        <Portal>
+          {width > 600 ? <Card elevation={4} className="fixed bottom-0 m-4 right-0 flex items-center bg-white p-3 rounded-lg">
+            <div className="flex flex-col justify-center mr-4">
+              <h5>Masz problem lub nie wiesz, co zrobić?</h5>
+              <p className="text-xs text-right">Zadaj nam pytanie!</p>
+
+            </div>
+            <Question {...{ setHelpOpen, helpOpen, size: 30 }} />
+          </Card>
+            : <div className="fixed bottom-0 m-4 right-0 flex flex-col items-end ">
+              <span className="mt-1 p-2 bg-white border rounded-md flex items-center">
+                <h5 className="mr-2 font-semibold uppercase">Zadaj nam pytanie</h5>
+
+                <Question {...{ setHelpOpen, size: 20, helpOpen }} />
+              </span>
+            </div>
+          }
+        </Portal>
 
         <Script strategy="afterInteractive" dangerouslySetInnerHTML={{
           __html: `
@@ -73,8 +111,10 @@ export default function App({ Component, pageProps }) {
         }
         } />
 
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W54J8X5"
-          height="0" width="0" style={{ display: "none", visibility: "hidden" }}></iframe></noscript>
+        <noscript>
+          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W54J8X5"
+            height="0" width="0" style={{ display: "none", visibility: "hidden" }} />
+        </noscript>
 
         <NavigationBar>
           <Icon icon="menu" size={30} onClick={() => setNavExtended(true)} />
@@ -149,6 +189,80 @@ export default function App({ Component, pageProps }) {
       </AuthProvider>
     </navContext.Provider>
   );
+}
+
+const Question = ({ setHelpOpen, helpOpen, size }: { setHelpOpen: React.Dispatch<boolean>, size?: number, helpOpen: boolean }) => {
+  return <div onClick={() => setHelpOpen(!helpOpen)} style={{ background: "var(--newGrad1)" }} className="cursor-pointer flex items-center justify-center p-1 rounded-full">
+    <Icon icon="help" size={size || 42} color="white" />
+  </div>
+}
+
+const Ask = ({ setHelpOpen, sent, setSent }) => {
+
+  const [loading, setLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    if (sent)
+      setTimeout(() => setHelpOpen(false), 2000);
+  }, [])
+
+  const schema = yup.object().shape({
+    email: yup.string().email("To pole musi zawierać Twój adres e-mail.").required("To pole jest wymagane."),
+    message: yup.string().required("To pole jest wymagane."),
+  });
+
+  const uploadQuestion = async (values) => {
+    setLoading(true);
+    await addDoc(collection(db, "questions"), { ...values, date: new Date() });
+    setLoading(false);
+
+    setSent(true);
+    setTimeout(() => setHelpOpen(false), 2000);
+  }
+
+  return <div className="w-full flex flex-col">
+    <div className="flex justify-between items-center">
+      <div className="flex-col">
+        <h3>Zadaj nam pytanie.</h3>
+        <p className="text-xs">Postaramy się odpowiedzieć w ciągu 24 godzin wiadomością na twój adres e-mail.</p>
+      </div>
+      <img src="logo.svg" style={{ width: 50, marginLeft: 20 }} />
+    </div>
+
+
+    {sent ? <Callout intent="success" className='mt-4'><h3>Wysłano!</h3></Callout> :
+      <Formik initialValues={{
+        email: "",
+        message: "",
+      }} onSubmit={(values) => { uploadQuestion(values) }} validationSchema={schema} validateOnChange>
+        {({ errors, touched, submitForm }) =>
+          <>
+            <FormGroup className="mt-3" label={
+              <span className="flex items-center text-base">
+                <Icon icon="envelope" className="mr-1 ml-1" size={14} /> twój adres e-mail:
+              </span>
+            }>
+              <Field as={InputGroup} placeholder="np. jan.kowalski@mail.com" name="email" intent={touched.email && errors.email ? "danger" : "none"} className="mb-1" />
+              <ErrorMessage name="email">{(message) => <p style={{ color: "var(--error-red)" }} className="text-sm">{message}</p>}</ErrorMessage>
+            </FormGroup>
+            <FormGroup className="mt-1" label={
+              <span className="flex items-center text-base">
+                <Icon icon="help" className="mr-1 ml-1" size={11} /> treść pytania:
+              </span>
+            }>
+              <Field as={TextArea} name="message" className="w-full mb-1" style={{ minHeight: 150 }} />
+              <ErrorMessage name="message">{(message) => <p className="text-sm" style={{ color: "var(--error-red)" }}>{message}</p>}</ErrorMessage>
+            </FormGroup>
+            <div className="flex w-full">
+              <Button className="flex-1" icon="small-cross" intent="danger" onClick={() => setHelpOpen(false)}>ANULUJ</Button>
+              <Button className="flex-1 ml-2" intent="success" disabled={loading} onClick={() => submitForm()}> {!loading ? "WYŚLIJ" : <Spinner size={15} />}</Button>
+            </div>
+          </>
+        }
+
+      </Formik>
+    }
+  </div>
 }
 
 interface Shown {

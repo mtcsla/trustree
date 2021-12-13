@@ -9,8 +9,16 @@ import { db } from "../firebase/firebase";
 import { useAuth } from "../firebase/firebaseAuth";
 
 export const Nav = () => {
-  const { currentUser, signOut } = useAuth();
+  const { currentUser, signOut, getUserRole } = useAuth();
+  const [userRole, setUserRole] = React.useState(null);
   const [active, setActive] = React.useState(-1);
+
+  React.useEffect(() => {
+    if (currentUser)
+      getUserRole().then(role => {
+        setUserRole(role);
+      });
+  }, [currentUser]);
 
   return (
     <>
@@ -20,6 +28,18 @@ export const Nav = () => {
         iconRight="link"
         href="/blog"
       />
+
+      {
+        userRole == "admin" &&
+
+        <LinkNavButton
+          title="Customer service"
+          iconLeft="envelope"
+          iconRight="edit"
+          href="/service"
+        />
+      }
+
       {!currentUser ? (
         <LinkNavButton
           title="Zaloguj się"
@@ -210,7 +230,7 @@ export const LinkNavButton = ({
 }) => (
   <Link href={href}>
     <LinkButton
-      onClick={onClick ? onClick : () => {}}
+      onClick={onClick ? onClick : () => { }}
       className="w-full h-12 flex"
       style={{
         alignItems: "center",
