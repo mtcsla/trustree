@@ -117,7 +117,7 @@ export default function WniosekTestament() {
 
             router.push(
               "/testamentowy-wniosek-o-stwierdzenie-nabycia-praw-do-spadku/finalizacja?" +
-                new URLSearchParams(newValues).toString()
+              new URLSearchParams(newValues).toString()
             );
           }}
           validateOnChange
@@ -292,6 +292,9 @@ export default function WniosekTestament() {
                     >
                       Jeśli odziedziczyłeś całość spadku, pozostaw pole z
                       udziałem puste.
+                      <ul className="list-disc">
+                        <li><b>oblicz udział w spadku <Link href="/kalkulator" passHref><a className="text-blue-500">tutaj</a></Link></b></li>
+                      </ul>
                     </Callout>
                     <RowFormGroup label="miasto adresu:">
                       <Field
@@ -342,11 +345,11 @@ export default function WniosekTestament() {
                           values.forma == null
                             ? null
                             : {
-                                value: values.forma,
-                                label: values.forma
-                                  ? "przyjęcie z dobrodziejstwem inwentarza"
-                                  : "przyjęcie proste",
-                              }
+                              value: values.forma,
+                              label: values.forma
+                                ? "przyjęcie z dobrodziejstwem inwentarza"
+                                : "przyjęcie proste",
+                            }
                         }
                         options={[
                           {
@@ -381,9 +384,9 @@ export default function WniosekTestament() {
                           values.gender == null
                             ? null
                             : {
-                                value: values.gender,
-                                label: !values.gender ? "mężczyzna" : "kobieta",
-                              }
+                              value: values.gender,
+                              label: !values.gender ? "mężczyzna" : "kobieta",
+                            }
                         }
                         options={[
                           {
@@ -435,9 +438,9 @@ export default function WniosekTestament() {
                         values.relation == null
                           ? null
                           : {
-                              value: values.relation,
-                              label: getRelation(values.relation),
-                            }
+                            value: values.relation,
+                            label: getRelation(values.relation),
+                          }
                       }
                       options={[
                         {
@@ -503,11 +506,11 @@ export default function WniosekTestament() {
                           values.actType == null
                             ? null
                             : {
-                                value: values.actType,
-                                label: values.actType
-                                  ? "odpis skrócony aktu małżeństwa"
-                                  : "odpis skrócony aktu urodzenia",
-                              }
+                              value: values.actType,
+                              label: values.actType
+                                ? "odpis skrócony aktu małżeństwa"
+                                : "odpis skrócony aktu urodzenia",
+                            }
                         }
                         placeholder="wybierz..."
                         name="actType"
@@ -727,11 +730,11 @@ export default function WniosekTestament() {
                           values.deadGender == null
                             ? null
                             : {
-                                value: values.deadGender,
-                                label: !values.deadGender
-                                  ? "mężczyzna"
-                                  : "kobieta",
-                              }
+                              value: values.deadGender,
+                              label: !values.deadGender
+                                ? "mężczyzna"
+                                : "kobieta",
+                            }
                         }
                         options={[
                           {
@@ -952,11 +955,11 @@ export default function WniosekTestament() {
                                     values.forma == null
                                       ? null
                                       : {
-                                          value: values.forma,
-                                          label: values.forma
-                                            ? "przyjęcie z dobrodziejstwem inwentarza"
-                                            : "przyjęcie proste",
-                                        }
+                                        value: values.forma,
+                                        label: values.forma
+                                          ? "przyjęcie z dobrodziejstwem inwentarza"
+                                          : "przyjęcie proste",
+                                      }
                                   }
                                   options={[
                                     {
@@ -996,11 +999,11 @@ export default function WniosekTestament() {
                                     values.gender == null
                                       ? null
                                       : {
-                                          value: values.gender,
-                                          label: !values.gender
-                                            ? "mężczyzna"
-                                            : "kobieta",
-                                        }
+                                        value: values.gender,
+                                        label: !values.gender
+                                          ? "mężczyzna"
+                                          : "kobieta",
+                                      }
                                   }
                                   options={[
                                     {
@@ -1035,9 +1038,9 @@ export default function WniosekTestament() {
                                     values.relation == null
                                       ? null
                                       : {
-                                          value: values.relation,
-                                          label: getRelation(values.relation),
-                                        }
+                                        value: values.relation,
+                                        label: getRelation(values.relation),
+                                      }
                                   }
                                   options={[
                                     {
@@ -1100,11 +1103,11 @@ export default function WniosekTestament() {
                                     values.actType == null
                                       ? null
                                       : {
-                                          value: values.actType,
-                                          label: values.actType
-                                            ? "odpis skrócony aktu małżeństwa"
-                                            : "odpis skrócony aktu urodzenia",
-                                        }
+                                        value: values.actType,
+                                        label: values.actType
+                                          ? "odpis skrócony aktu małżeństwa"
+                                          : "odpis skrócony aktu urodzenia",
+                                      }
                                   }
                                   placeholder="wybierz..."
                                   name="actType"
@@ -1173,7 +1176,7 @@ export default function WniosekTestament() {
                                     label={
                                       "data " +
                                       (values.relation == 1 ||
-                                      values.actType == 0
+                                        values.actType == 0
                                         ? "zawarcia małżeństwa"
                                         : "urodzenia") +
                                       (values.relation == 3
@@ -1340,7 +1343,7 @@ export default function WniosekTestament() {
                             placeholder="np. Andrzej Nowak"
                             intent={
                               errors.testamentNotarialName &&
-                              touched.testamentNotarialName
+                                touched.testamentNotarialName
                                 ? "danger"
                                 : "none"
                             }
@@ -1361,7 +1364,7 @@ export default function WniosekTestament() {
                             placeholder="np. Gdynia"
                             intent={
                               errors.testamentNotarialCity &&
-                              touched.testamentNotarialCity
+                                touched.testamentNotarialCity
                                 ? "danger"
                                 : "none"
                             }
@@ -1382,7 +1385,7 @@ export default function WniosekTestament() {
                             placeholder="np. A"
                             intent={
                               errors.testamentNotarialRepository &&
-                              touched.testamentNotarialRepository
+                                touched.testamentNotarialRepository
                                 ? "danger"
                                 : "none"
                             }
@@ -1403,7 +1406,7 @@ export default function WniosekTestament() {
                             placeholder="np. 4523/2008"
                             intent={
                               errors.testamentNotarialNumber &&
-                              touched.testamentNotarialNumber
+                                touched.testamentNotarialNumber
                                 ? "danger"
                                 : "none"
                             }
@@ -1480,9 +1483,9 @@ export default function WniosekTestament() {
                           values.courtName == null || !values.courtNumber
                             ? null
                             : {
-                                value: values.courtNumber,
-                                label: values.courtNumber,
-                              }
+                              value: values.courtNumber,
+                              label: values.courtNumber,
+                            }
                         }
                         options={[
                           {

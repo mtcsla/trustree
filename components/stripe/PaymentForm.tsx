@@ -17,7 +17,7 @@ export default function PaymentForm({ title, subtitle, metadata, price }) {
   const router = useRouter();
   const [submitting, setSubmitting] = React.useState(false);
   const [error, setError] = React.useState("");
-  const [accepted, setAccepted] = React.useState(0);
+  const [accepted, setAccepted] = React.useState(false);
 
   const toaster = React.useRef<Toaster>();
   const { width } = useWindowSize();
@@ -112,9 +112,9 @@ export default function PaymentForm({ title, subtitle, metadata, price }) {
       </style>
       <Checkbox
         className="mt-4 inline-block"
-        value={accepted}
+        checked={accepted}
         disabled={submitting}
-        onChange={() => (accepted ? setAccepted(0) : setAccepted(1))}
+        onChange={() => (accepted ? setAccepted(false) : setAccepted(true))}
       >
         <span className="text-red-500 font-bold">*</span>
         Oświadczam, że zapoznałem się z{" "}
